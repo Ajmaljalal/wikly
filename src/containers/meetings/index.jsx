@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
 import {  ContentBody } from '../../components/common.styles'
 import ContentHeader from '../../components/content-header/index'
-import { Container, MeetingsColumn } from './meetings.styles'
+import MeetingColumn from './MeetingColumn'
+import { Container } from './meetings.styles'
 
 class Meetings extends Component {
     render() {
-        console.log('dashboard page')
+        console.log('meetings page')
         return (
             <ContentBody>
                 <ContentHeader title ={'Meetings'}/>
                 <Container>
-                    <MeetingsColumn>This is div one </MeetingsColumn>
-                    <MeetingsColumn>This is a text </MeetingsColumn>
-                    <MeetingsColumn>This is a text </MeetingsColumn>
-                    <MeetingsColumn>This is a text </MeetingsColumn>
-                    <MeetingsColumn>This is a text </MeetingsColumn>
-                    <MeetingsColumn>This is a text </MeetingsColumn>
-                    <MeetingsColumn>This is a text </MeetingsColumn>
+                    <MeetingColumn date={'12 Aprile, Monday'} />
+                    <MeetingColumn date={'17 Aprile, Friday'} />
+                    <MeetingColumn date={'20 Aprile, Monday'} />
+                    <MeetingColumn date={'25 Aprile, Thursday'} />
+                    <MeetingColumn date={'26 Aprile, Friday'} />
                 </Container>
             </ContentBody>
         )

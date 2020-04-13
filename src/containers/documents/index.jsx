@@ -4,7 +4,7 @@ import ContentHeader from '../../components/content-header/index'
 
 class Documents extends Component {
     render() {
-        console.log('dashboard page')
+        console.log('documents page')
         return (
             <ContentBody>
                 <ContentHeader title ={'Documents'}/>
