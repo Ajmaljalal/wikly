@@ -44,13 +44,13 @@ export const MeetingTitle = styled.div`
   font-weight: 600;
 `
 
-export const MeetingDetailsWrapper = styled.div`
+export const MeetingFooterWrapper = styled.div`
   display:flex;
   margin-top: 45px;
   justify-content: space-evenly;
 `
 
-export const MeetingDetails = styled.div`
+export const MeetingFooterItem = styled.div`
   font-size: 10px;
   margin-right: 15px;
   display:flex;

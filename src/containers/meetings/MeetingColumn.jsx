@@ -27,9 +27,9 @@ export default function MeetingColumn({date}) {
                 </HeaderIconsWrapper>
             </MeetingsColumnHeader>
             <Divider />
-            <MeetingItem />
-            <MeetingItem />
-            <MeetingItem />
+            <MeetingItem meetingId={1} />
+            <MeetingItem meetingId={2} />
+            <MeetingItem meetingId={3}/>
         </MeetingsColumn>
     )
 }

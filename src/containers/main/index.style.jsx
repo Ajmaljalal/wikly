@@ -5,6 +5,7 @@ export const MainContainer = styled.div`
   display:flex;
   background: #F0F2F5;
   overflow: hidden;
+  position:relative;
 `;
 
 export const Column = styled.div`

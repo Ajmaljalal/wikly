@@ -13,6 +13,7 @@ export const MeetingsColumn = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 280px;
+  width: 280px;
   height: 580px;
   margin-right: 20px;
   border: 1px solid #AEABAB;
