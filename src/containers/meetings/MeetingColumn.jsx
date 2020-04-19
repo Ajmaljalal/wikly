@@ -1,11 +1,12 @@
 import React from 'react'
-import { MeetingsColumn, 
+import {  
     MeetingsColumnHeader, 
     HeaderTitle, 
     HeaderIconsWrapper, 
     ActionButton,
     Divider
  } from './meetings.styles'
+ import { ColumnSmall } from '../../components/common.styles'
 
  import MeetingItem from './MeetingItem'
 
@@ -14,7 +15,7 @@ import { MeetingsColumn,
 
 export default function MeetingColumn({date}) {
     return (
-        <MeetingsColumn>
+        <ColumnSmall>
             <MeetingsColumnHeader>
                 <HeaderTitle>{date}</HeaderTitle>
                 <HeaderIconsWrapper>
@@ -30,6 +31,6 @@ export default function MeetingColumn({date}) {
             <MeetingItem meetingId={1} />
             <MeetingItem meetingId={2} />
             <MeetingItem meetingId={3}/>
-        </MeetingsColumn>
+        </ColumnSmall>
     )
 }
