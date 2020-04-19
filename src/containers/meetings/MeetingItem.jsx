@@ -16,12 +16,12 @@ import agendaIcon from './assets/agenda.svg'
 import moreIcon from './assets/more-icon.svg'
 
 class MeetingItem extends React.PureComponent {
-  constructor(){
+    constructor(){
       super()
       this.state = {
           openMeetingDetails: false,
       }
-  }
+    }
 
   toggleMeetinDetailsModal = () => {
     this.setState({

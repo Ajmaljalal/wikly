@@ -11,11 +11,11 @@ export const ItemContainer = styled.div`
   margin-top: 10px;
   padding: 5px;
   border: 1px solid transparent;
-  transition: box-shadow .5s;
+  transition: all .5s;
   cursor: pointer;
   &:hover{
-    border: .5px solid black;
-    box-shadow: 4px 4px 4px grey;
+    border: 1px solid purple;
+    box-shadow: 0px 0px 8px grey;
   }
 `;
 
