@@ -11,11 +11,11 @@ export const ItemContainer = styled.div`
   margin-top: 10px;
   padding: 5px;
   border: 1px solid transparent;
-  transition: box-shadow .5s;
+  transition: all .5s;
   cursor: pointer;
   &:hover{
-    border: .5px solid black;
-    box-shadow: 4px 4px 4px grey;
+    border: 1px solid purple;
+    box-shadow: 0px 0px 8px grey;
   }
 `;
 
@@ -44,13 +44,13 @@ export const MeetingTitle = styled.div`
   font-weight: 600;
 `
 
-export const MeetingDetailsWrapper = styled.div`
+export const MeetingFooterWrapper = styled.div`
   display:flex;
   margin-top: 45px;
   justify-content: space-evenly;
 `
 
-export const MeetingDetails = styled.div`
+export const MeetingFooterItem = styled.div`
   font-size: 10px;
   margin-right: 15px;
   display:flex;
