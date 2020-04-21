@@ -1,13 +1,5 @@
 import styled from 'styled-components'
-export const Container = styled.div`
-  display:flex;
-  width: 100%;
-  height: 100%;
-  background: #F0F2F5;
-  box-sizing: border-box;
-  overflow-y: hidden;
-  overflow-x: auto;
-`;
+
 export const MeetingsColumnHeader = styled.div`
   display: flex;
   justify-content: space-between;

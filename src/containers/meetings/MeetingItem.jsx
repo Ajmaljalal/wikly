@@ -23,7 +23,7 @@ class MeetingItem extends React.PureComponent {
       }
     }
 
-  toggleMeetinDetailsModal = () => {
+  toggleMeetingDetailsModal = () => {
     this.setState({
         openMeetingDetails: !this.state.openMeetingDetails
     })
@@ -34,7 +34,7 @@ class MeetingItem extends React.PureComponent {
     const { meetingId } = this.props;
     return (
       <Fragment>
-        <ItemContainer onClick={this.toggleMeetinDetailsModal}>
+        <ItemContainer onClick={this.toggleMeetingDetailsModal}>
             <MeetingItemHeader>
                 <MeetingTime>
                     {'11:00AM - 12:30PM'}
@@ -64,7 +64,7 @@ class MeetingItem extends React.PureComponent {
               </MeetingFooterItem>
             </MeetingFooterWrapper>
         </ItemContainer>
-        {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetinDetailsModal}/> : null}
+        {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal}/> : null}
       </Fragment>
       )
   }

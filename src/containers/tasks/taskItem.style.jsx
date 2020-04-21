@@ -1,25 +1,18 @@
 import styled from 'styled-components'
-export const ItemContainer = styled.div`
+export const TaskContainer = styled.div`
   display:flex;
   flex-direction: column;
   width: 100%;
-  min-height: 150px;
-  background: white;
+  min-height: 130px;
+  max-height: 130px;
   box-sizing: border-box;
-  overflow: hidden;
-  border-radius: 5px;
-  margin-top: 10px;
-  padding: 5px;
-  border: 1px solid transparent;
-  transition: all .5s;
+  padding: 5px 8px;
   cursor: pointer;
-  &:hover{
-    border: 1px solid purple;
-    box-shadow: 0px 0px 8px grey;
-  }
+  user-select: none;
 `;
 
-export const MeetingItemHeader = styled.div`
+
+export const TaskHeader = styled.div`
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
@@ -28,29 +21,37 @@ export const MeetingItemHeader = styled.div`
   height: 25px;
 `
 
-export const MeetingTime = styled.div`
+export const TaskCategory = styled.div`
   font-size: 12px;
   color: grey;
 `
-export const MoreIconWrapper = styled.div`
+export const MoreIcon = styled.div`
   img {
     min-width: 20px;
     min-height: 20px;
   }
 `
-
-export const MeetingTitle = styled.div`
+export const TaskBody = styled.div`
   min-width: 100%;
+  min-height: 85px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
+export const TaskTitle = styled.div`
+  overflow: hidden;
+  max-height: 55px;
   font-size: 14px;
 `
 
-export const MeetingFooterWrapper = styled.div`
+export const TaskFooter = styled.div`
   display:flex;
-  margin-top: 45px;
   justify-content: space-evenly;
+  height: 20px;
 `
 
-export const MeetingFooterItem = styled.div`
+export const TaskFooterItem = styled.div`
   font-size: 10px;
   margin-right: 15px;
   display:flex;
