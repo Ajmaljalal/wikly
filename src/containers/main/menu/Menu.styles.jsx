@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const MenuBar = styled.div`
   height:100%;
-  width: 4%;
-  min-width: 65px;
+  min-width: 3.3%;
+  max-width: 3.3%;
   background: white;
   display: flex;
   flex-direction: column;
@@ -14,10 +14,10 @@ export const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 65px;
+  height: 50px;
     img {
-      width: 45px;
-      height:45px;
+      width: 30px;
+      height:30px;
     }
 `
 export const MenuItems = styled.div`
@@ -26,8 +26,8 @@ export const MenuItems = styled.div`
   justify-content: center;
   align-items: center;
     img {
-      width: 25px;
-      height:25px;
+      width: 20px;
+      height:20px;
       margin: 2px 0;
       padding: 7px 35px;
       border: 2px solid transparent;

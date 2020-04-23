@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
-import {  ContentBody } from '../../components/common.styles'
+import {  Container, BodyContainer } from '../../components/common.styles'
 import ContentHeader from '../../components/content-header/index'
 
 class Documents extends Component {
     render() {
         console.log('documents page')
         return (
-            <ContentBody>
+            <BodyContainer>
                 <ContentHeader title ={'Documents'}/>
-            </ContentBody>
+                <Container>
+                    {'content here'}
+                </Container>
+            </BodyContainer>
         )
     }
 }

@@ -13,8 +13,8 @@ import {
   TabItemDetails
 } from './meetingDetails.styles'
 
-import closeIcon from './assets/close.svg'
-import arrowDownIcon from './assets/caret-down.svg'
+import closeIcon from '../../assets/icons/close.svg'
+import arrowDownIcon from '../../assets/icons/caret-down.svg'
 
 export default class MeetingDetails extends Component {
 

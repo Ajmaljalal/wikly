@@ -1,36 +1,53 @@
 import React from 'react'
-import {  
-    MeetingsColumnHeader, 
-    HeaderTitle, 
-    HeaderIconsWrapper, 
-    ActionButton,
-    Divider
- } from './meetings.styles'
- import { ColumnSmall } from '../../components/common.styles'
+import {
+  MeetingsColumnHeader,
+  HeaderTitle,
+  HeaderIconsWrapper,
+  ActionButton,
+  Divider,
+  ColumnBody
+} from './meetings.styles'
+import { Column } from '../../components/common.styles'
 
- import MeetingItem from './MeetingItem'
+import MeetingItem from './MeetingItem'
 
- import plusIcon from './assets/plus-icon.svg'
- import moreIcon from './assets/more-icon.svg'
+import plusIcon from '../../assets/icons/plus-icon.svg'
+import moreIcon from '../../assets/icons/more-icon.svg'
 
-export default function MeetingColumn({date}) {
-    return (
-        <ColumnSmall>
-            <MeetingsColumnHeader>
-                <HeaderTitle>{date}</HeaderTitle>
-                <HeaderIconsWrapper>
-                    <ActionButton>
-                        <img src={plusIcon}/>
-                    </ActionButton>
-                    <ActionButton>
-                        <img src={moreIcon}/>
-                    </ActionButton>
-                </HeaderIconsWrapper>
-            </MeetingsColumnHeader>
-            <Divider />
-            <MeetingItem meetingId={1} />
-            <MeetingItem meetingId={2} />
-            <MeetingItem meetingId={3}/>
-        </ColumnSmall>
-    )
+export default function MeetingColumn({ date }) {
+  return (
+    <Column width={'278px'}>
+      {renderColumnHeader(date)}
+      <Divider />
+      {renderColumnBody()}
+    </Column>
+  )
 }
+
+const renderColumnHeader = (date) => {
+  return (
+    <MeetingsColumnHeader>
+    <HeaderTitle>{date}</HeaderTitle>
+    <HeaderIconsWrapper>
+      <ActionButton>
+        <img src={plusIcon} />
+      </ActionButton>
+      <ActionButton>
+        <img src={moreIcon} />
+      </ActionButton>
+    </HeaderIconsWrapper>
+  </MeetingsColumnHeader>
+  )
+}
+
+const renderColumnBody = () => {
+  return (
+    <ColumnBody>
+      <MeetingItem meetingId={1} />
+      <MeetingItem meetingId={2} />
+      <MeetingItem meetingId={3} />
+    </ColumnBody>
+  )
+}
+
+

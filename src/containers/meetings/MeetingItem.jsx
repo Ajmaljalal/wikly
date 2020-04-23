@@ -1,19 +1,19 @@
 import React, { Fragment } from 'react'
 import MeetingDetails from './MeetingDetails'
 import {
-  ItemContainer,
-  MeetingItemHeader,
+  MeetingContainer,
+  MeetingHeader,
   MeetingTime,
   MoreIconWrapper,
   MeetingTitle,
-  MeetingFooterItem,
-  MeetingFooterWrapper
+  FooterItem,
+  MeetingFooter
 } from './meetingItem.styles'
 import participantsIcon from './assets/participants.svg'
-import notesIcon from './assets/notes.svg'
-import attachIcon from './assets/attach.svg'
+import notesIcon from '../../assets/icons/notes.svg'
+import attachIcon from '../../assets/icons/attach.svg'
 import agendaIcon from './assets/agenda.svg'
-import moreIcon from './assets/more-icon.svg'
+import horizontalMoreIcon from '../../assets/icons/horizontal-more.svg'
 
 class MeetingItem extends React.PureComponent {
     constructor(){
@@ -23,7 +23,7 @@ class MeetingItem extends React.PureComponent {
       }
     }
 
-  toggleMeetinDetailsModal = () => {
+  toggleMeetingDetailsModal = () => {
     this.setState({
         openMeetingDetails: !this.state.openMeetingDetails
     })
@@ -31,42 +31,53 @@ class MeetingItem extends React.PureComponent {
 
   render(){
     const { openMeetingDetails } = this.state
-    const { meetingId } = this.props;
     return (
       <Fragment>
-        <ItemContainer onClick={this.toggleMeetinDetailsModal}>
-            <MeetingItemHeader>
-                <MeetingTime>
-                    {'11:00AM - 12:30PM'}
-                </MeetingTime>
-                <MoreIconWrapper>
-                    <img src={moreIcon} alt='more-icon'/>
-                </MoreIconWrapper>
-            </MeetingItemHeader>
+        <MeetingContainer onClick={this.toggleMeetingDetailsModal}>
+            {this.renderHeader()}
             <MeetingTitle>
                 {'Team building meeting with new hires. This is the first meeting.'}
             </MeetingTitle>
-            <MeetingFooterWrapper>
-              <MeetingFooterItem>
-                  <img src={participantsIcon} alt='participants-icon'/>
-                  {'23'}
-              </MeetingFooterItem>
-              <MeetingFooterItem>
-                  <img src={agendaIcon} alt='agenda-icon'/>   
-              </MeetingFooterItem>
-              <MeetingFooterItem>
-                  <img src={attachIcon} alt='attachments-icon'/>
-                  {'2'}
-              </MeetingFooterItem>
-              <MeetingFooterItem>
-                  <img src={notesIcon} alt='notes-icon'/>
-                  {'12'}
-              </MeetingFooterItem>
-            </MeetingFooterWrapper>
-        </ItemContainer>
-        {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetinDetailsModal}/> : null}
+            {this.renderFooter()}
+        </MeetingContainer>
+        {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal}/> : null}
       </Fragment>
       )
+  }
+
+  renderHeader = () =>{
+    return (
+      <MeetingHeader>
+        <MeetingTime>
+            {'11:00AM - 12:30PM'}
+        </MeetingTime>
+        <MoreIconWrapper>
+            <img src={horizontalMoreIcon} alt='more-icon'/>
+        </MoreIconWrapper>
+      </MeetingHeader>
+    )
+  }
+
+  renderFooter = () => {
+    return (
+      <MeetingFooter>
+        <FooterItem>
+            <img src={participantsIcon} alt='participants-icon'/>
+            {'23'}
+        </FooterItem>
+        <FooterItem>
+            <img src={agendaIcon} alt='agenda-icon'/>   
+        </FooterItem>
+        <FooterItem>
+            <img src={attachIcon} alt='attachments-icon'/>
+            {'2'}
+        </FooterItem>
+        <FooterItem>
+            <img src={notesIcon} alt='notes-icon'/>
+            {'12'}
+        </FooterItem>
+      </MeetingFooter>
+    )
   }
 }
 

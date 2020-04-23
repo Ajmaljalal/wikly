@@ -1,12 +1,25 @@
 import styled from 'styled-components'
+export const TaskItemDraggingContainer = styled.div`
+  margin-top: 10px;
+  background: white;
+  box-sizing: border-box;
+  border: ${props => props.isDragging ? '1px dashed purple' : '1px solid transparent'};
+  border-radius: 5px;
+  &:hover{
+    box-shadow: 0px 0px 8px grey;
+  }
+  transition: all .5s;
+`;
 
-export const MeetingsColumnHeader = styled.div`
+export const ColumnHeader = styled.div`
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
   margin-top: 5px;
   width: 100%;
-`
+  padding-bottom: 10px;
+  border-bottom: 1px solid grey;
+`;
 export const HeaderTitle = styled.div`
   font-weight: 500;
   font-size: 14px;
@@ -22,14 +35,6 @@ export const ActionButton = styled.div`
   width: 20px;
   margin-left: 2px;
   cursor: pointer
-`
-
-export const Divider = styled.div`
-  min-height: 5px;
-  width: 50%;
-  background: purple;
-  border-radius: 5px;
-  margin-bottom: 5px;
 `
 
 export const ColumnBody = styled.div`
