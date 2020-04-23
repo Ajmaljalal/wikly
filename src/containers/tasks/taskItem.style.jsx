@@ -16,9 +16,8 @@ export const TaskHeader = styled.div`
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  margin-top: 5px;
   width: 100%;
-  height: 25px;
+  margin-bottom: 5px;
 `
 
 export const TaskCategory = styled.div`

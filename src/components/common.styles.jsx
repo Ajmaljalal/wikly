@@ -28,24 +28,5 @@ export const Column = styled.div`
   border-radius: 5px;
   padding: 8px;
   user-select: none;
-  box-sizing: border-box;
-  overflow:hidden;
   background: #E6E7E9;
-  &:hover{
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  &::-webkit-scrollbar {
-    width: 4px;
-    background-color: #F5F5F5;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: grey;
-    border-radius: 5px;
-  }
-  &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
-    border-radius: 5px;
-  }
 `

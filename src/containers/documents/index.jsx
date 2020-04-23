@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {  BodyContainer } from '../../components/common.styles'
+import {  Container, BodyContainer } from '../../components/common.styles'
 import ContentHeader from '../../components/content-header/index'
 
 class Documents extends Component {
@@ -8,6 +8,9 @@ class Documents extends Component {
         return (
             <BodyContainer>
                 <ContentHeader title ={'Documents'}/>
+                <Container>
+                    {'content here'}
+                </Container>
             </BodyContainer>
         )
     }

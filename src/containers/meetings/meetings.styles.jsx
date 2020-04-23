@@ -31,3 +31,24 @@ export const Divider = styled.div`
   border-radius: 5px;
   margin-bottom: 5px;
 `
+
+export const ColumnBody = styled.div`
+  width: 100%;
+  box-sizing:border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 2px;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    background-color: #F5F5F5;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+    border-radius: 5px;
+  }
+`;

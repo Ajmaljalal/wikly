@@ -1,16 +1,19 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { Column } from '../../components/common.styles'
 import TaskItem from './TaskItem'
 
-import {  
+import {
   TaskItemDraggingContainer,
   ColumnHeader,
- } from './tasksColumn.style'
+  HeaderIconsWrapper,
+  ColumnBody,
+  HeaderTitle,
+  ActionButton
+} from './tasksColumn.style'
 
-//  import plusIcon from './assets/plus-icon.svg'
-//  import moreIcon from './assets/more-icon.svg'
+import plusIcon from '../../assets/icons/plus-icon.svg'
+import moreIcon from '../../assets/icons/more-icon.svg'
 
 class TasksColumn extends React.PureComponent {
 
@@ -62,8 +65,8 @@ class TasksColumn extends React.PureComponent {
       tasksId: []
     }
   }
-
   columnOrder = ['column-1', 'column-2', 'column-3', 'column-4', 'column-5', 'column-6', 'column-7']
+
   render() {
     return (
       this.columnOrder.map((columnId) => {
@@ -82,21 +85,36 @@ class TasksColumn extends React.PureComponent {
                   isDraggingOver={snapshot.isDraggingOver}
                   width={'250px'}
                 >
-                  <ColumnHeader>{column.title}</ColumnHeader>
-                  {this.renderTaskElement(tasks)}
-                  {provided.placeholder}
+                  {this.renderColumnHeader(column)}
+                  <ColumnBody>
+                    {this.renderTaskElements(tasks)}
+                    {provided.placeholder}
+                  </ColumnBody>
                 </Column>
               )
             }}
           </Droppable>
-
         )
       })
     )
-
   }
 
-  renderTaskElement = (tasks) => {
+  renderColumnHeader = (column) => {
+    return (
+      <ColumnHeader>
+        <HeaderTitle>{column.title}</HeaderTitle>
+        <HeaderIconsWrapper>
+          <ActionButton>
+            <img src={plusIcon} />
+          </ActionButton>
+          <ActionButton>
+            <img src={moreIcon} />
+          </ActionButton>
+        </HeaderIconsWrapper>
+      </ColumnHeader>
+    )
+  }
+  renderTaskElements = (tasks) => {
     return tasks.map((task, index) => {
       return (
         <Draggable
@@ -112,12 +130,10 @@ class TasksColumn extends React.PureComponent {
                 {...provided.dragHandleProps}
                 isDragging={snapshot.isDragging}
                 style={
-                  {...provided.draggableProps.style}
+                  { ...provided.draggableProps.style }
                 }
               >
-                <TaskItem
-                  task={task}
-                />
+                <TaskItem task={task}/>
               </TaskItemDraggingContainer>
             )
           }}

@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-// import TaskDetails from './TaskDetails'
 import {
   TaskContainer,
   TaskHeader,
@@ -10,11 +9,7 @@ import {
   TaskFooterItem,
   TaskFooter,
 } from './taskItem.style'
-// import participantsIcon from './assets/participants.svg'
-// import notesIcon from './assets/notes.svg'
-// import attachIcon from './assets/attach.svg'
-// import agendaIcon from './assets/agenda.svg'
-import moreIcon from './assets/horizontal-more.svg'
+import moreIcon from '../../assets/icons/horizontal-more.svg'
 
 class TaskItem extends React.PureComponent {
   constructor() {
@@ -36,40 +31,52 @@ class TaskItem extends React.PureComponent {
     return (
       <Fragment>
         <TaskContainer onClick={this.toggleMeetingDetailsModal}>
-          <TaskHeader>
-            <TaskCategory>
-              {'web UI'}
-            </TaskCategory>
-            <MoreIcon>
-              <img src={moreIcon} alt='more-icon' />
-            </MoreIcon>
-          </TaskHeader>
+          {this.renderTaskHeader()}
           <TaskBody>
             <TaskTitle>
               {task.content}
             </TaskTitle>
-            <TaskFooter>
-              <TaskFooterItem>
-                {/* <img src={participantsIcon} alt='participants-icon'/> */}
-                {'23'}
-              </TaskFooterItem>
-              <TaskFooterItem>
-                {/* <img src={agendaIcon} alt='agenda-icon'/>    */}
-                {'23'}
-              </TaskFooterItem>
-              <TaskFooterItem>
-                {/* <img src={attachIcon} alt='attachments-icon'/> */}
-                {'2'}
-              </TaskFooterItem>
-              <TaskFooterItem>
-                {/* <img src={notesIcon} alt='notes-icon'/> */}
-                {'12'}
-              </TaskFooterItem>
-            </TaskFooter>
+            {this.renderTaskFooter()}
           </TaskBody>
         </TaskContainer>
         {/* {openTaskDetails ? <TaskDetails onClose={this.toggleMeetingDetailsModal}/> : null} */}
       </Fragment>
+    )
+  }
+
+  renderTaskHeader = () =>{
+    return (
+      <TaskHeader>
+        <TaskCategory>
+          {'web UI'}
+        </TaskCategory>
+        <MoreIcon>
+          <img src={moreIcon} alt='more-icon' />
+        </MoreIcon>
+      </TaskHeader>
+    )
+  }
+
+  renderTaskFooter = () => {
+    return (
+      <TaskFooter>
+        <TaskFooterItem>
+          {/* <img src={participantsIcon} alt='participants-icon'/> */}
+          {'23'}
+        </TaskFooterItem>
+        <TaskFooterItem>
+          {/* <img src={agendaIcon} alt='agenda-icon'/>    */}
+          {'23'}
+        </TaskFooterItem>
+        <TaskFooterItem>
+          {/* <img src={attachIcon} alt='attachments-icon'/> */}
+          {'2'}
+        </TaskFooterItem>
+        <TaskFooterItem>
+          {/* <img src={notesIcon} alt='notes-icon'/> */}
+          {'12'}
+        </TaskFooterItem>
+      </TaskFooter>
     )
   }
 }

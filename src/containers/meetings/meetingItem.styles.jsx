@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-export const ItemContainer = styled.div`
+export const MeetingContainer = styled.div`
   display:flex;
   flex-direction: column;
   width: 100%;
@@ -19,13 +19,12 @@ export const ItemContainer = styled.div`
   }
 `;
 
-export const MeetingItemHeader = styled.div`
+export const MeetingHeader = styled.div`
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  margin-top: 5px;
   width: 100%;
-  height: 25px;
+  margin-bottom: 5px;
 `
 
 export const MeetingTime = styled.div`
@@ -35,7 +34,6 @@ export const MeetingTime = styled.div`
 export const MoreIconWrapper = styled.div`
   img {
     min-width: 20px;
-    min-height: 20px;
   }
 `
 
@@ -44,13 +42,13 @@ export const MeetingTitle = styled.div`
   font-size: 14px;
 `
 
-export const MeetingFooterWrapper = styled.div`
+export const MeetingFooter = styled.div`
   display:flex;
   margin-top: 45px;
   justify-content: space-evenly;
 `
 
-export const MeetingFooterItem = styled.div`
+export const FooterItem = styled.div`
   font-size: 10px;
   margin-right: 15px;
   display:flex;
