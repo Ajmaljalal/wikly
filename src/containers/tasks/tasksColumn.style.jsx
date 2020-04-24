@@ -1,4 +1,11 @@
 import styled from 'styled-components'
+
+export const ColumnsContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    box-sizing: border-box;
+`;
 export const TaskItemDraggingContainer = styled.div`
   margin-top: 10px;
   background: white;

@@ -9,6 +9,7 @@ export const BodyContainer = styled.div`
 
 export const Container = styled.div`
   display:flex;
+  flex-direction: column;
   max-width: 100%;
   height: 100%;
   background: #F0F2F5;
@@ -29,4 +30,8 @@ export const Column = styled.div`
   padding: 8px;
   user-select: none;
   background: #E6E7E9;
+`
+
+export const ScrollAbleContainer = styled.div`
+  overflow-y: auto;
 `

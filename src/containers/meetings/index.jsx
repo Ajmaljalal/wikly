@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {  BodyContainer, Container } from '../../components/common.styles'
 import ContentHeader from '../../components/content-header/index'
 import MeetingColumn from './MeetingColumn'
+import { ColumnsContainer } from './meetings.styles'
 
 class Meetings extends Component {
     render() {
@@ -10,11 +11,13 @@ class Meetings extends Component {
             <BodyContainer>
                 <ContentHeader title ={'Meetings'}/>
                 <Container>
-                    <MeetingColumn date={'12 Aprile, Monday'} />
-                    <MeetingColumn date={'17 Aprile, Friday'} />
-                    <MeetingColumn date={'20 Aprile, Monday'} />
-                    <MeetingColumn date={'25 Aprile, Thursday'} />
-                    <MeetingColumn date={'26 Aprile, Friday'} />
+                    <ColumnsContainer>
+                        <MeetingColumn date={'12 Aprile, Monday'} />
+                        <MeetingColumn date={'17 Aprile, Friday'} />
+                        <MeetingColumn date={'20 Aprile, Monday'} />
+                        <MeetingColumn date={'25 Aprile, Thursday'} />
+                        <MeetingColumn date={'26 Aprile, Friday'} />
+                    </ColumnsContainer>
                 </Container>
             </BodyContainer>
         )
