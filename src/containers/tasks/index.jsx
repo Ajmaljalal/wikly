@@ -5,6 +5,8 @@ import ContentHeader from '../../components/content-header/index'
 
 import TasksColumn from './TasksColumn'
 
+import { ColumnsContainer } from './tasksColumn.style'
+
 class Tasks extends Component {
   render() {
     console.log('dashboard page')
@@ -13,7 +15,9 @@ class Tasks extends Component {
         <ContentHeader title={'Tasks'} />
         <DragDropContext onDragEnd={result => console.log(result)}>
           <Container>
-            <TasksColumn/>
+            <ColumnsContainer>
+              <TasksColumn />
+            </ColumnsContainer>
           </Container>
         </DragDropContext>
       </BodyContainer>

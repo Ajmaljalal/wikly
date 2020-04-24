@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {  Container, BodyContainer } from '../../components/common.styles'
+import Folder from './Folder'
+import {  Container, BodyContainer, ScrollAbleContainer } from '../../components/common.styles'
 import ContentHeader from '../../components/content-header/index'
 
 class Documents extends Component {
@@ -9,7 +10,10 @@ class Documents extends Component {
             <BodyContainer>
                 <ContentHeader title ={'Documents'}/>
                 <Container>
-                    {'content here'}
+                    <ScrollAbleContainer>
+                        <Folder></Folder>
+                        <Folder></Folder>
+                    </ScrollAbleContainer>
                 </Container>
             </BodyContainer>
         )
