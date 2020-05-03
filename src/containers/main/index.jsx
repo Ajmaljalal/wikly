@@ -9,7 +9,7 @@ import Dashboard from '../dashboard/index'
 import Meetings from '../meetings/index'
 import Tasks from '../tasks/index'
 import Documents from '../documents/index'
-import ChatRooms from '../chat-rooms/index'
+import ChatRooms from '../chat/index'
 
 class Main extends Component {
 
@@ -19,7 +19,7 @@ class Main extends Component {
       <MainContainer>
         <Menu/>
         <Column>
-        <AppHeader/>
+          <AppHeader/>
           <Switch>
             <Route path='/dashboard' component={Dashboard} />
             <Route path='/meetings' component={Meetings} />
