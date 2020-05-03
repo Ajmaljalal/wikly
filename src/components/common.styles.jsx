@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 export const BodyContainer = styled.div`
-  max-width: 100%;
-  height: 90%;
   display:flex;
+  max-width: 100%;
+  height: 93%;
   flex-direction: column;
-  padding: 5px 15px;
+  padding: ${(props)=>props.isInChates ? '0' : '5px 15px'};
+  box-sizing: border-box;
 `;
 
 export const Container = styled.div`
