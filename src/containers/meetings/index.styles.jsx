@@ -5,6 +5,7 @@ export const ColumnsContainer = styled.div`
     height: 100%;
     display: flex;
     box-sizing: border-box;
+    justify-content: space-between;
 `;
 
 export const MeetingsColumnHeader = styled.div`

@@ -6,7 +6,7 @@ import {
   ActionButton,
   Divider,
   ColumnBody
-} from './meetings.styles'
+} from './index.styles'
 import { Column } from '../../components/common.styles'
 
 import MeetingItem from './MeetingItem'
@@ -16,7 +16,7 @@ import moreIcon from '../../assets/icons/more-icon.svg'
 
 export default function MeetingColumn({ date }) {
   return (
-    <Column width={'278px'}>
+    <Column width={'18%'}>
       {renderColumnHeader(date)}
       <Divider />
       {renderColumnBody()}
@@ -45,6 +45,9 @@ const renderColumnBody = () => {
     <ColumnBody>
       <MeetingItem meetingId={1} />
       <MeetingItem meetingId={2} />
+      <MeetingItem meetingId={3} />
+      <MeetingItem meetingId={3} />
+      <MeetingItem meetingId={3} />
       <MeetingItem meetingId={3} />
     </ColumnBody>
   )

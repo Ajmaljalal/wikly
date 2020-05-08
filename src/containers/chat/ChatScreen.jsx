@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollAbleContainer } from '../../components/common.styles'
+import { VerticalScrollAbleContainer } from '../../components/common.styles'
 import ChatItem from './ChatItem'
 
 import { Container } from './ChatScreen.styles'
@@ -68,11 +68,11 @@ const messages = [
 class ChatScreen extends Component {
   render() {
     return (
-      <ScrollAbleContainer>
+      <VerticalScrollAbleContainer>
         <Container>
           {this.renderChatItems()}
         </Container>
-      </ScrollAbleContainer>
+      </VerticalScrollAbleContainer>
     )
   }
 

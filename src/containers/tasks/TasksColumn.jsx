@@ -84,6 +84,7 @@ class TasksColumn extends React.PureComponent {
                   {...provided.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
                   width={'250px'}
+                  marginRight={'10px'}
                 >
                   {this.renderColumnHeader(column)}
                   <ColumnBody>

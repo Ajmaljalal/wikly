@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 export const BodyContainer = styled.div`
   display:flex;
-  max-width: 100%;
-  height: 93%;
+  width: 100%;
+  height: 94%;
   flex-direction: column;
   padding: ${(props)=>props.isInChates ? '0' : '5px 15px'};
   box-sizing: border-box;
+  border-top: 1px solid lightgrey;
+  border-left: 1px solid lightgrey;
 `;
 
 export const Container = styled.div`
@@ -25,7 +27,7 @@ export const Column = styled.div`
   min-width: ${props => props.width};
   width: ${props => props.width};
   height: 95%;
-  margin-right: 10px;
+  margin-right: ${props => props.marginRight ? props.marginRight : '0'};
   border: ${props => props.isDraggingOver ? '2px dashed purple' : '1px solid #AEABAB'};
   border-radius: 5px;
   padding: 8px;
@@ -33,6 +35,10 @@ export const Column = styled.div`
   background: #E6E7E9;
 `
 
-export const ScrollAbleContainer = styled.div`
+export const VerticalScrollAbleContainer = styled.div`
   overflow-y: auto;
+`
+export const HorizontalScrollAbleContainer = styled.div`
+  overflow-x: auto;
+  width: 100%;
 `

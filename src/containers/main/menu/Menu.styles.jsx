@@ -2,12 +2,14 @@ import styled from 'styled-components'
 
 export const MenuBar = styled.div`
   height:100%;
-  min-width: 3.3%;
+  width: 3.3%;
+  min-width: 50px;
   max-width: 3.3%;
   background: white;
   display: flex;
   flex-direction: column;
-  border-right: 0.5px solid gray;
+  border-top: 0.5px solid lightgrey;
+  box-shadow: 0px 4px 4px lightgrey;
 `
 
 export const Logo = styled.div`

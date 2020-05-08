@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom';
 
-import { MainContainer, Column} from './index.style.jsx'
+import { MainContainer, Row } from './index.styles.jsx'
 import Menu from './menu/index';
 import AppHeader from './header/index'
 
@@ -17,9 +17,9 @@ class Main extends Component {
     console.log('home page')
     return (
       <MainContainer>
-        <Menu/>
-        <Column>
-          <AppHeader/>
+        <AppHeader />
+        <Row>
+          <Menu />
           <Switch>
             <Route path='/dashboard' component={Dashboard} />
             <Route path='/meetings' component={Meetings} />
@@ -27,7 +27,7 @@ class Main extends Component {
             <Route path='/documents' component={Documents} />
             <Route path='/chat-rooms' component={ChatRooms} />
           </Switch>
-        </Column>
+        </Row>
       </MainContainer>
     )
   }
