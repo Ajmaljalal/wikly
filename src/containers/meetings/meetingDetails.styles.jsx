@@ -76,8 +76,8 @@ export const TabItem = styled.div`
     margin-right: 10px;
     border-radius: 3px;
     transition: background-color 0.5s ease-in-out;
-    background: ${props => props.currentTab === props.for ? 'purple' : 'none'};
-    color: ${props => props.currentTab === props.for ? 'white' : 'black'};
+    background: ${props => props.currentTab === props.htmlFor ? 'purple' : 'none'};
+    color: ${props => props.currentTab === props.htmlFor ? 'white' : 'black'};
     cursor: pointer;
 `;
 

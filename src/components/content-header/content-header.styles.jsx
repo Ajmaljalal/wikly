@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 export const ContentHeaderContainer = styled.div`
-  height: 30px;
+  height: 3%;
   margin-bottom: 20px;
 `;
 

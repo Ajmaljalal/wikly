@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { memo } from 'react'
+import moment from 'moment';
+import { getTodayDate } from '../../helpers/getDate'
 import {
   MeetingsColumnHeader,
   HeaderTitle,
@@ -14,43 +16,60 @@ import MeetingItem from './MeetingItem'
 import plusIcon from '../../assets/icons/plus-icon.svg'
 import moreIcon from '../../assets/icons/more-icon.svg'
 
-export default function MeetingColumn({ date }) {
+
+
+
+function MeetingColumn({ date, meetings }) {
+  const meetingsOnCurrentDate = []
+  const today = getTodayDate()
+  const title = date === today ? 'TODAY' : date
+  let formatedDate = title
+  if (title !== 'TODAY') {
+    formatedDate = moment(title, "MM-DD-YYYY").format('LL')
+  }
+
+  if (meetings) {
+    Object.keys(meetings).forEach(meetingId => {
+      if (meetings[meetingId].dateTime === date) {
+        meetingsOnCurrentDate.push(meetings[meetingId])
+      }
+    })
+  }
   return (
     <Column width={'18%'}>
-      {renderColumnHeader(date)}
+      {renderColumnHeader(formatedDate, title)}
       <Divider />
-      {renderColumnBody()}
+      <ColumnBody>
+        {renderColumnBody(meetingsOnCurrentDate)}
+      </ColumnBody>
     </Column>
   )
 }
 
-const renderColumnHeader = (date) => {
+const renderColumnHeader = (formatedDate, title) => {
   return (
     <MeetingsColumnHeader>
-    <HeaderTitle>{date}</HeaderTitle>
-    <HeaderIconsWrapper>
-      <ActionButton>
-        <img src={plusIcon} />
-      </ActionButton>
-      <ActionButton>
-        <img src={moreIcon} />
-      </ActionButton>
-    </HeaderIconsWrapper>
-  </MeetingsColumnHeader>
+      <HeaderTitle isToday={title === 'TODAY' ? true : false}>{formatedDate}</HeaderTitle>
+      <HeaderIconsWrapper>
+        <ActionButton>
+          <img src={plusIcon} />
+        </ActionButton>
+        <ActionButton>
+          <img src={moreIcon} />
+        </ActionButton>
+      </HeaderIconsWrapper>
+    </MeetingsColumnHeader>
   )
 }
 
-const renderColumnBody = () => {
-  return (
-    <ColumnBody>
-      <MeetingItem meetingId={1} />
-      <MeetingItem meetingId={2} />
-      <MeetingItem meetingId={3} />
-      <MeetingItem meetingId={3} />
-      <MeetingItem meetingId={3} />
-      <MeetingItem meetingId={3} />
-    </ColumnBody>
-  )
+const renderColumnBody = (meetingsOnCurrentDate) => {
+  return meetingsOnCurrentDate.map(meeting => {
+    return (
+      <MeetingItem key={meeting.id} meeting={meeting} />
+    )
+  })
 }
+
+export default memo(MeetingColumn)
 
 

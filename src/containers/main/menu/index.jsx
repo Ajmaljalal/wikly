@@ -14,7 +14,7 @@ class Menu extends PureComponent {
         console.log('Menu bar')
         return (
             <MenuBar>
-                <Logo><img src={logo} alt='logo'/></Logo>
+                {/* <Logo><img src={logo} alt='logo'/></Logo> */}
                 <MenuItems>
                     <MenuButton icon={dashboard} path={'/dashboard'} />
                     <MenuButton icon={meeting} path={'/meetings'} />

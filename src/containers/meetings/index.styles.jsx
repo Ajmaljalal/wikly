@@ -17,7 +17,8 @@ export const MeetingsColumnHeader = styled.div`
 `
 export const HeaderTitle = styled.div`
   font-weight: 500;
-  font-size: 14px;
+  font-size: ${(props) => props.isToday ? '15px' : '12px'};
+  color: ${(props) => props.isToday ? 'red' : 'black'};
 `
 
 export const HeaderIconsWrapper = styled.div`
@@ -48,7 +49,7 @@ export const ColumnBody = styled.div`
   padding-right: 2px;
 
   &::-webkit-scrollbar {
-    width: 3px;
+    width: 2px;
     background-color: #F5F5F5;
   }
   &::-webkit-scrollbar-thumb {
@@ -56,7 +57,7 @@ export const ColumnBody = styled.div`
     border-radius: 3px;
   }
   &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.3);
     border-radius: 5px;
   }
 `;

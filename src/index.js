@@ -3,22 +3,36 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './redux/store';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
+import { createFirestoreInstance } from 'redux-firestore'
+import { store } from './redux/store';
+import firebase from './firebase/firebase-config'
 
 import './index.css';
 import Main from './containers/main/index';
 import * as serviceWorker from './serviceWorker';
 
+
+const rrfConfig = { userProfile: 'users', useFirestoreForProfile: true }
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance
+}
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <PersistGate persistor={persistor}>
-          <Main />
-        </PersistGate>
+          <ReactReduxFirebaseProvider { ...rrfProps}>
+            <Main />
+          </ReactReduxFirebaseProvider>
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode >,
   
   document.getElementById('root')
 );

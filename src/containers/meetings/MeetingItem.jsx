@@ -31,25 +31,26 @@ class MeetingItem extends React.PureComponent {
 
   render(){
     const { openMeetingDetails } = this.state
+    const { meeting } = this.props
     return (
       <Fragment>
         <MeetingContainer onClick={this.toggleMeetingDetailsModal}>
-            {this.renderHeader()}
+            {this.renderHeader(meeting.dateTime)}
             <MeetingTitle>
-                {'Team building meeting with new hires. This is the first meeting.'}
+                {meeting.title}
             </MeetingTitle>
-            {this.renderFooter()}
+            {this.renderFooter(meeting)}
         </MeetingContainer>
         {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal}/> : null}
       </Fragment>
       )
   }
 
-  renderHeader = () =>{
+  renderHeader = (meetingTime) =>{
     return (
       <MeetingHeader>
         <MeetingTime>
-            {'11:00AM - 12:30PM'}
+            {meetingTime}
         </MeetingTime>
         <MoreIconWrapper>
             <img src={horizontalMoreIcon} alt='more-icon'/>
@@ -58,23 +59,24 @@ class MeetingItem extends React.PureComponent {
     )
   }
 
-  renderFooter = () => {
+  renderFooter = (meeting) => {
     return (
       <MeetingFooter>
         <FooterItem>
             <img src={participantsIcon} alt='participants-icon'/>
-            {'23'}
+            {meeting.invitees}
         </FooterItem>
         <FooterItem>
-            <img src={agendaIcon} alt='agenda-icon'/>   
+          <img src={agendaIcon} alt='agenda-icon' /> 
+          {meeting.agenda}
         </FooterItem>
         <FooterItem>
             <img src={attachIcon} alt='attachments-icon'/>
-            {'2'}
+            {meeting.attachements}
         </FooterItem>
         <FooterItem>
             <img src={notesIcon} alt='notes-icon'/>
-            {'12'}
+            {meeting.notes}
         </FooterItem>
       </MeetingFooter>
     )
