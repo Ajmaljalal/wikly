@@ -4,10 +4,18 @@ import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { createMeeting } from '../../redux/meetings/meetingsActions'
 import { getCurrentWeek } from '../../helpers/getDate'
-import { BodyContainer, Container } from '../../components/common.styles'
 import ContentHeader from '../../components/content-header/index'
 import MeetingColumn from './MeetingColumn'
-import { ColumnsContainer } from './index.styles'
+import Button from '../../components/button/Button'
+
+import {
+  BodyContainer,
+  Container,
+  Header,
+} from '../../components/common.styles'
+import {
+  ColumnsContainer,
+} from './index.styles'
 
 class Meetings extends PureComponent {
 
@@ -29,7 +37,10 @@ class Meetings extends PureComponent {
     console.log(this.props.meetings)
     return (
       <BodyContainer>
-        <ContentHeader title={'Meetings'} />
+        <Header>
+          <ContentHeader title={'Meetings'} />
+          <Button color='#4a78cf'>Create a Meeting</Button>
+        </Header>
         <Container>
           <ColumnsContainer>
             {this.renderColumns()}
@@ -41,12 +52,11 @@ class Meetings extends PureComponent {
 
   renderColumns = () => {
     const { meetings } = this.props
-
     const week = getCurrentWeek()
     // console.log(week)
     return week.map((date) => {
       return (
-        <MeetingColumn key={date} date={date} meetings={meetings}/>
+        <MeetingColumn key={date} date={date} meetings={meetings} />
       )
     })
   }
@@ -65,13 +75,13 @@ const mapDispatchTProps = (disptach) => {
 }
 
 export default compose(
-  firestoreConnect((props) => 
+  firestoreConnect((props) =>
     [{
-        collection: 'project-meetings',
-        doc: 'SZMKZDDzduTEYipp47Ad',
-        subcollections: [{ collection: 'meetings' }],
-        storeAs: 'currentProjectMeetings'
+      collection: 'project-meetings',
+      doc: 'SZMKZDDzduTEYipp47Ad',
+      subcollections: [{ collection: 'meetings' }],
+      storeAs: 'currentProjectMeetings'
     }]
   ),
   connect(mapStateToProps, mapDispatchTProps
-))(Meetings);
+  ))(Meetings);

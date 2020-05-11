@@ -26,20 +26,32 @@ export const MeetingHeader = styled.div`
   box-sizing: border-box;
   width: 100%;
 `
-
 export const MeetingTime = styled.div`
   font-size: 12px;
   color: grey;
+  display: flex;
+  align-items: center;
+  width: 90%;
 `
 export const MoreIconWrapper = styled.div`
+  background: lightgrey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  padding: 3px;
+  border-radius: 10px;
   img {
-    min-width: 20px;
+    width: 15px;
   }
 `
-
 export const MeetinBody = styled.div`
   min-height:95px;
   min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 export const MeetingTitle = styled.div`
   height: 40px;
@@ -47,29 +59,30 @@ export const MeetingTitle = styled.div`
   font-size: 14px;
   overflow: hidden;
 `
-export const HostAndTimeLeft = styled.div`
-  background: rgba(255, 165, 0, 0.1);
+export const MeetingHost = styled.div`
   padding:3px;
   padding-bottom:3px;
   font-size: 10px;
-  margin-top: 10px;
-  border: 1px solid orange;
+  margin-bottom: 10px;
   border-radius: 3px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  justify-content: space-between;
 
 `;
 export const Scheduler = styled.div`
   font-size: 12px;
+`;
+export const Status = styled.div`
+  font-weight: bold;
+  color: ${(props) => props.starts ? '#74E113' : 'red'};
+  margin-left: 5px;
+  font-size: 10px;
 `;
 
 export const MeetingFooter = styled.div`
   display:flex;
   justify-content: space-around;
 `
-
 export const FooterItem = styled.div`
   font-size: 10px;
   display:flex;

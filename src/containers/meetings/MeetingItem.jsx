@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { getTimeFromDate, getTimeLeft} from '../../helpers/getDate'
+import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
 import MeetingDetails from './MeetingDetails'
 import {
   MeetingContainer,
@@ -8,7 +8,8 @@ import {
   MoreIconWrapper,
   MeetinBody,
   MeetingTitle,
-  HostAndTimeLeft,
+  MeetingHost,
+  Status,
   FooterItem,
   MeetingFooter
 } from './meetingItem.styles'
@@ -32,44 +33,50 @@ class MeetingItem extends React.PureComponent {
     })
   }
 
-
-
   render() {
     const { openMeetingDetails } = this.state
     const { meeting } = this.props
     return (
       <Fragment>
-        <MeetingContainer onClick={this.toggleMeetingDetailsModal} isFocused={openMeetingDetails}>
+        <MeetingContainer isFocused={openMeetingDetails}>
           {this.renderHeader(meeting.startTime, meeting.endTime)}
-          {this.renderBody(meeting.title, meeting.startTime, meeting.scheduler)}
+          {this.renderBody(meeting.title, meeting.scheduler, meeting.startTime, meeting.endTime)}
           {this.renderFooter(meeting)}
         </MeetingContainer>
-        {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal} meeting={meeting}/> : null}
+        {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal} meeting={meeting} /> : null}
       </Fragment>
     )
   }
 
   renderHeader = (startTime, endTime) => {
-    console.log(startTime.toDate())
     return (
       <MeetingHeader>
         <MeetingTime>
           {getTimeFromDate(startTime)} - {getTimeFromDate(endTime)}
         </MeetingTime>
-        <MoreIconWrapper>
+        <MoreIconWrapper onClick={()=>console.log('clicked')}>
           <img src={horizontalMoreIcon} alt='more-icon' />
         </MoreIconWrapper>
       </MeetingHeader>
     )
   }
 
-
-
-  renderBody = (title, startTime, scheduler) => {
+  renderBody = (title, scheduler, startTime, endTime) => {
+    let status = `Starts ${getTimeLeft(startTime)}`
+    let now = new Date()
+    if (now > startTime.toDate()) {
+      status = 'In Progress'
+    }
+    if (now > endTime.toDate()) {
+      status = 'Meeting Ended'
+    }
     return (
-      <MeetinBody>
+      <MeetinBody onClick={this.toggleMeetingDetailsModal}>
         <MeetingTitle>{title}</MeetingTitle>
-        <HostAndTimeLeft>By {scheduler.name} - Starts {getTimeLeft(startTime)}</HostAndTimeLeft>
+        <MeetingHost>
+          <span>By: {scheduler.name}</span>
+          <Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</Status>
+        </MeetingHost>
       </MeetinBody>
     )
   }

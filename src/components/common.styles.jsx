@@ -10,6 +10,13 @@ export const BodyContainer = styled.div`
   border-left: 1px solid lightgrey;
 `;
 
+export const Header = styled.div`
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const Container = styled.div`
   display:flex;
   flex-direction: column;
