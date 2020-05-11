@@ -12,20 +12,21 @@ import { ColumnsContainer } from './index.styles'
 class Meetings extends PureComponent {
 
   componentDidMount() {
-    this.props.createNewMeeting({
-      id: (Math.random()*1000+Math.random()*2000).toString(),
-      agenda: 9,
-      attachements: 3,
-      date: new Date().toLocaleDateString(),
-      startTime: new Date().toLocaleTimeString(),
-      endTime: new Date().toLocaleTimeString(),
-      invitees: 10,
-      notes: 4,
-      title: 'Should work on budget',
-      recuring: true
-    })
+    // this.props.createNewMeeting({
+    //   id: (Math.random()*1000+Math.random()*2000).toString(),
+    //   agenda: 9,
+    //   attachements: 3,
+    //   date: '5/12/2020',
+    //   startTime: new Date().toLocaleTimeString(),
+    //   endTime: new Date().toLocaleTimeString(),
+    //   invitees: 10,
+    //   notes: 4,
+    //   title: 'Should work on budget',
+    //   recuring: true
+    // })
   }
   render() {
+    console.log(this.props.meetings)
     return (
       <BodyContainer>
         <ContentHeader title={'Meetings'} />
@@ -42,6 +43,7 @@ class Meetings extends PureComponent {
     const { meetings } = this.props
 
     const week = getCurrentWeek()
+    // console.log(week)
     return week.map((date) => {
       return (
         <MeetingColumn key={date} date={date} meetings={meetings}/>
@@ -52,7 +54,7 @@ class Meetings extends PureComponent {
 
 const mapStateToProps = ({ firestore }) => {
   return {
-    meetings: firestore.data.meetings
+    meetings: firestore.data.currentProjectMeetings
   }
 }
 
@@ -63,8 +65,13 @@ const mapDispatchTProps = (disptach) => {
 }
 
 export default compose(
-  firestoreConnect((props) => [
-    { collection: 'meetings'}
-  ]),
+  firestoreConnect((props) => 
+    [{
+        collection: 'project-meetings',
+        doc: 'SZMKZDDzduTEYipp47Ad',
+        subcollections: [{ collection: 'meetings' }],
+        storeAs: 'currentProjectMeetings'
+    }]
+  ),
   connect(mapStateToProps, mapDispatchTProps
 ))(Meetings);

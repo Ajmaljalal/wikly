@@ -3,11 +3,12 @@ export const Container = styled.div`
     position: absolute;
     top: 0;
     right: 2px;
-    width: 40vw;
+    width: 45vw;
     height: 100vh;
     background: white;
-    border-left: 1px solid black;
     padding: 5px 15px;
+    box-shadow: 0px 0px 4px grey;
+
 `; 
 
 export const ContainerHeader = styled.div`
@@ -67,6 +68,7 @@ export const Tab = styled.div`
     width: 100%;
     display: flex;
     font-size: 12px;
+    border-bottom: 1px solid purple;
 `;
 
 export const TabItem = styled.div`
@@ -74,7 +76,8 @@ export const TabItem = styled.div`
     font-weight: bold;
     padding: 5px 10px;
     margin-right: 10px;
-    border-radius: 3px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     transition: background-color 0.5s ease-in-out;
     background: ${props => props.currentTab === props.htmlFor ? 'purple' : 'none'};
     color: ${props => props.currentTab === props.htmlFor ? 'white' : 'black'};

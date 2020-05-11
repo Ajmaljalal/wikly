@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react'
+import { getTimeFromDate, getTimeLeft} from '../../helpers/getDate'
 import MeetingDetails from './MeetingDetails'
 import {
   MeetingContainer,
   MeetingHeader,
   MeetingTime,
   MoreIconWrapper,
+  MeetinBody,
   MeetingTitle,
+  HostAndTimeLeft,
   FooterItem,
   MeetingFooter
 } from './meetingItem.styles'
@@ -16,46 +19,58 @@ import agendaIcon from './assets/agenda.svg'
 import horizontalMoreIcon from '../../assets/icons/horizontal-more.svg'
 
 class MeetingItem extends React.PureComponent {
-    constructor(){
-      super()
-      this.state = {
-          openMeetingDetails: false,
-      }
+  constructor() {
+    super()
+    this.state = {
+      openMeetingDetails: false,
     }
+  }
 
   toggleMeetingDetailsModal = () => {
     this.setState({
-        openMeetingDetails: !this.state.openMeetingDetails
+      openMeetingDetails: !this.state.openMeetingDetails
     })
   }
 
-  render(){
+
+
+  render() {
     const { openMeetingDetails } = this.state
     const { meeting } = this.props
     return (
       <Fragment>
-        <MeetingContainer onClick={this.toggleMeetingDetailsModal}>
-            {this.renderHeader(meeting.dateTime)}
-            <MeetingTitle>
-                {meeting.title}
-            </MeetingTitle>
-            {this.renderFooter(meeting)}
+        <MeetingContainer onClick={this.toggleMeetingDetailsModal} isFocused={openMeetingDetails}>
+          {this.renderHeader(meeting.startTime, meeting.endTime)}
+          {this.renderBody(meeting.title, meeting.startTime, meeting.scheduler)}
+          {this.renderFooter(meeting)}
         </MeetingContainer>
-        {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal}/> : null}
+        {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal} meeting={meeting}/> : null}
       </Fragment>
-      )
+    )
   }
 
-  renderHeader = (meetingTime) =>{
+  renderHeader = (startTime, endTime) => {
+    console.log(startTime.toDate())
     return (
       <MeetingHeader>
         <MeetingTime>
-            {meetingTime}
+          {getTimeFromDate(startTime)} - {getTimeFromDate(endTime)}
         </MeetingTime>
         <MoreIconWrapper>
-            <img src={horizontalMoreIcon} alt='more-icon'/>
+          <img src={horizontalMoreIcon} alt='more-icon' />
         </MoreIconWrapper>
       </MeetingHeader>
+    )
+  }
+
+
+
+  renderBody = (title, startTime, scheduler) => {
+    return (
+      <MeetinBody>
+        <MeetingTitle>{title}</MeetingTitle>
+        <HostAndTimeLeft>By {scheduler.name} - Starts {getTimeLeft(startTime)}</HostAndTimeLeft>
+      </MeetinBody>
     )
   }
 
@@ -63,20 +78,20 @@ class MeetingItem extends React.PureComponent {
     return (
       <MeetingFooter>
         <FooterItem>
-            <img src={participantsIcon} alt='participants-icon'/>
-            {meeting.invitees}
+          <img src={participantsIcon} alt='participants-icon' />
+          {meeting.invitees}
         </FooterItem>
         <FooterItem>
-          <img src={agendaIcon} alt='agenda-icon' /> 
+          <img src={agendaIcon} alt='agenda-icon' />
           {meeting.agenda}
         </FooterItem>
         <FooterItem>
-            <img src={attachIcon} alt='attachments-icon'/>
-            {meeting.attachements}
+          <img src={attachIcon} alt='attachments-icon' />
+          {meeting.attachments}
         </FooterItem>
         <FooterItem>
-            <img src={notesIcon} alt='notes-icon'/>
-            {meeting.notes}
+          <img src={notesIcon} alt='notes-icon' />
+          {meeting.notes}
         </FooterItem>
       </MeetingFooter>
     )

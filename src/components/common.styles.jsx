@@ -24,7 +24,7 @@ export const Container = styled.div`
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: ${props => props.width};
+  min-width: 200px;
   width: ${props => props.width};
   height: 98;
   max-height: 98%;

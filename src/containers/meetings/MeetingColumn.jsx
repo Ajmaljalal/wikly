@@ -25,12 +25,13 @@ function MeetingColumn({ date, meetings }) {
   const title = date === today ? 'TODAY' : date
   let formatedDate = title
   if (title !== 'TODAY') {
-    formatedDate = moment(title, "MM-DD-YYYY").format('LL')
+    formatedDate = moment(title, "MM-DD-YY").format('LL')
   }
 
   if (meetings) {
     Object.keys(meetings).forEach(meetingId => {
-      if (meetings[meetingId].dateTime === date) {
+      // console.log('dates', meetings[meetingId].date, date)
+      if (meetings[meetingId].date === date) {
         meetingsOnCurrentDate.push(meetings[meetingId])
       }
     })

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo }from 'react'
 import {ContentHeaderContainer, HeaderTitle } from './content-header.styles'
 
 function ContentHeader({title}) {
@@ -9,4 +9,4 @@ function ContentHeader({title}) {
     )
 }
 
-export default ContentHeader;
+export default memo(ContentHeader);

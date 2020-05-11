@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import { getTimeFromDate } from '../../helpers/getDate'
 
 import {
   Container,
@@ -16,7 +17,7 @@ import {
 import closeIcon from '../../assets/icons/close.svg'
 import arrowDownIcon from '../../assets/icons/caret-down.svg'
 
-export default class MeetingDetails extends Component {
+export default class MeetingDetails extends PureComponent {
 
   constructor() {
     super()
@@ -33,10 +34,11 @@ export default class MeetingDetails extends Component {
 
 
   render() {
+    const { meeting } = this.props
     return (
       <Container>
-        {this.renderTitleAndCloseButton()}
-        <MeetingTime>11:00AM - 12:30PM</MeetingTime>
+        {this.renderTitleAndCloseButton(meeting.title)}
+        <MeetingTime>{getTimeFromDate(meeting.startTime)} - {getTimeFromDate(meeting.endTime)}</MeetingTime>
         <Options>
           Manage meeting
           <img src={arrowDownIcon}/>
@@ -46,11 +48,11 @@ export default class MeetingDetails extends Component {
     )
   }
 
-  renderTitleAndCloseButton = () => {
+  renderTitleAndCloseButton = (title) => {
     const { onClose } = this.props
     return (
       <ContainerHeader>
-        <MeetingTitle>Team Building meeting with new hires.This is the first meeting.</MeetingTitle>
+        <MeetingTitle>{title}</MeetingTitle>
         <CloseButton onClick={onClose}>
           <img src={closeIcon} alt='close icon' />
         </CloseButton>
@@ -64,10 +66,10 @@ export default class MeetingDetails extends Component {
         <Tab>
           <TabItem htmlFor='agenda' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('agenda')}>Agenda</TabItem>
           <TabItem htmlFor='notes' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('notes')}>Notes</TabItem>
-          <TabItem htmlFor='resources' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('resources')}>Resources(3)</TabItem>
+          <TabItem htmlFor='resources' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('resources')}>Resources (3)</TabItem>
+          <TabItem htmlFor='invitees' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('invitees')}>Invitees (10)</TabItem>
         </Tab>
         {this.renderTabItemDetails()}
-
       </DetialsContainer>
     )
   }
