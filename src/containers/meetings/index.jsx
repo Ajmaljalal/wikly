@@ -2,10 +2,12 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { createMeeting } from '../../redux/meetings/meetingsActions'
 import { getCurrentWeek } from '../../helpers/getDate'
 import ContentHeader from '../../components/content-header/index'
 import MeetingColumn from './MeetingColumn'
+import CreateNewMeeting from './CreateNewMeeting'
 import Button from '../../components/button/Button'
 
 import {
@@ -18,6 +20,15 @@ import {
 } from './index.styles'
 
 class Meetings extends PureComponent {
+  state = {
+    isAddMeetingModalOpen: false
+  }
+
+  toggleAddMeetingModal = () => {
+    this.setState({
+      isAddMeetingModalOpen: !this.state.isAddMeetingModalOpen
+    })
+  }
 
   componentDidMount() {
     // this.props.createNewMeeting({
@@ -34,29 +45,41 @@ class Meetings extends PureComponent {
     // })
   }
   render() {
-    console.log(this.props.meetings)
+    const { isAddMeetingModalOpen } = this.state
     return (
       <BodyContainer>
-        <Header>
-          <ContentHeader title={'Meetings'} />
-          <Button color='#4a78cf'>Create a Meeting</Button>
-        </Header>
+        {this.renderHeader()}
         <Container>
           <ColumnsContainer>
             {this.renderColumns()}
           </ColumnsContainer>
         </Container>
+         <CreateNewMeeting toggleAddMeetingModal={this.toggleAddMeetingModal} /> 
       </BodyContainer>
+    )
+  }
+
+  renderHeader = () => {
+    return (
+      <Header>
+        <ContentHeader title={'Meetings'} />
+        <Button color='primary' onClick={this.toggleAddMeetingModal}>
+          <FontAwesomeIcon icon='plus' color='white' />Add Meeting
+        </Button>
+      </Header>
     )
   }
 
   renderColumns = () => {
     const { meetings } = this.props
     const week = getCurrentWeek()
-    // console.log(week)
     return week.map((date) => {
       return (
-        <MeetingColumn key={date} date={date} meetings={meetings} />
+        <MeetingColumn
+          key={date}
+          date={date}
+          meetings={meetings}
+        />
       )
     })
   }

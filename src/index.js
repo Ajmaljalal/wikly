@@ -8,10 +8,15 @@ import { createFirestoreInstance } from 'redux-firestore'
 import { store } from './redux/store';
 import firebase from './firebase/firebase-config'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+
 import './index.css';
 import Main from './containers/main/index';
 import * as serviceWorker from './serviceWorker';
 
+library.add(fas)
 
 const rrfConfig = { userProfile: 'users', useFirestoreForProfile: true }
 

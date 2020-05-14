@@ -5,9 +5,12 @@ const Button = ({
   onClick,
   color,
   children,
+  size,
+  bgColor,
+
 }) => {
     return (
-      <ButtonWrapper onClick={onClick} color={color}>
+      <ButtonWrapper onClick={onClick} bgColor={bgColor} color={color} size={size}>
         {children}
       </ButtonWrapper>
     )

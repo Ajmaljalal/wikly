@@ -73,7 +73,7 @@ export const Scheduler = styled.div`
   font-size: 12px;
 `;
 export const Status = styled.div`
-  font-weight: bold;
+  font-weight: 500;
   color: ${(props) => props.starts ? '#74E113' : 'red'};
   margin-left: 5px;
   font-size: 10px;
