@@ -26,7 +26,7 @@ class TaskItem extends React.PureComponent {
   }
 
   render() {
-    const { openTaskDetails } = this.state
+    // const { openTaskDetails } = this.state
     const { task } = this.props;
     return (
       <Fragment>

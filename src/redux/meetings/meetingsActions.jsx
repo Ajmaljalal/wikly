@@ -1,9 +1,9 @@
 
 export const createMeeting = (meeting) => {
-  return (dispatch, getState, {getFirestore}) => {
+  return (dispatch, {getFirestore}) => {
     const firestore = getFirestore();
-    const profile = getState().firebase.profile;
-    const authorId = getState().firebase.auth.uid;
+    // const profile = getState().firebase.profile;
+    // const authorId = getState().firebase.auth.uid;
     firestore.collection('meetings').add({
       ...meeting,
     }).then(() => {

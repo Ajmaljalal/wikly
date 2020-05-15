@@ -5,12 +5,22 @@ const Button = ({
   onClick,
   color,
   children,
-  size,
+  fontSize,
   bgColor,
+  margin,
+  width,
+
 
 }) => {
     return (
-      <ButtonWrapper onClick={onClick} bgColor={bgColor} color={color} size={size}>
+      <ButtonWrapper
+        onClick={onClick}
+        bgColor={bgColor}
+        color={color}
+        size={fontSize}
+        margin={margin}
+        width={width}
+      >
         {children}
       </ButtonWrapper>
     )

@@ -12,7 +12,7 @@ function Avatar({ type, img, size, initials, status }) {
   } else borderRadius = '5px'
 
   if (img) {
-    profile = <img src={img} alt='user-avatar-image' />
+    profile = <img src={img} alt='user-avatar' />
   } else profile = initials
 
   return (

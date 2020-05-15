@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { findInArrayOfObjects } from '../../helpers/arrays'
 import Modal from '../../components/modal/Modal'
 import Input from '../../components/input/Input'
 import Button from '../../components/button/Button'
@@ -21,10 +22,27 @@ class CreateNewMeeting extends Component {
     })
   }
 
-  selectMembers = (member) => (e) => {
-    console.log(member)
-    const newMembers = this.state.invitedMembers
-    newMembers.push(member)
+  addAllMembers = (members) => (e) => {
+    const { invitedMembers } = this.state
+    if (invitedMembers.length === members.length) {
+      this.setState({
+        invitedMembers: []
+      })
+    } else {
+      this.setState({
+        invitedMembers: members
+      })
+    }
+  }
+
+  addOrRemoveMember = (member, isInvited) => (e) => {
+    const { invitedMembers } = this.state
+    const newMembers = invitedMembers
+    if (isInvited) {
+      newMembers.splice(newMembers.findIndex(v => v.name === member.name), 1);
+    } else {
+      newMembers.push(member)
+    }
     this.setState({
       invitedMembers: newMembers
     })
@@ -32,7 +50,6 @@ class CreateNewMeeting extends Component {
 
   render() {
     const { toggleAddMeetingModal } = this.props
-    console.log(this.state.invitedMembers)
     return (
       <Modal
         onClose={toggleAddMeetingModal}
@@ -65,15 +82,60 @@ class CreateNewMeeting extends Component {
         "initials": "MT",
         "username": "May26",
         "email": "Marley.McDermott@hotmail.com",
+      },
+      {
+        "id": "bb647381-91d3-42fa-983d-f663bbrewqd306c",
+        "name": "Mario Thompweson",
+        "initials": "MT",
+        "username": "May26",
+        "email": "Marley.McDermott@hotmail.com",
+      },
+      {
+        "id": "bb647381-91d3-42fa-983d-f663bereqbdd306c",
+        "name": "Mario Thomphtson",
+        "initials": "MT",
+        "username": "May26",
+        "email": "Marley.McDermott@hotmail.com",
+      },
+      {
+        "id": "bb647381-91d3-42fa-983der3-f663bbdd306c",
+        "name": "Mario Thompso45n",
+        "initials": "MT",
+        "username": "May26",
+        "email": "Marley.McDermott@hotmail.com",
+      },
+      {
+        "id": "bb647381-91d3-42343fa-983d-f663bbdd306c",
+        "name": "Mario Thompso233n",
+        "initials": "MT",
+        "username": "May26",
+        "email": "Marley.McDermott@hotmail.com",
       }
     ]
     return (
-      <form>
+      <NewMeetingStyles.Form>
         <Input
           label='Title'
           required='true'
           placeholder='Enter a title for the meeting'
         />
+        {this.renderSelectDateTime()}
+        <Input
+          label='Url'
+          required='true'
+          placeholder='Past any relevant url here'
+        />
+        {this.renderInvitePeopleButtons(options)}
+        {this.renderInvitedPeople()}
+        {this.renderCheckBoxes()}
+        {this.renderActionButtons()}
+      </NewMeetingStyles.Form>
+    )
+  }
+
+  renderSelectDateTime = () => {
+    return (
+      <NewMeetingStyles.DateTime>
         <Input
           label='Date'
           required='true'
@@ -92,34 +154,69 @@ class CreateNewMeeting extends Component {
           placeholder='Enter a title for the meeting'
           type='time'
         />
-        <NewMeetingStyles.Invitees>
-          {this.renderInviteesDropdownList(options)}
-          {this.state.invitedMembers.map(member => {
-            return <NewMeetingStyles.Invitee key={member.id}>{member.name}</NewMeetingStyles.Invitee>
-          })}
-        </NewMeetingStyles.Invitees>
-          {this.renderCheckBoxes()}
-      </form>
+      </NewMeetingStyles.DateTime>
     )
+  }
+
+  renderInvitePeopleButtons = (options) => {
+    const { invitedMembers } = this.state
+    const isAllInvited = invitedMembers.length === options.length
+    const btnText = isAllInvited ? 'Remove All' : 'Invite All'
+    const bgColor = isAllInvited ? Colors.pumpkin : Colors.cyan
+    return (
+      <NewMeetingStyles.InviteMembersButtons>
+        {this.renderInviteesDropdownList(options)}
+        <Button
+          color={bgColor}
+          bgColor= 'white'
+          fontSize='12px'
+          onClick={this.addAllMembers(options)}
+        >
+          {btnText}
+        </Button>
+      </NewMeetingStyles.InviteMembersButtons>
+    )
+  }
+
+  renderInvitedPeople = () => {
+    const { invitedMembers } = this.state
+    if (invitedMembers.length) {
+      return (
+        <NewMeetingStyles.InvitedList>
+          {this.state.invitedMembers.map(member => {
+            return <NewMeetingStyles.Invited key={member.id}>{member.name}</NewMeetingStyles.Invited>
+          })}
+        </NewMeetingStyles.InvitedList>
+        )
+      } else return null
   }
 
   renderInviteesDropdownList = (options) => {
     return (
-      <DropdownList width='250px' position='top'>
+      <DropdownList
+        width='230px'
+        position='bottom'
+        searchAble={true}
+        closeOnClick={false}
+        placeholder='Invite People to Meeting'
+      >
         {options.map((member) => {
           return (
             this.renderInviteesDropDownListItem(member)
-         )
-       })}
+          )
+        })}
       </DropdownList>
     )
   }
 
   renderInviteesDropDownListItem = (member) => {
+    const { invitedMembers } = this.state
+    const isInvited = findInArrayOfObjects(invitedMembers, 'name', member.name)
+    const btnText = isInvited ? 'Remove' : 'Invite'
     return (
       <NewMeetingStyles.InviteesListItem>
-         <Avatar
-          type='squre'
+        <Avatar
+          type='circle'
           size='30px'
           initials={member.initials}
           status='online'
@@ -128,41 +225,69 @@ class CreateNewMeeting extends Component {
           <NewMeetingStyles.InviteeName>{member.name}</NewMeetingStyles.InviteeName>
           <NewMeetingStyles.InviteeRole>{member.username}</NewMeetingStyles.InviteeRole>
         </NewMeetingStyles.InviteeNameAndRole>
-        <Button color='white' bgColor={Colors.cyan} size='10px' onClick={this.selectMembers(member)}>
-          Invite
+        <Button
+          color='white'
+          bgColor={isInvited ? Colors.pumpkin : Colors.cyan}
+          fontSize='10px'
+          onClick={this.addOrRemoveMember(member, isInvited)}
+        >
+          {btnText}
         </Button>
       </NewMeetingStyles.InviteesListItem>
-      
+
     )
   }
 
   renderCheckBoxes = () => {
     return (
       <NewMeetingStyles.InputsGroup>
-      <Input
-        label='Invite Everyone'
-        required='true'
-        placeholder='All'
-        type='checkbox'
-        oneLine={true}
-      /> |
-     <Input
-        label='Recurring'
-        name='repeat'
-        required='true'
-        placeholder='Enter a title for the meeting'
-        type='radio'
-        oneLine={true}
-      />
-      <Input
-        label='One time'
-        name='repeat'
-        required='true'
-        placeholder='Enter a title for the meeting'
-        type='radio'
-        oneLine={true}
-      />
-    </NewMeetingStyles.InputsGroup>
+        <Input
+          label='Recurring'
+          name='repeat'
+          required='true'
+          placeholder='Enter a title for the meeting'
+          type='radio'
+          oneLine={true}
+        />
+        <Input
+          label='One time'
+          name='repeat'
+          selected
+          required='true'
+          placeholder='Enter a title for the meeting'
+          type='radio'
+          oneLine={true}
+        />
+      </NewMeetingStyles.InputsGroup>
+    )
+  }
+
+  renderActionButtons = () => {
+    const { toggleAddMeetingModal } = this.props
+    return (
+      <NewMeetingStyles.ActionButtons>
+        <Button
+          color='white'
+          bgColor= {Colors.flame}
+          fontSize='12px'
+          margin={true}
+          width='45px'
+          onClick={toggleAddMeetingModal}
+        >
+          {'Cancel'}
+        </Button>
+        <Button
+          color='white'
+          bgColor= {Colors.cyan}
+          fontSize='12px'
+          margin={true}
+          width='45px'
+          onClick={()=>console.log()}
+        >
+          {'Save'}
+        </Button>
+        
+      </NewMeetingStyles.ActionButtons>
     )
   }
 }

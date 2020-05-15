@@ -5,7 +5,7 @@ const Wrapper = styled.div`
     flex-direction: ${(props) => props.contentOnOneLine ? 'row' : 'column'};
     align-items: ${(props) => props.contentOnOneLine ? 'center' : ''};
     font-size: 13px;
-    margin: 10px 0;
+    margin: 10px 0 5px 0;
 `;
 
 const Label = styled.div`

@@ -6,6 +6,7 @@ const Container = styled.div`
     background: white;
     position: relative;
     box-shadow: 0px 0px 2px grey;
+    margin-right: 5px;
     
 `;
 
@@ -26,6 +27,9 @@ const Search = styled.input`
     padding: 9px;
     width: 80%;
     box-sizing: border-box;
+    &:disabled{
+        background: white;
+    }
 `;
 
 

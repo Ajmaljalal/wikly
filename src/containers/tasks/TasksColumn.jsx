@@ -106,10 +106,10 @@ class TasksColumn extends React.PureComponent {
         <HeaderTitle>{column.title}</HeaderTitle>
         <HeaderIconsWrapper>
           <ActionButton>
-            <img src={plusIcon} />
+            <img src={plusIcon} alt='add'/>
           </ActionButton>
           <ActionButton>
-            <img src={moreIcon} />
+            <img src={moreIcon} alt='more'/>
           </ActionButton>
         </HeaderIconsWrapper>
       </ColumnHeader>

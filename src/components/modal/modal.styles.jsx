@@ -34,10 +34,10 @@ const Header = styled.div`
     padding: 10px 15px;
     background: #F0F2F5;
     font-weight: bold;
-    box-shadow: 0px 0px 2px grey;
+    border-bottom: 1px solid lightgrey;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    img {
+    svg {
         width: 20px;
         height: 20px;
         cursor: pointer;

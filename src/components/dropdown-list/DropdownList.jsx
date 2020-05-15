@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import onClickOutside from "react-onclickoutside";
 import arrowDownIcon from '../../assets/icons/caret-down.svg'
 import { DropdownStyles } from './dropdown.styles'
 
@@ -7,17 +8,22 @@ class DropdownList extends Component {
     isOpen: false
   }
 
+  handleClickOutside = (evt) => {
+    this.setState({
+      isOpen: false
+    })
+  }
   toggleDropDown = () => {
     this.setState({
       isOpen: !this.state.isOpen
     })
   }
   render() {
-    const { width } = this.props
+    const { width, placeholder, searchAble } = this.props
     return (
       <DropdownStyles.Container width={width}>
         <DropdownStyles.Header onClick={this.toggleDropDown}>
-          <DropdownStyles.Search placeholder={'Select users'}/>
+          <DropdownStyles.Search placeholder={placeholder} disabled={!searchAble}/>
           <DropdownStyles.Arrow>
             <img src={arrowDownIcon} alt='dropdown-menu-icon' />
           </DropdownStyles.Arrow>
@@ -28,10 +34,10 @@ class DropdownList extends Component {
   }
 
   renderBody = () => {
-    const { children, position } = this.props
+    const { children, position, closeOnClick } = this.props
     if (this.state.isOpen) {
       return (
-        <DropdownStyles.Body onClick={this.toggleDropDown} position={position}>
+        <DropdownStyles.Body onClick={ closeOnClick ? this.toggleDropDown : null} position={position}>
           {children}
         </DropdownStyles.Body>
       )
@@ -39,4 +45,4 @@ class DropdownList extends Component {
   }
 }
 
-export default DropdownList
+export default onClickOutside(DropdownList)

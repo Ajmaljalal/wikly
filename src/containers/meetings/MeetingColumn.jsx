@@ -53,10 +53,10 @@ const renderColumnHeader = (formatedDate, title) => {
       <HeaderTitle isToday={title === 'TODAY' ? true : false}>{formatedDate}</HeaderTitle>
       <HeaderIconsWrapper>
         <ActionButton>
-          <img src={plusIcon} />
+          <img src={plusIcon} alt='add' />
         </ActionButton>
         <ActionButton>
-          <img src={moreIcon} />
+          <img src={moreIcon} alt='more' />
         </ActionButton>
       </HeaderIconsWrapper>
     </MeetingsColumnHeader>

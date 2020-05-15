@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 // import { persistStore } from 'redux-persist';
 import { getFirestore, reduxFirestore } from 'redux-firestore';
-import { getFirebase } from 'react-redux-firebase';
-import logger from 'redux-logger';
+// import { getFirebase } from 'react-redux-firebase';
+// import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import firebase from '../firebase/firebase-config'
 

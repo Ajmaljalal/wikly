@@ -41,7 +41,7 @@ export default class MeetingDetails extends PureComponent {
         <MeetingTime>{getTimeFromDate(meeting.startTime)} - {getTimeFromDate(meeting.endTime)}</MeetingTime>
         <Options>
           Manage meeting
-          <img src={arrowDownIcon}/>
+          <img src={arrowDownIcon} alt='arrow-down'/>
         </Options>
         {this.renderMeetingDetails()}
       </Container>
@@ -54,7 +54,7 @@ export default class MeetingDetails extends PureComponent {
       <ContainerHeader>
         <MeetingTitle>{title}</MeetingTitle>
         <CloseButton onClick={onClose}>
-          <img src={closeIcon} alt='close icon' />
+          <img src={closeIcon} alt='close-icon' />
         </CloseButton>
       </ContainerHeader>
     )

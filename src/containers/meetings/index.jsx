@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Colors } from '../../assets/colors'
 import { createMeeting } from '../../redux/meetings/meetingsActions'
 import { getCurrentWeek } from '../../helpers/getDate'
 import ContentHeader from '../../components/content-header/index'
@@ -54,7 +55,7 @@ class Meetings extends PureComponent {
             {this.renderColumns()}
           </ColumnsContainer>
         </Container>
-         <CreateNewMeeting toggleAddMeetingModal={this.toggleAddMeetingModal} /> 
+         { isAddMeetingModalOpen ? <CreateNewMeeting toggleAddMeetingModal={this.toggleAddMeetingModal} /> : null }
       </BodyContainer>
     )
   }
@@ -63,7 +64,11 @@ class Meetings extends PureComponent {
     return (
       <Header>
         <ContentHeader title={'Meetings'} />
-        <Button color='primary' onClick={this.toggleAddMeetingModal}>
+        <Button
+          color='white'
+          bgColor={Colors.cyan}
+          fontSize='12px'
+          onClick={this.toggleAddMeetingModal}>
           <FontAwesomeIcon icon='plus' color='white' />Add Meeting
         </Button>
       </Header>

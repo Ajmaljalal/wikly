@@ -29,7 +29,7 @@ const renderMessageImage = (image) => {
   if (image) {
     return (
       <MessageAttachment>
-        <img src={image} />
+        <img src={image} alt='dummy'/>
       </MessageAttachment>
     )
   } return null
