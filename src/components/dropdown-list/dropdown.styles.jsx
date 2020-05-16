@@ -49,7 +49,7 @@ const Arrow = styled.div`
 const Body = styled.div`
     width: 100%;
     height: auto;
-    max-height: 250px;
+    max-height: 200px;
     background: white;
     box-sizing: border-box;
     overflow-x: hidden;

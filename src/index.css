@@ -8,10 +8,12 @@ body {
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
   }
   p, h1, div, a, img{
     margin: 0;
     padding:0;
+    scroll-behavior: smooth;
   }
   
   code {

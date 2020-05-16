@@ -10,11 +10,12 @@ const Modal = ({
   onClose,
   withHeader,
   headerText,
-  siz,
+  width,
+  height,
 }) => {
   return (
     <ModalStyles.Overlay>
-      <ModalStyles.Content>
+      <ModalStyles.Content width={width} height={height}>
         <ModalStyles.Header>
           {headerText}
           {/* <img src={closeIcon} alt='close-icon' onClick={onClose}/> */}

@@ -9,7 +9,7 @@ const InputsGroup = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 35%;
+    width: 40%;
     height: 20px;
     margin-top: 10px;
 `;
@@ -86,11 +86,59 @@ const InviteeRole = styled.div`
     margin-top: 2px;
     color: grey;
 `;
+
+const RecurrenceOptions = styled.div`
+    margin-top: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    padding: 0 10px;
+    
+`;
+
+const RecurrenceTitle = styled.div`
+    font-size: 12px;
+    font-weight:500;
+
+`;
+
+const RecurrenceRepeatEvery = styled.div`
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 68%;
+    height: 30px;
+`;
+
+const RecurrenceRepeatOn = styled.div`
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // width: 80%;
+    height: 30px;
+
+`;
+
+const RecurrenceEnds = styled.div`
+    font-size: 12px;
+    height: 50px;
+`;
+
 const ActionButtons = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     flex: 1;
+`;
+
+const EmptyFormError = styled.p`
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    margin-top: 10px;
 `;
 
 
@@ -105,6 +153,11 @@ export const NewMeetingStyles = {
     InviteeNameAndRole,
     InviteeName,
     InviteeRole,
-    ActionButtons,
-    
+    RecurrenceOptions,
+    RecurrenceTitle,
+    RecurrenceRepeatEvery,
+    RecurrenceRepeatOn,
+    RecurrenceEnds,
+    ActionButtons,   
+    EmptyFormError
 }

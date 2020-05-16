@@ -43,7 +43,7 @@ export default class MeetingDetails extends PureComponent {
           Manage meeting
           <img src={arrowDownIcon} alt='arrow-down'/>
         </Options>
-        {this.renderMeetingDetails()}
+        {this.renderMeetingDetails(meeting)}
       </Container>
     )
   }
@@ -60,14 +60,14 @@ export default class MeetingDetails extends PureComponent {
     )
   }
 
-  renderMeetingDetails = () => {
+  renderMeetingDetails = (meeting) => {
     return (
       <DetialsContainer>
         <Tab>
-          <TabItem htmlFor='agenda' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('agenda')}>Agenda</TabItem>
-          <TabItem htmlFor='notes' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('notes')}>Notes</TabItem>
-          <TabItem htmlFor='resources' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('resources')}>Resources (3)</TabItem>
-          <TabItem htmlFor='invitees' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('invitees')}>Invitees (10)</TabItem>
+          <TabItem htmlFor='agenda' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('agenda')}>Agenda ({meeting.agenda})</TabItem>
+          <TabItem htmlFor='notes' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('notes')}>Notes ({meeting.notes})</TabItem>
+          <TabItem htmlFor='resources' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('resources')}>Resources ({meeting.attachments})</TabItem>
+          <TabItem htmlFor='invitees' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('invitees')}>Invitees ({meeting.invitees})</TabItem>
         </Tab>
         {this.renderTabItemDetails()}
       </DetialsContainer>

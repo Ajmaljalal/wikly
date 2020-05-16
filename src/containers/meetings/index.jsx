@@ -31,20 +31,6 @@ class Meetings extends PureComponent {
     })
   }
 
-  componentDidMount() {
-    // this.props.createNewMeeting({
-    //   id: (Math.random()*1000+Math.random()*2000).toString(),
-    //   agenda: 9,
-    //   attachements: 3,
-    //   date: '5/12/2020',
-    //   startTime: new Date().toLocaleTimeString(),
-    //   endTime: new Date().toLocaleTimeString(),
-    //   invitees: 10,
-    //   notes: 4,
-    //   title: 'Should work on budget',
-    //   recuring: true
-    // })
-  }
   render() {
     const { isAddMeetingModalOpen } = this.state
     return (

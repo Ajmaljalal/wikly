@@ -34,7 +34,6 @@ export const MeetingTime = styled.div`
   width: 90%;
 `
 export const MoreIconWrapper = styled.div`
-  background: lightgrey;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,12 +41,16 @@ export const MoreIconWrapper = styled.div`
   height: 15px;
   padding: 3px;
   border-radius: 10px;
-  img {
+  &:hover {
+    background: #F0F2F5;
+  }
+  svg {
+    font-size: 12px;
     width: 15px;
   }
 `
 export const MeetinBody = styled.div`
-  min-height:95px;
+  min-height:100px;
   min-width: 130px;
   display: flex;
   flex-direction: column;
@@ -88,7 +91,8 @@ export const FooterItem = styled.div`
   display:flex;
   align-items: flex-end;
   cursor: pointer;
-  img {
+  svg {
+    font-size: 14px;
     width: 15px;
     margin-right: 3px;
   }

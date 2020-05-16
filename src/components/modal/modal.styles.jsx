@@ -19,8 +19,8 @@ const Content = styled.div`
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    width: 500px;
-    height: 80%;
+    width: ${(props)=>props.width};
+    height: ${(props)=>props.height};
     transform: translateY(-50%);
     transform: translateX(-50%);
     box-shadow: 0px 0px 4px black;

@@ -7,12 +7,15 @@ class DropdownList extends Component {
   state = {
     isOpen: false
   }
+  container = React.createRef()
 
   handleClickOutside = (evt) => {
     this.setState({
       isOpen: false
     })
   }
+  setClickOutsideRef = () => this.container.current // this is necessiary for removign findDOMNode deprication warning 
+
   toggleDropDown = () => {
     this.setState({
       isOpen: !this.state.isOpen
@@ -21,7 +24,7 @@ class DropdownList extends Component {
   render() {
     const { width, placeholder, searchAble } = this.props
     return (
-      <DropdownStyles.Container width={width}>
+      <DropdownStyles.Container width={width} ref={this.container}>
         <DropdownStyles.Header onClick={this.toggleDropDown}>
           <DropdownStyles.Search placeholder={placeholder} disabled={!searchAble}/>
           <DropdownStyles.Arrow>

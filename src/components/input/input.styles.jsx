@@ -9,8 +9,9 @@ const Wrapper = styled.div`
 `;
 
 const Label = styled.div`
-    font-weight: bold;
+    font-weight: 500;
     margin-bottom: 5px;
+    margin-right: 5px;
 `;
 
 const InputField = styled.input`

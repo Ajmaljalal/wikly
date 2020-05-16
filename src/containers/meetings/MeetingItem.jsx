@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
 import MeetingDetails from './MeetingDetails'
 import {
@@ -13,10 +14,6 @@ import {
   FooterItem,
   MeetingFooter
 } from './meetingItem.styles'
-import participantsIcon from './assets/participants.svg'
-import notesIcon from '../../assets/icons/notes.svg'
-import attachIcon from '../../assets/icons/attach.svg'
-import agendaIcon from './assets/agenda.svg'
 import horizontalMoreIcon from '../../assets/icons/horizontal-more.svg'
 
 class MeetingItem extends React.PureComponent {
@@ -55,7 +52,7 @@ class MeetingItem extends React.PureComponent {
           {getTimeFromDate(startTime)} - {getTimeFromDate(endTime)}
         </MeetingTime>
         <MoreIconWrapper onClick={()=>console.log('clicked')}>
-          <img src={horizontalMoreIcon} alt='more-icon' />
+          <FontAwesomeIcon icon='ellipsis-v' />
         </MoreIconWrapper>
       </MeetingHeader>
     )
@@ -74,7 +71,7 @@ class MeetingItem extends React.PureComponent {
       <MeetinBody onClick={this.toggleMeetingDetailsModal}>
         <MeetingTitle>{title}</MeetingTitle>
         <MeetingHost>
-          <span>By: {scheduler.name}</span>
+          {/* <span>By: {scheduler.name}</span> */}
           <Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</Status>
         </MeetingHost>
       </MeetinBody>
@@ -84,23 +81,20 @@ class MeetingItem extends React.PureComponent {
   renderFooter = (meeting) => {
     return (
       <MeetingFooter>
-        <FooterItem>
-          <img src={participantsIcon} alt='participants-icon' />
-          {meeting.invitees}
-        </FooterItem>
-        <FooterItem>
-          <img src={agendaIcon} alt='agenda-icon' />
-          {meeting.agenda}
-        </FooterItem>
-        <FooterItem>
-          <img src={attachIcon} alt='attachments-icon' />
-          {meeting.attachments}
-        </FooterItem>
-        <FooterItem>
-          <img src={notesIcon} alt='notes-icon' />
-          {meeting.notes}
-        </FooterItem>
+        {this.renderFooterItem('users', meeting.invitees)}
+        {this.renderFooterItem('clipboard', meeting.agenda)}
+        {this.renderFooterItem('paperclip', meeting.attachments)}
+        {this.renderFooterItem('sticky-note', meeting.notes)}
       </MeetingFooter>
+    )
+  }
+
+  renderFooterItem = (iconText, item) => {
+    return (
+      <FooterItem>
+        <FontAwesomeIcon icon={iconText} size='lg'/>
+        {item}
+      </FooterItem>
     )
   }
 }

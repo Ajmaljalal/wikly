@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { createMeeting } from '../../redux/meetings/meetingsActions'
 import { findInArrayOfObjects } from '../../helpers/arrays'
 import Modal from '../../components/modal/Modal'
 import Input from '../../components/input/Input'
@@ -11,40 +13,78 @@ import { NewMeetingStyles } from './createNewMeeting.styles'
 class CreateNewMeeting extends Component {
 
   state = {
-    startDateAndTime: null,
-    invitedMembers: [],
-
+    newMeeting: {
+      invitedMembers: [],
+      title: '',
+      date: '',
+      startTime: '',
+      endTime: '',
+      url: '',
+      frequency: 'oneTime',
+      repeatEvery: '',
+      repeatOn: '',
+      endDate: ''
+    },
+    emptyFormError: '',
   }
 
-  selectDateAndTime = (date) => {
+
+  scheduleNewMeeting = async () => {
+    const { title, date, startTime, invitedMembers } = this.state.newMeeting
+    if (title && date && startTime && invitedMembers.length) {
+      await this.props.createNewMeeting({
+        id: (Math.random()*1000+Math.random()*2000).toString(),
+        agenda: 0,
+        notes: 0,
+        attachements: 0,
+        invitees: this.state.newMeeting.invitedMembers.length,
+       ...this.state.newMeeting
+      })
+      this.props.toggleAddMeetingModal()
+    } else {
+      this.setState({
+        emptyFormError: 'Empty form! title, date, start time and inviting at least one person is required'
+      })
+    }
+  }
+
+  handleInputeChange = (e) => {
+    const { newMeeting } = this.state
+    const meeting = newMeeting
+    meeting[e.target.name] = e.target.value
     this.setState({
-      startDateDateAndTime: date
+      newMeeting: meeting
     })
   }
 
   addAllMembers = (members) => (e) => {
-    const { invitedMembers } = this.state
-    if (invitedMembers.length === members.length) {
+    const { newMeeting } = this.state
+    const meeting = newMeeting
+    if (meeting.invitedMembers.length === members.length) {
+      meeting.invitedMembers = []
       this.setState({
-        invitedMembers: []
+        newMeeting: meeting
       })
     } else {
+      meeting.invitedMembers = members
       this.setState({
-        invitedMembers: members
+        newMeeting: meeting
       })
     }
   }
 
   addOrRemoveMember = (member, isInvited) => (e) => {
-    const { invitedMembers } = this.state
-    const newMembers = invitedMembers
+    const { newMeeting } = this.state
+    const meeting = newMeeting
+    const newMembers = meeting.invitedMembers
     if (isInvited) {
       newMembers.splice(newMembers.findIndex(v => v.name === member.name), 1);
     } else {
       newMembers.push(member)
     }
+    meeting.invitedMembers = newMembers
     this.setState({
-      invitedMembers: newMembers
+      newMeeting: meeting
     })
   }
 
@@ -54,6 +94,8 @@ class CreateNewMeeting extends Component {
       <Modal
         onClose={toggleAddMeetingModal}
         headerText='Schedule a Meeting'
+        width='500px'
+        height='72%'
       >
         {this.renderForm()}
       </Modal>
@@ -61,6 +103,8 @@ class CreateNewMeeting extends Component {
   }
 
   renderForm = () => {
+    const {title, url} = this.state.newMeeting
+    const { emptyFormError } = this.state
     const options = [
       {
         "id": "f8bf518c-9285-4330-895a-afb36009020a",
@@ -75,83 +119,58 @@ class CreateNewMeeting extends Component {
         "initials": "RH",
         "username": "Oda.Jakubowski",
         "email": "Cecelia_Schroeder@yahoo.com",
-      },
-      {
-        "id": "bb647381-91d3-42fa-983d-f663bbdd306c",
-        "name": "Mario Thompson",
-        "initials": "MT",
-        "username": "May26",
-        "email": "Marley.McDermott@hotmail.com",
-      },
-      {
-        "id": "bb647381-91d3-42fa-983d-f663bbrewqd306c",
-        "name": "Mario Thompweson",
-        "initials": "MT",
-        "username": "May26",
-        "email": "Marley.McDermott@hotmail.com",
-      },
-      {
-        "id": "bb647381-91d3-42fa-983d-f663bereqbdd306c",
-        "name": "Mario Thomphtson",
-        "initials": "MT",
-        "username": "May26",
-        "email": "Marley.McDermott@hotmail.com",
-      },
-      {
-        "id": "bb647381-91d3-42fa-983der3-f663bbdd306c",
-        "name": "Mario Thompso45n",
-        "initials": "MT",
-        "username": "May26",
-        "email": "Marley.McDermott@hotmail.com",
-      },
-      {
-        "id": "bb647381-91d3-42343fa-983d-f663bbdd306c",
-        "name": "Mario Thompso233n",
-        "initials": "MT",
-        "username": "May26",
-        "email": "Marley.McDermott@hotmail.com",
       }
     ]
     return (
-      <NewMeetingStyles.Form>
+      <NewMeetingStyles.Form onChange={this.handleInputeChange}>
         <Input
+          name='title'
+          value={title}
           label='Title'
           required='true'
           placeholder='Enter a title for the meeting'
         />
         {this.renderSelectDateTime()}
         <Input
-          label='Url'
+          name='url'
+          value={url}
+          label='Url (e.g. zoom meeting url)'
           required='true'
           placeholder='Past any relevant url here'
         />
         {this.renderInvitePeopleButtons(options)}
         {this.renderInvitedPeople()}
-        {this.renderCheckBoxes()}
+        {this.renderFrequencyOptions()}
+        {this.renderRecurringMeetingOptions()}
+        {emptyFormError ? <NewMeetingStyles.EmptyFormError>{emptyFormError}</NewMeetingStyles.EmptyFormError> : null}
         {this.renderActionButtons()}
       </NewMeetingStyles.Form>
     )
   }
 
   renderSelectDateTime = () => {
+    const { date, startTime, endTime } = this.state.newMeeting
     return (
       <NewMeetingStyles.DateTime>
         <Input
+          name='date'
+          value={date}
           label='Date'
           required='true'
-          placeholder='Enter a title for the meeting'
           type='date'
         />
         <Input
+          name='startTime'
+          value={startTime}
           label='Start time'
           required='true'
-          placeholder='Enter a title for the meeting'
           type='time'
         />
         <Input
+          name='endTime'
+          value={endTime}
           label='End time'
           required='true'
-          placeholder='Enter a title for the meeting'
           type='time'
         />
       </NewMeetingStyles.DateTime>
@@ -159,7 +178,7 @@ class CreateNewMeeting extends Component {
   }
 
   renderInvitePeopleButtons = (options) => {
-    const { invitedMembers } = this.state
+    const { invitedMembers } = this.state.newMeeting
     const isAllInvited = invitedMembers.length === options.length
     const btnText = isAllInvited ? 'Remove All' : 'Invite All'
     const bgColor = isAllInvited ? Colors.pumpkin : Colors.cyan
@@ -179,11 +198,11 @@ class CreateNewMeeting extends Component {
   }
 
   renderInvitedPeople = () => {
-    const { invitedMembers } = this.state
+    const { invitedMembers } = this.state.newMeeting
     if (invitedMembers.length) {
       return (
         <NewMeetingStyles.InvitedList>
-          {this.state.invitedMembers.map(member => {
+          {this.state.newMeeting.invitedMembers.map(member => {
             return <NewMeetingStyles.Invited key={member.id}>{member.name}</NewMeetingStyles.Invited>
           })}
         </NewMeetingStyles.InvitedList>
@@ -210,11 +229,11 @@ class CreateNewMeeting extends Component {
   }
 
   renderInviteesDropDownListItem = (member) => {
-    const { invitedMembers } = this.state
+    const { invitedMembers } = this.state.newMeeting
     const isInvited = findInArrayOfObjects(invitedMembers, 'name', member.name)
     const btnText = isInvited ? 'Remove' : 'Invite'
     return (
-      <NewMeetingStyles.InviteesListItem>
+      <NewMeetingStyles.InviteesListItem key={member.initials}>
         <Avatar
           type='circle'
           size='30px'
@@ -238,23 +257,25 @@ class CreateNewMeeting extends Component {
     )
   }
 
-  renderCheckBoxes = () => {
+  renderFrequencyOptions = () => {
+    const { frequency } = this.state.newMeeting
     return (
       <NewMeetingStyles.InputsGroup>
         <Input
-          label='Recurring'
-          name='repeat'
+          label='One-Time'
+          name='frequency'
+          value='oneTime'
+          checked={frequency === 'oneTime'}
           required='true'
-          placeholder='Enter a title for the meeting'
           type='radio'
           oneLine={true}
         />
         <Input
-          label='One time'
-          name='repeat'
-          selected
+          label='Recurring'
+          name='frequency'
+          value='recurring'
+          checked={frequency === 'recurring'}
           required='true'
-          placeholder='Enter a title for the meeting'
           type='radio'
           oneLine={true}
         />
@@ -262,6 +283,84 @@ class CreateNewMeeting extends Component {
     )
   }
 
+  renderRecurringMeetingOptions = () => {
+    const { frequency } = this.state.newMeeting
+    if (frequency === 'recurring') {
+      return (
+        <NewMeetingStyles.RecurrenceOptions>
+          {this.renderRepeatEveryOptions()}
+          {this.renderRepeatOnOptions()}
+          {this.renderEndDate()}
+        </NewMeetingStyles.RecurrenceOptions>
+      )
+    }
+  }
+
+  renderRepeatEveryOptions = () => {
+    const repeatOptions = ['day', 'week', 'month']
+    return (
+      <NewMeetingStyles.RecurrenceRepeatEvery>
+        Repeat every: 
+        {repeatOptions.map((option) => {
+          return (
+            <Input
+              name='repeatEvery'
+              value={option}
+              label={option}
+              required='true'
+              type='radio'
+              oneLine='true'
+              key={option}
+            />
+          )
+        })} 
+    </NewMeetingStyles.RecurrenceRepeatEvery>
+    )
+  }
+
+  renderRepeatOnOptions = () => {
+    const { repeatEvery } = this.state.newMeeting
+    const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+    if (repeatEvery === 'week') {
+      return (
+        <NewMeetingStyles.RecurrenceRepeatOn>
+          Repeat on:
+          {weekDays.map((day) => {
+            return (
+              <Input
+                name='repeatOn'
+                value={day}
+                label={day}
+                required='true'
+                type='radio'
+                oneLine='true'
+                key={day}
+              />
+            )
+          })}
+        </NewMeetingStyles.RecurrenceRepeatOn>
+
+      )
+    }
+  }
+
+  renderEndDate = () => {
+    const { endDate } = this.state.newMeeting
+      return (
+        <NewMeetingStyles.RecurrenceEnds>
+          <Input
+            name='endDate'
+            value={endDate}
+            label='End date:'
+            required='true'
+            type='date'
+            oneLine={true}
+          />
+        </NewMeetingStyles.RecurrenceEnds>
+
+      )
+    
+  }
   renderActionButtons = () => {
     const { toggleAddMeetingModal } = this.props
     return (
@@ -282,7 +381,7 @@ class CreateNewMeeting extends Component {
           fontSize='12px'
           margin={true}
           width='45px'
-          onClick={()=>console.log()}
+          onClick={this.scheduleNewMeeting}
         >
           {'Save'}
         </Button>
@@ -292,4 +391,10 @@ class CreateNewMeeting extends Component {
   }
 }
 
-export default CreateNewMeeting;
+const mapDispatchTProps = (disptach) => {
+  return {
+    createNewMeeting: (meeting) => disptach(createMeeting(meeting))
+  }
+}
+
+export default connect(null, mapDispatchTProps)(CreateNewMeeting);

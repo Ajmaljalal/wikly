@@ -3,7 +3,7 @@ import { InputStyles } from './input.styles'
 
 class Input extends PureComponent {
   render() {
-    const { placeholder, type, label, required, onChange, height, oneLine, name, selected } = this.props
+    const { placeholder, type, label, required, onChange, height, oneLine, name, selected, value } = this.props
     return (
       <InputStyles.Wrapper contentOnOneLine={oneLine}>
         <InputStyles.Label>{label}</InputStyles.Label>
@@ -14,6 +14,7 @@ class Input extends PureComponent {
           onChange={onChange}
           height={height}
           name={name}
+          value={value}
           selected={selected}
         />
       </InputStyles.Wrapper>
