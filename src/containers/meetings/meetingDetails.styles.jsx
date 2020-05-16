@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-export const Container = styled.div`
+const Container = styled.div`
     position: absolute;
     top: 0;
     right: 2px;
@@ -9,45 +9,52 @@ export const Container = styled.div`
     padding: 5px 15px;
     box-shadow: 0px 0px 4px grey;
 
-`; 
+`;
 
-export const ContainerHeader = styled.div`
+const ContainerHeader = styled.div`
     display: flex;
 `;
 
-export const CloseButton = styled.div`
+const CloseButton = styled.div`
     width: 10%;
     display: flex;
     justify-content: flex-end;
     margin-top: 5px;
-    img {
+    cursor: pointer;
+    svg {
         width: 20px;
         height: 20px;
-        cursor: pointer;
     }
 `;
 
-export const MeetingTitle = styled.div`
+const MeetingTitle = styled.div`
     width: 90%;
     font-weight: bold;
     padding-top:10px; 
     font-size: 14px; 
 `;
-export const MeetingTime = styled.div`
+const MeetingTime = styled.div`
     width: 90%;
     color: gray;
     font-size: 12px;
     margin-top: 5px;
 `;
 
-export const DetialsContainer = styled.div`
+const Status = styled.span`
+    font-weight: 500;
+    color: ${(props) => props.starts ? '#74E113' : 'red'};
+    font-size: 12px;
+    margin-left: 5px;
+`;
+
+const DetialsContainer = styled.div`
     width: 100%;
     height: 75%;
     margin-top: 20px;
     box-sizing: border-box;
 `;
 
-export const Options = styled.div`
+const Options = styled.div`
     display: flex;
     align-items: center;
     padding: 5px 10px;
@@ -64,14 +71,14 @@ export const Options = styled.div`
     }
 `;
 
-export const Tab = styled.div`
+const Tab = styled.div`
     width: 100%;
     display: flex;
     font-size: 12px;
     border-bottom: 1px solid purple;
 `;
 
-export const TabItem = styled.div`
+const TabItem = styled.div`
     font-siz: 14px;
     font-weight: bold;
     padding: 5px 10px;
@@ -84,10 +91,24 @@ export const TabItem = styled.div`
     cursor: pointer;
 `;
 
-export const TabItemDetails = styled.div`
+const TabItemDetails = styled.div`
     width: 100%;
     height: 100px;
     display: flex;
     margin-top: 20px;
 `;
+
+export const MeetingDetailsStyles = {
+    Container,
+    CloseButton,
+    MeetingTitle,
+    ContainerHeader,
+    MeetingTime,
+    Status,
+    DetialsContainer,
+    Options,
+    Tab,
+    TabItem,
+    TabItemDetails
+}
 

@@ -14,7 +14,11 @@ export const createMeeting = (meeting) => {
         ...meeting,
         startTime: new Date(startTimeWithDate),
         endTime: new Date(endTimeWithDate),
-        date: formatedDate
+        date: formatedDate,
+        schduler: {
+          id: 'user id',
+          name: 'Ajmal Jalal'
+        }
     }).then(() => {
       dispatch({ type: 'CREATE_MEETING_SUCCESS', payload: meeting });
     }).catch(err => {

@@ -2,19 +2,7 @@ import React, { Fragment } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
 import MeetingDetails from './MeetingDetails'
-import {
-  MeetingContainer,
-  MeetingHeader,
-  MeetingTime,
-  MoreIconWrapper,
-  MeetinBody,
-  MeetingTitle,
-  MeetingHost,
-  Status,
-  FooterItem,
-  MeetingFooter
-} from './meetingItem.styles'
-import horizontalMoreIcon from '../../assets/icons/horizontal-more.svg'
+import { MeetingItemStyles } from './meetingItem.styles'
 
 class MeetingItem extends React.PureComponent {
   constructor() {
@@ -35,11 +23,11 @@ class MeetingItem extends React.PureComponent {
     const { meeting } = this.props
     return (
       <Fragment>
-        <MeetingContainer isFocused={openMeetingDetails}>
+        <MeetingItemStyles.MeetingContainer isFocused={openMeetingDetails}>
           {this.renderHeader(meeting.startTime, meeting.endTime)}
           {this.renderBody(meeting.title, meeting.scheduler, meeting.startTime, meeting.endTime)}
           {this.renderFooter(meeting)}
-        </MeetingContainer>
+        </MeetingItemStyles.MeetingContainer>
         {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal} meeting={meeting} /> : null}
       </Fragment>
     )
@@ -47,14 +35,14 @@ class MeetingItem extends React.PureComponent {
 
   renderHeader = (startTime, endTime) => {
     return (
-      <MeetingHeader>
-        <MeetingTime>
+      <MeetingItemStyles.MeetingHeader>
+        <MeetingItemStyles.MeetingTime>
           {getTimeFromDate(startTime)} - {getTimeFromDate(endTime)}
-        </MeetingTime>
-        <MoreIconWrapper onClick={()=>console.log('clicked')}>
+        </MeetingItemStyles.MeetingTime>
+        <MeetingItemStyles.MoreIconWrapper onClick={()=>console.log('clicked')}>
           <FontAwesomeIcon icon='ellipsis-v' />
-        </MoreIconWrapper>
-      </MeetingHeader>
+        </MeetingItemStyles.MoreIconWrapper>
+      </MeetingItemStyles.MeetingHeader>
     )
   }
 
@@ -68,33 +56,33 @@ class MeetingItem extends React.PureComponent {
       status = 'Meeting Ended'
     }
     return (
-      <MeetinBody onClick={this.toggleMeetingDetailsModal}>
-        <MeetingTitle>{title}</MeetingTitle>
-        <MeetingHost>
-          {/* <span>By: {scheduler.name}</span> */}
-          <Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</Status>
-        </MeetingHost>
-      </MeetinBody>
+      <MeetingItemStyles.MeetinBody onClick={this.toggleMeetingDetailsModal}>
+        <MeetingItemStyles.MeetingTitle>{title}</MeetingItemStyles.MeetingTitle>
+        <MeetingItemStyles.MeetingHost>
+          <span>By: {scheduler.name}</span>
+          <MeetingItemStyles.Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</MeetingItemStyles.Status>
+        </MeetingItemStyles.MeetingHost>
+      </MeetingItemStyles.MeetinBody>
     )
   }
 
   renderFooter = (meeting) => {
     return (
-      <MeetingFooter>
+      <MeetingItemStyles.MeetingFooter>
         {this.renderFooterItem('users', meeting.invitees)}
         {this.renderFooterItem('clipboard', meeting.agenda)}
         {this.renderFooterItem('paperclip', meeting.attachments)}
         {this.renderFooterItem('sticky-note', meeting.notes)}
-      </MeetingFooter>
+      </MeetingItemStyles.MeetingFooter>
     )
   }
 
   renderFooterItem = (iconText, item) => {
     return (
-      <FooterItem>
+      <MeetingItemStyles.FooterItem>
         <FontAwesomeIcon icon={iconText} size='lg'/>
         {item}
-      </FooterItem>
+      </MeetingItemStyles.FooterItem>
     )
   }
 }
