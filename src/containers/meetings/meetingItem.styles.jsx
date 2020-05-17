@@ -37,10 +37,10 @@ const MoreIconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   padding: 3px;
-  border-radius: 10px;
+  border-radius: 50%;
   &:hover {
     background: #F0F2F5;
   }
@@ -57,10 +57,17 @@ const MeetinBody = styled.div`
   justify-content: space-between;
 `;
 const MeetingTitle = styled.div`
-  height: 40px;
-  max-height: 40px;
+  height: 55px;
+  max-height: 55px;
   font-size: 14px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  span {
+    margin-left: 3px;
+    width: 20px;
+  }
 `;
 const MeetingHost = styled.div`
   padding:3px;
@@ -106,6 +113,7 @@ export const MeetingItemStyles = {
   MeetinBody,
   MeetingTitle,
   MeetingHost,
+  Scheduler,
   Status,
   FooterItem,
   MeetingFooter

@@ -35,10 +35,8 @@ export const Column = styled.div`
   width: ${props => props.width};
   height: 98;
   max-height: 98%;
-  // margin-right: ${props => props.marginRight ? props.marginRight : '0'};
   border: ${props => props.isDraggingOver ? '2px dashed purple' : '1px solid #AEABAB'};
   border-radius: 5px;
-  padding: 8px;
   user-select: none;
   background: #E6E7E9;
   box-sizing: border-box;

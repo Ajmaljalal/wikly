@@ -1,25 +1,26 @@
 import React, { memo } from 'react'
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getTodayDate } from '../../helpers/getDate'
-import {
-  MeetingsColumnHeader,
-  HeaderTitle,
-  HeaderIconsWrapper,
-  ActionButton,
-  Divider,
-  ColumnBody
-} from './index.styles'
+import { ColumnStyles } from './meetingColumn.styles'
 import { Column } from '../../components/common.styles'
 
 import MeetingItem from './MeetingItem'
 
-import plusIcon from '../../assets/icons/plus-icon.svg'
-import moreIcon from '../../assets/icons/more-icon.svg'
 
+const isMeetingInColumn = (meeting, day, date) => {
+  if (
+    meeting &&
+    (meeting.date === date ||
+    (meeting.frequency === 'recurring' && meeting.repeatEvery === 'day') ||
+    (meeting.frequency === 'recurring' && meeting.repeatEvery === 'week' && meeting.repeatOn === day) || 
+    (meeting.frequency === 'recurring' && meeting.repeatEvery === 'month' && meeting.date.split('/')[1] === date.split('/')[1]))
+  ) {
+    return true
+  } else return false
+}
 
-
-
-function MeetingColumn({ date, meetings }) {
+const MeetingColumn = ({ date, day, meetings, onAddMeeting }) => {
   const meetingsOnCurrentDate = []
   const today = getTodayDate()
   const title = date === today ? 'TODAY' : date
@@ -29,40 +30,43 @@ function MeetingColumn({ date, meetings }) {
   }
   if (meetings) {
     Object.keys(meetings).forEach(meetingId => {
-      if (meetings[meetingId].date === date) {
+      if (isMeetingInColumn(meetings[meetingId], day, date)) {
         meetingsOnCurrentDate.push(meetings[meetingId])
-      }
+      }   
     })
   }
+  
   return (
     <Column width={'18%'}>
-      {renderColumnHeader(formatedDate, title)}
-      <Divider />
-      <ColumnBody>
+      {renderColumnHeader(formatedDate, title, day, onAddMeeting)}
+      <ColumnStyles.ColumnBody>
         {renderColumnBody(meetingsOnCurrentDate)}
-      </ColumnBody>
+      </ColumnStyles.ColumnBody>
     </Column>
   )
 }
 
-const renderColumnHeader = (formatedDate, title) => {
+const renderColumnHeader = (formatedDate, title, day, onAddMeeting) => {
   return (
-    <MeetingsColumnHeader>
-      <HeaderTitle isToday={title === 'TODAY' ? true : false}>{formatedDate}</HeaderTitle>
-      <HeaderIconsWrapper>
-        <ActionButton>
-          <img src={plusIcon} alt='add' />
-        </ActionButton>
-        <ActionButton>
-          <img src={moreIcon} alt='more' />
-        </ActionButton>
-      </HeaderIconsWrapper>
-    </MeetingsColumnHeader>
+    <ColumnStyles.MeetingsColumnHeader>
+      <ColumnStyles.HeaderTitle isToday={title === 'TODAY' ? true : false}>{day}, {formatedDate}</ColumnStyles.HeaderTitle>
+      <ColumnStyles.HeaderIconsWrapper>
+        <ColumnStyles.ActionButton onClick={onAddMeeting}>
+          <FontAwesomeIcon icon='plus' size='xs'/>
+        </ColumnStyles.ActionButton>
+        <ColumnStyles.ActionButton>
+          <FontAwesomeIcon icon='ellipsis-v' size='xs'/>
+        </ColumnStyles.ActionButton>
+      </ColumnStyles.HeaderIconsWrapper>
+    </ColumnStyles.MeetingsColumnHeader>
   )
 }
 
 const renderColumnBody = (meetingsOnCurrentDate) => {
-  return meetingsOnCurrentDate.map(meeting => {
+  const sortedMeetingsOnCurrentDate = meetingsOnCurrentDate.sort((a, b) => {
+    return a.startTime - b.startTime
+  })
+  return sortedMeetingsOnCurrentDate && sortedMeetingsOnCurrentDate.map(meeting => {
     return (
       <MeetingItem key={meeting.id} meeting={meeting} />
     )

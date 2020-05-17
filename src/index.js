@@ -12,6 +12,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 // import { far } from '@fortawesome/free-regular-svg-icons'
 
+import 'tippy.js/dist/tippy.css';
 import './index.css';
 import Main from './containers/main/index';
 import * as serviceWorker from './serviceWorker';

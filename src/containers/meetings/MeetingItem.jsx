@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Tippy from '@tippyjs/react';
 import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
 import MeetingDetails from './MeetingDetails'
 import { MeetingItemStyles } from './meetingItem.styles'
+import { Colors } from '../../assets/colors'
+
 
 class MeetingItem extends React.PureComponent {
   constructor() {
@@ -21,11 +24,14 @@ class MeetingItem extends React.PureComponent {
   render() {
     const { openMeetingDetails } = this.state
     const { meeting } = this.props
+    if (!meeting) {
+      return null
+    }
     return (
       <Fragment>
         <MeetingItemStyles.MeetingContainer isFocused={openMeetingDetails}>
           {this.renderHeader(meeting.startTime, meeting.endTime)}
-          {this.renderBody(meeting.title, meeting.scheduler, meeting.startTime, meeting.endTime)}
+          {this.renderBody(meeting.title, meeting.scheduler, meeting.startTime, meeting.endTime, meeting.frequency)}
           {this.renderFooter(meeting)}
         </MeetingItemStyles.MeetingContainer>
         {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal} meeting={meeting} /> : null}
@@ -46,7 +52,7 @@ class MeetingItem extends React.PureComponent {
     )
   }
 
-  renderBody = (title, scheduler, startTime, endTime) => {
+  renderBody = (title, scheduler, startTime, endTime, frequency) => {
     let status = `Starts ${getTimeLeft(startTime)}`
     let now = new Date()
     if (now > startTime.toDate()) {
@@ -57,13 +63,27 @@ class MeetingItem extends React.PureComponent {
     }
     return (
       <MeetingItemStyles.MeetinBody onClick={this.toggleMeetingDetailsModal}>
-        <MeetingItemStyles.MeetingTitle>{title}</MeetingItemStyles.MeetingTitle>
+        <MeetingItemStyles.MeetingTitle>
+          {title}
+          {this.renderRecurringIndicator(frequency)}
+        </MeetingItemStyles.MeetingTitle>
         <MeetingItemStyles.MeetingHost>
-          <span>By: {scheduler.name}</span>
-          <MeetingItemStyles.Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</MeetingItemStyles.Status>
-        </MeetingItemStyles.MeetingHost>
+            <span>By: {scheduler.name}</span>
+            <MeetingItemStyles.Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</MeetingItemStyles.Status>
+          </MeetingItemStyles.MeetingHost>
+          
       </MeetingItemStyles.MeetinBody>
     )
+  }
+
+  renderRecurringIndicator = (frequency) => {
+    if (frequency === 'recurring') {
+      return (
+        <Tippy content='Recurring meeting' className='tippy-tooltip'>
+          <span><FontAwesomeIcon icon='sync' color={Colors.cyan} size='sm'/></span>
+        </Tippy>
+      )
+    } else return null
   }
 
   renderFooter = (meeting) => {

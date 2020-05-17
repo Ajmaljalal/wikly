@@ -32,14 +32,7 @@ class CreateNewMeeting extends Component {
   scheduleNewMeeting = async () => {
     const { title, date, startTime, invitedMembers } = this.state.newMeeting
     if (title && date && startTime && invitedMembers.length) {
-      await this.props.createNewMeeting({
-        id: (Math.random()*1000+Math.random()*2000).toString(),
-        agenda: 0,
-        notes: 0,
-        attachements: 0,
-        invitees: this.state.newMeeting.invitedMembers.length,
-       ...this.state.newMeeting
-      })
+      await this.props.createNewMeeting({...this.state.newMeeting})
       this.props.toggleAddMeetingModal()
     } else {
       this.setState({

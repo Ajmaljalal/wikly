@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Colors } from '../../assets/colors'
 
 export const ColumnsContainer = styled.div`
     width: 100%;
@@ -8,56 +9,44 @@ export const ColumnsContainer = styled.div`
     justify-content: space-between;
 `;
 
-export const MeetingsColumnHeader = styled.div`
+export const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
-  box-sizing: border-box;
-  margin-top: 5px;
-  width: 100%;
-`
-export const HeaderTitle = styled.div`
-  font-weight: 500;
-  font-size: ${(props) => props.isToday ? '15px' : '12px'};
-  color: ${(props) => props.isToday ? 'red' : 'black'};
-`
+  padding: 0 5px;
+  font-size: 14px;
+`;
 
-export const HeaderIconsWrapper = styled.div`
+export const NextPreviousWeek = styled.div`
   display: flex;
-  justify-content: flex-end
-  width: 30%;
-`
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 70px;
+  color: ${Colors.cyan};
+  border-radius: 3px;
+  svg {
+    color: ${Colors.cyan}
+  }
+`;
 
-export const ActionButton = styled.div`
+export const Next = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid ${Colors.green};
   width: 20px;
-  margin-left: 2px;
-  cursor: pointer
-`
+  height: 20px;
+  border-radius: 3px;
+`;
 
-export const Divider = styled.div`
-  min-height: 5px;
-  width: 50%;
-  background: purple;
-  border-radius: 5px;
-  margin-bottom: 5px;
-`
-
-export const ColumnBody = styled.div`
-  width: 100%;
-  box-sizing:border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-right: 2px;
-
-  &::-webkit-scrollbar {
-    width: 2px;
-    background-color: #F5F5F5;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: grey;
-    border-radius: 3px;
-  }
-  &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.3);
-    border-radius: 5px;
-  }
+export const Previous = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid ${Colors.green};
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
 `;
