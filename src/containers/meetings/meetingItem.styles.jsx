@@ -50,7 +50,7 @@ const MoreIconWrapper = styled.div`
   }
 `;
 const MeetinBody = styled.div`
-  min-height:100px;
+  min-height:95px;
   min-width: 130px;
   display: flex;
   flex-direction: column;

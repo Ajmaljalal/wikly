@@ -3,10 +3,14 @@ import { Colors } from '../../assets/colors'
 
 export const ColumnsContainer = styled.div`
     width: 100%;
-    height: 100%;
+    height: 95%;
+    max-height: 95%;
+    min-height: 95%;
     display: flex;
     box-sizing: border-box;
     justify-content: space-between;
+    overflow-x: auto;
+    overflow-y: auto;
 `;
 
 export const Buttons = styled.div`
