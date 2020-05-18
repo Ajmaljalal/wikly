@@ -2,7 +2,7 @@ import styled from 'styled-components'
 export const BodyContainer = styled.div`
   display:flex;
   width: 96.7%;
-  height: 94.5%;
+  height: 100%;
   flex-direction: column;
   padding: ${(props)=>props.isInChates ? '0' : '0 15px'};
   box-sizing: border-box;
@@ -21,12 +21,10 @@ export const Container = styled.div`
   display:flex;
   flex-direction: column;
   width: 100%;
-  height: 95%; 
-  max-height: 95%;
+  height: 100%; 
   background: #F0F2F5;
   box-sizing: border-box;
-  overflow-y: hidden;
-  overflow-x: auto;
+  overflow: auto;
 `;
 
 export const Column = styled.div`
