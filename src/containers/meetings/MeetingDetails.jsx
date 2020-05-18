@@ -1,22 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
 
-import {
-  Container,
-  CloseButton,
-  MeetingTitle,
-  ContainerHeader,
-  MeetingTime,
-  DetialsContainer,
-  Options,
-  Tab,
-  TabItem,
-  TabItemDetails
-} from './meetingDetails.styles'
-
-import closeIcon from '../../assets/icons/close.svg'
+import { MeetingDetailsStyles } from './meetingDetails.styles'
 import arrowDownIcon from '../../assets/icons/caret-down.svg'
 
-export default class MeetingDetails extends Component {
+export default class MeetingDetails extends PureComponent {
 
   constructor() {
     super()
@@ -31,53 +20,64 @@ export default class MeetingDetails extends Component {
     })
   }
 
-
   render() {
+    const { meeting } = this.props
+    let status = `Starts ${getTimeLeft(meeting.startTime)}`
+    let now = new Date()
+    if (now > meeting.startTime.toDate()) {
+      status = 'In Progress'
+    }
+    if (now > meeting.endTime.toDate()) {
+      status = 'Meeting Ended'
+    }
     return (
-      <Container>
-        {this.renderTitleAndCloseButton()}
-        <MeetingTime>11:00AM - 12:30PM</MeetingTime>
-        <Options>
+      <MeetingDetailsStyles.Container>
+        {this.renderTitleAndCloseButton(meeting.title)}
+        <MeetingDetailsStyles.MeetingTime>{getTimeFromDate(meeting.startTime)} -
+          {getTimeFromDate(meeting.endTime)} - 
+          <MeetingDetailsStyles.Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</MeetingDetailsStyles.Status>
+        </MeetingDetailsStyles.MeetingTime>
+        <MeetingDetailsStyles.Options>
           Manage meeting
-          <img src={arrowDownIcon}/>
-        </Options>
-        {this.renderMeetingDetails()}
-      </Container>
+          <img src={arrowDownIcon} alt='arrow-down'/>
+        </MeetingDetailsStyles.Options>
+        {this.renderMeetingDetails(meeting)}
+      </MeetingDetailsStyles.Container>
     )
   }
 
-  renderTitleAndCloseButton = () => {
+  renderTitleAndCloseButton = (title) => {
     const { onClose } = this.props
     return (
-      <ContainerHeader>
-        <MeetingTitle>Team Building meeting with new hires.This is the first meeting.</MeetingTitle>
-        <CloseButton onClick={onClose}>
-          <img src={closeIcon} alt='close icon' />
-        </CloseButton>
-      </ContainerHeader>
+      <MeetingDetailsStyles.ContainerHeader>
+        <MeetingDetailsStyles.MeetingTitle>{title}</MeetingDetailsStyles.MeetingTitle>
+        <MeetingDetailsStyles.CloseButton onClick={onClose}>
+          <FontAwesomeIcon icon='times' />
+        </MeetingDetailsStyles.CloseButton>
+      </MeetingDetailsStyles.ContainerHeader>
     )
   }
 
-  renderMeetingDetails = () => {
+  renderMeetingDetails = (meeting) => {
     return (
-      <DetialsContainer>
-        <Tab>
-          <TabItem for='agenda' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('agenda')}>Agenda</TabItem>
-          <TabItem for='notes' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('notes')}>Notes</TabItem>
-          <TabItem for='resources' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('resources')}>Resources(3)</TabItem>
-        </Tab>
+      <MeetingDetailsStyles.DetialsContainer>
+        <MeetingDetailsStyles.Tab>
+          <MeetingDetailsStyles.TabItem htmlFor='agenda' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('agenda')}>Agenda ({meeting.agenda})</MeetingDetailsStyles.TabItem>
+          <MeetingDetailsStyles.TabItem htmlFor='notes' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('notes')}>Notes ({meeting.notes})</MeetingDetailsStyles.TabItem>
+          <MeetingDetailsStyles.TabItem htmlFor='resources' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('resources')}>Resources ({meeting.attachments})</MeetingDetailsStyles.TabItem>
+          <MeetingDetailsStyles.TabItem htmlFor='invitees' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('invitees')}>Invitees ({meeting.invitees})</MeetingDetailsStyles.TabItem>
+        </MeetingDetailsStyles.Tab>
         {this.renderTabItemDetails()}
-
-      </DetialsContainer>
+      </MeetingDetailsStyles.DetialsContainer>
     )
   }
 
   renderTabItemDetails = () => {
     const { currentTab } = this.state
     return (
-      <TabItemDetails>
+      <MeetingDetailsStyles.TabItemDetails>
         {currentTab}
-      </TabItemDetails>
+      </MeetingDetailsStyles.TabItemDetails>
     )
   }
 }

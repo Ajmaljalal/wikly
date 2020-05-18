@@ -83,7 +83,8 @@ class TasksColumn extends React.PureComponent {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
-                  width={'250px'}
+                  width={'14%'}
+                  marginRight={'10px'}
                 >
                   {this.renderColumnHeader(column)}
                   <ColumnBody>
@@ -105,10 +106,10 @@ class TasksColumn extends React.PureComponent {
         <HeaderTitle>{column.title}</HeaderTitle>
         <HeaderIconsWrapper>
           <ActionButton>
-            <img src={plusIcon} />
+            <img src={plusIcon} alt='add'/>
           </ActionButton>
           <ActionButton>
-            <img src={moreIcon} />
+            <img src={moreIcon} alt='more'/>
           </ActionButton>
         </HeaderIconsWrapper>
       </ColumnHeader>

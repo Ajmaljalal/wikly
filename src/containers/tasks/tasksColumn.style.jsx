@@ -5,6 +5,8 @@ export const ColumnsContainer = styled.div`
     height: 100%;
     display: flex;
     box-sizing: border-box;
+    justify-content: space-between;
+    overflow-x: auto;
 `;
 export const TaskItemDraggingContainer = styled.div`
   margin-top: 10px;
@@ -46,6 +48,7 @@ export const ActionButton = styled.div`
 
 export const ColumnBody = styled.div`
   width: 100%;
+  max-height: 100%;
   box-sizing:border-box;
   overflow-y: auto;
   overflow-x: hidden;

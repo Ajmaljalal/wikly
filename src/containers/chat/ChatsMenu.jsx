@@ -39,10 +39,10 @@ export default class ChatsMenu extends Component {
         </ActiveChatRoomName>
         <ActiveChatRoomDetails>
           <ActiveChatDetailsIcon>
-            <img src={participantsIcon} /> 23
+            <img src={participantsIcon} alt='participants'/> 23
           </ActiveChatDetailsIcon>
           <ActiveChatDetailsIcon>
-            <img src={attachIcon} /> 32
+            <img src={attachIcon} alt='attachments'/> 32
           </ActiveChatDetailsIcon>
         </ActiveChatRoomDetails>
       </ActiveChatRoom>
