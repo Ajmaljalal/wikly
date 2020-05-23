@@ -1,11 +1,14 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
 
 import { MeetingDetailsStyles } from './meetingDetails.styles'
 import arrowDownIcon from '../../assets/icons/caret-down.svg'
 
-export default class MeetingDetails extends PureComponent {
+class MeetingDetails extends PureComponent {
 
   constructor() {
     super()
@@ -41,7 +44,7 @@ export default class MeetingDetails extends PureComponent {
           Manage meeting
           <img src={arrowDownIcon} alt='arrow-down'/>
         </MeetingDetailsStyles.Options>
-        {this.renderMeetingDetails(meeting)}
+        {this.renderMeetingDetails()}
       </MeetingDetailsStyles.Container>
     )
   }
@@ -58,7 +61,8 @@ export default class MeetingDetails extends PureComponent {
     )
   }
 
-  renderMeetingDetails = (meeting) => {
+  renderMeetingDetails = () => {
+    const { meeting } = this.props
     return (
       <MeetingDetailsStyles.DetialsContainer>
         <MeetingDetailsStyles.Tab>
@@ -73,12 +77,51 @@ export default class MeetingDetails extends PureComponent {
   }
 
   renderTabItemDetails = () => {
-    const { currentTab } = this.state
+    const { meetingAgenda } = this.props
+    const agenda = meetingAgenda && Object.keys(meetingAgenda).map(key => {
+      return meetingAgenda[key]
+    })
     return (
       <MeetingDetailsStyles.TabItemDetails>
-        {currentTab}
+        {agenda && agenda.map(agendaItem => {
+          return <div key={agendaItem?.id}>{agendaItem?.text}</div>
+        })}
       </MeetingDetailsStyles.TabItemDetails>
     )
   }
 }
+
+const mapStateToProps = ({ firestore }) => {
+  return {
+    meetingAgenda: firestore.data['Ww9NsfzVJDsNWWOrre8w-agenda'],
+    meetingNotes: firestore.data['Ww9NsfzVJDsNWWOrre8w-notes'],
+    meetingInvitees: firestore.data['Ww9NsfzVJDsNWWOrre8w-invitees'],
+  }
+}
+
+export default compose(
+  firestoreConnect((props) =>
+    [
+      {
+        collection: 'meeting-notes',
+        doc: 'Ww9NsfzVJDsNWWOrre8w',
+        subcollections: [{ collection: 'notes'}], 
+        storeAs: 'Ww9NsfzVJDsNWWOrre8w-notes'
+      },
+      {
+        collection: 'meeting-agenda',
+        doc: 'Ww9NsfzVJDsNWWOrre8w',
+        subcollections: [{ collection: 'agenda-items'}], 
+        storeAs: 'Ww9NsfzVJDsNWWOrre8w-agenda'
+      },
+      {
+        collection: 'meeting-invitees',
+        doc: 'Ww9NsfzVJDsNWWOrre8w',
+        subcollections: [{ collection: 'invitees'}], 
+        storeAs: 'Ww9NsfzVJDsNWWOrre8w-invitees'
+      },
+    
+    ],
+  ),
+  connect(mapStateToProps))(MeetingDetails)
 
