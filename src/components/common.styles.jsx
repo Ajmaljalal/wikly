@@ -32,9 +32,9 @@ export const Column = styled.div`
   flex-direction: column;
   min-width: 200px;
   width: ${props => props.width};
-  height: 98%;
-  max-height: 98%;
-  min-height: 98%;
+  height: 97%;
+  max-height: 97%
+  min-height: 97%;
   border: ${props => props.isDraggingOver ? '2px dashed purple' : '1px solid #AEABAB'};
   border-radius: 5px;
   user-select: none;

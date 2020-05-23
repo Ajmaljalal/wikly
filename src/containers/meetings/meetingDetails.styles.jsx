@@ -94,7 +94,6 @@ const TabItem = styled.div`
 const TabItemDetails = styled.div`
     width: 100%;
     height: 100px;
-    display: flex;
     margin-top: 20px;
 `;
 
