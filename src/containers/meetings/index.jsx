@@ -153,7 +153,7 @@ const mapStateToProps = ({ firestore }) => {
   }
 }
 
-const mapDispatchTProps = (disptach) => {
+const mapDispatchToProps = (disptach) => {
   return {
     createNewMeeting: (meeting) => disptach(createMeeting(meeting))
   }
@@ -168,5 +168,5 @@ export default compose(
       storeAs: 'currentProjectMeetings'
     }]
   ),
-  connect(mapStateToProps, mapDispatchTProps
+  connect(mapStateToProps, mapDispatchToProps
   ))(Meetings);
