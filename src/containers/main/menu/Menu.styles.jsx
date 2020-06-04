@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const MenuBar = styled.div`
+const MenuBar = styled.div`
   height:100%;
   width: 3.3%;
   min-width: 50px;
@@ -10,9 +10,10 @@ export const MenuBar = styled.div`
   flex-direction: column;
   border-top: 0.5px solid lightgrey;
   box-shadow: 0px 4px 4px lightgrey;
+  justify-content: space-between;
 `
 
-export const Logo = styled.div`
+const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +23,7 @@ export const Logo = styled.div`
       height:30px;
     }
 `
-export const MenuItems = styled.div`
+const MenuItemsTop = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,4 +40,29 @@ export const MenuItems = styled.div`
         padding: 7px;
       }
     }
-`
+`;
+
+const MenuItemsBottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      border: 2px solid transparent;
+      &:hover {
+        border: 2px solid purple;
+      }
+    }
+`;
+
+export const MenuStyles = {
+  MenuBar,
+  Logo,
+  MenuItemsTop,
+  MenuItemsBottom
+}
