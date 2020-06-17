@@ -9,7 +9,7 @@ class NewOrg extends Component {
 	state = {
 		screen: 'chooseName',
 		name: '',
-		project: 'general'
+		project: ''
 
 	}
 
@@ -33,9 +33,10 @@ class NewOrg extends Component {
 	}
 
 	createOrg = async () => {
-		const { name } = this.state
+		const { name, project } = this.state
+		const projectName = project ? project : 'general'
 		if (name) {
-			const newOrg = { name }
+			const newOrg = { name, projectName }
 			// const newProject = { name }
 			await this.props.createNewOrg(newOrg)
 			// await this.props.createNewProject(newProject)
@@ -158,7 +159,6 @@ const mapDispatchToProps = (disptach) => {
 	return {
 		createNewOrg: (org) => disptach(createNewOrg(org))
 	}
-  }
-  
+}
 export default connect(null, mapDispatchToProps)(NewOrg);
 
