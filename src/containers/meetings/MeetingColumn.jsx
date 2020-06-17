@@ -9,6 +9,9 @@ import MeetingItem from './MeetingItem'
 
 
 const isMeetingInColumn = (meeting, day, date) => {
+  if (meeting.date !== date) {
+    console.log(meeting.date, date)
+  }
   if (
     meeting &&
     (meeting.date === date ||
@@ -31,11 +34,11 @@ const MeetingColumn = ({ date, day, meetings, onAddMeeting }) => {
   if (meetings) {
     Object.keys(meetings).forEach(meetingId => {
       if (isMeetingInColumn(meetings[meetingId], day, date)) {
+        console.log('meeting included')
         meetingsOnCurrentDate.push(meetings[meetingId])
       }   
     })
   }
-  
   return (
     <Column width={'18%'}>
       {renderColumnHeader(formatedDate, title, day, onAddMeeting)}

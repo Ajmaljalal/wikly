@@ -5,6 +5,7 @@ import { firestoreReducer } from 'redux-firestore';
 import { firebaseReducer } from 'react-redux-firebase'
 
 import meetingsReducer from './meetings/meetingsReducer'
+import orgReducer from './orgs/orgReducer'
 
 
 // const persistConfig = {
@@ -14,9 +15,10 @@ import meetingsReducer from './meetings/meetingsReducer'
 // };
 
 const rootReducer = combineReducers({
-  meetings: meetingsReducer,
   firestore: firestoreReducer,
-  firebase: firebaseReducer
+  firebase: firebaseReducer,
+  meetings: meetingsReducer,
+  orgs: orgReducer,
 });
 
 export default rootReducer;

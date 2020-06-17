@@ -4,8 +4,10 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: ${(props) => props.contentOnOneLine ? 'row' : 'column'};
     align-items: ${(props) => props.contentOnOneLine ? 'center' : ''};
+    width: ${(props) => props.width};
     font-size: 13px;
     margin: 10px 0 5px 0;
+    box-sizing: border-box;
 `;
 
 const Label = styled.div`

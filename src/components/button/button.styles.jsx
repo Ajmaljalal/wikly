@@ -14,10 +14,11 @@ export const ButtonWrapper = styled.div`
     text-align: center;
     padding: 10px 7px;
     transition: background-color 300ms;
-    background-color: ${(props) => props.bgColor};
+    background-color: ${(props) => props.disabled ? props.bgColor : 'grey'};
     border-radius: 3px;
     color: ${(props) => props.color};
     margin: ${(props) => props.margin ? '10px' : '0'};
+    box-sizing: border-box;
     svg {
         margin-right: 7px;
     }

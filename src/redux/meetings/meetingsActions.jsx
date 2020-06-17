@@ -8,11 +8,11 @@ export const createMeeting = (meeting) => {
   if (endDate) {
     formatedEndDate = new Date(moment(`${endDate} 00:00:00`, 'YYYY-MM-DD HH:mm:ss').format());
   }
-  return (dispatch, getState, {getFirestore}) => {
+  return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     // const profile = getState().firebase.profile;
     // const authorId = getState().firebase.auth.uid;
-    firestore.collection('project-meetings/')
+    firestore.collection('project-meetings')
       .doc('SZMKZDDzduTEYipp47Ad')
       .collection('meetings').add({
         ...meeting,
