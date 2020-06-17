@@ -34,22 +34,22 @@ class Main extends PureComponent {
   renderContent = () => {
     const { currentOrg } = this.props.profile
     if (currentOrg) {
-      return (
-        <Fragment>
-          <AppHeader />
-          <Row>
-            <Menu />
-            <Switch>
-              <Route path='/dashboard' component={Dashboard} />
-              <Route path='/meetings' component={Meetings} />
-              <Route path='/tasks' component={Tasks} />
-              <Route path='/documents' component={Documents} />
-              <Route path='/chat-rooms' component={ChatRooms} />
-            </Switch>
-          </Row>
-        </Fragment>
-      )
-    } else {
+    //   return (
+    //     <Fragment>
+    //       <AppHeader />
+    //       <Row>
+    //         <Menu />
+    //         <Switch>
+    //           <Route path='/dashboard' component={Dashboard} />
+    //           <Route path='/meetings' component={Meetings} />
+    //           <Route path='/tasks' component={Tasks} />
+    //           <Route path='/documents' component={Documents} />
+    //           <Route path='/chat-rooms' component={ChatRooms} />
+    //         </Switch>
+    //       </Row>
+    //     </Fragment>
+    //   )
+    // } else {
       return this.renderCreateOrgs()
     }
   }

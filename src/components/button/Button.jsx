@@ -9,6 +9,7 @@ const Button = ({
   bgColor,
   margin,
   width,
+  disabled,
 
 
 }) => {
@@ -20,6 +21,7 @@ const Button = ({
         size={fontSize}
         margin={margin}
         width={width}
+        disabled={disabled}
       >
         {children}
       </ButtonWrapper>

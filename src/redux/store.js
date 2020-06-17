@@ -8,7 +8,7 @@ import firebase from '../firebase/firebase-config'
 
 import rootReducer from './root-reducer';
 
-const middlewares = [thunk.withExtraArgument(getFirebase, {getFirestore })];
+const middlewares = [thunk.withExtraArgument({getFirebase, getFirestore })];
 
 if (process.env.NODE_ENV === 'development') {
   // middlewares.push(logger);

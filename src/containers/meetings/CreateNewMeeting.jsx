@@ -384,10 +384,10 @@ class CreateNewMeeting extends Component {
   }
 }
 
-const mapDispatchTProps = (disptach) => {
+const mapDispatchToProps = (disptach) => {
   return {
     createNewMeeting: (meeting) => disptach(createMeeting(meeting))
   }
 }
 
-export default connect(null, mapDispatchTProps)(CreateNewMeeting);
+export default connect(null, mapDispatchToProps)(CreateNewMeeting);

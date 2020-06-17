@@ -134,6 +134,7 @@ class Meetings extends PureComponent {
     const weekDayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
     if (!weekDates || !this.props.meetings) return <Skeleton/>
     return weekDates.map((date, index) => {
+      // date.replace(, '')
       return (
         <MeetingColumn
           key={date}
