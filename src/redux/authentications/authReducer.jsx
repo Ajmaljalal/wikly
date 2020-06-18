@@ -5,6 +5,9 @@ const authReducer = (state = initState, action) => {
     case 'LOGIN_SUCCESS':
       console.log('signed in')
       break;
+    case 'SIGNUP_SUCCESS':
+      console.log('user registered')
+      break;
     case 'SIGNOUT_SUCCESS':
       console.log('signed out')
       break;

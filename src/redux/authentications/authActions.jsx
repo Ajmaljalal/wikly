@@ -20,24 +20,25 @@ export const signIn = (credentials) => {
     }
   }
   
-  // export const signUp = (newUser) => {
-  //   return (dispatch, getState, {getFirestore}) => {
-  //     // const firebase = getFirebase();
-  //     const firestore = getFirestore();
-  
-  //     firebase.auth().createUserWithEmailAndPassword(
-  //       newUser.email, 
-  //       newUser.password
-  //     ).then(resp => {
-  //       return firestore.collection('users').doc(resp.user.uid).set({
-  //         firstName: newUser.firstName,
-  //         lastName: newUser.lastName,
-  //         initials: newUser.firstName[0] + newUser.lastName[0]
-  //       });
-  //     }).then(() => {
-  //       dispatch({ type: 'SIGNUP_SUCCESS' });
-  //     }).catch((err) => {
-  //       dispatch({ type: 'SIGNUP_ERROR', err});
-  //     });
-  //   }
-  // }
+  export const signUp = (newUser) => {
+    return (dispatch, getState, {getFirestore}) => {
+      const firestore = getFirestore();
+      firebase.auth().createUserWithEmailAndPassword(
+        newUser.Email, 
+        newUser.Password
+      ).then(resp => {
+        return firestore.collection('users').doc(resp.user.uid).set({
+          firstName: newUser.FirstName,
+          lastName: newUser.LastName,
+          initials: newUser.FirstName[0] + newUser.LastName[0],
+          currentOrg: null,
+          orgs: [],
+          projects: []
+        });
+      }).then(() => {
+        dispatch({ type: 'SIGNUP_SUCCESS' });
+      }).catch((err) => {
+        dispatch({ type: 'SIGNUP_ERROR', err});
+      });
+    }
+  }
