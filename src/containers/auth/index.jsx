@@ -1,17 +1,26 @@
 import React, { Component } from 'react'
 // import { signIn } from '../../redux/authentications/authActions'
-import Login from './Login'
-import Registration from './Registration'
+import LoginRegister from './LogingRegister'
+import { AuthStyles } from './index.styles'
 
 class Authentication extends Component {
-    render() {
-        return (
-            <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent:'center', alignItems:'center'}}>
-                <Login />
-                <Registration />
-            </div>
-        )
-    }
+	state = {
+		screen: 'login'
+	}
+
+	toggleScreen = () => {
+		this.setState({
+			screen: this.state.screen === 'login' ? 'register' : 'login'
+		})
+	}
+	render() {
+		return (
+			<AuthStyles.Container>
+				<LoginRegister />
+				<AuthStyles.ImageHolder ></AuthStyles.ImageHolder>
+			</AuthStyles.Container>
+		)
+	}
 }
 
 // const mapStateToProps = ({ firebase }) => {
@@ -25,11 +34,11 @@ class Authentication extends Component {
 //       signIn: (credentials) => disptach(signIn(credentials))
 //     }
 //   }
-  
-  // export default compose(
-  //   // firebaseConnect(),
-  //   connect(mapStateTopProps, mapDispatchToProps
-  //   ))(Main);
-  
-  export default Authentication;
+
+// export default compose(
+//   // firebaseConnect(),
+//   connect(mapStateTopProps, mapDispatchToProps
+//   ))(Main);
+
+export default Authentication;
 //   export default connect(mapStateToProps, mapDispatchToProps)(Authentication);

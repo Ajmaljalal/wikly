@@ -35,7 +35,7 @@ class Organization extends Component {
 					margin='20px'
 					color='white'
 					width='200px'
-					disabled='false'
+					disabled={false}
 				/>
 			</Fragment>
 		)

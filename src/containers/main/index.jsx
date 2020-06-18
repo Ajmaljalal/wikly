@@ -34,22 +34,22 @@ class Main extends PureComponent {
   renderContent = () => {
     const { currentOrg } = this.props.profile
     if (currentOrg) {
-    //   return (
-    //     <Fragment>
-    //       <AppHeader />
-    //       <Row>
-    //         <Menu />
-    //         <Switch>
-    //           <Route path='/dashboard' component={Dashboard} />
-    //           <Route path='/meetings' component={Meetings} />
-    //           <Route path='/tasks' component={Tasks} />
-    //           <Route path='/documents' component={Documents} />
-    //           <Route path='/chat-rooms' component={ChatRooms} />
-    //         </Switch>
-    //       </Row>
-    //     </Fragment>
-    //   )
-    // } else {
+      return (
+        <Fragment>
+          <AppHeader />
+          <Row>
+            <Menu />
+            <Switch>
+              <Route path='/dashboard' component={Dashboard} />
+              <Route path='/meetings' component={Meetings} />
+              <Route path='/tasks' component={Tasks} />
+              <Route path='/documents' component={Documents} />
+              <Route path='/chat-rooms' component={ChatRooms} />
+            </Switch>
+          </Row>
+        </Fragment>
+      )
+    } else {
       return this.renderCreateOrgs()
     }
   }
@@ -58,7 +58,6 @@ class Main extends PureComponent {
     return <Organization />
   }
 
-
 }
 
 
@@ -66,7 +65,7 @@ const mapStateToProps = ({ firebase, firestore }) => {
   return {
     user: firebase?.auth,
     profile: firebase?.profile,
-    orgs: firestore.data.orgs
+    // orgs: firestore.data.orgs
   }
 }
 const mapDispatchToProps = (disptach, ownProps) => {

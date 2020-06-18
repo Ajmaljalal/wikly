@@ -76,7 +76,6 @@ class NewOrg extends Component {
 					placeholder='Enter a name for your org'
 					width='390px'
 					onChange={this.handleInputChange}
-
 				/>
 				<NewOrgStyles.Policy>
 					By clicking to continue you accept our
@@ -86,11 +85,11 @@ class NewOrg extends Component {
 				<Button
 					onClick={this.toggleScreen}
 					children='CONTINUE'
-					bgColor='green'
+					bgColor='#2a4865'
 					margin='20px'
 					color='white'
 					width='390px'
-					disabled={this.state.name ? true : false}
+					disabled={this.state.name ? false : true}
 				/>
 			</NewOrgStyles.Container>
 		)
@@ -144,11 +143,11 @@ class NewOrg extends Component {
 				<Button
 					onClick={this.createOrg}
 					children='GO'
-					bgColor='green'
+					bgColor='#2a4865'
 					margin='20px'
 					color='white'
 					width='390px'
-					disabled={this.state.name ? true : false}
+					disabled={this.state.name ? false : true}
 				/>
 			</NewOrgStyles.Container>
 		)
