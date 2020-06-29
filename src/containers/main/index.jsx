@@ -61,10 +61,10 @@ class Main extends PureComponent {
 }
 
 
-const mapStateToProps = ({ firebase, firestore }) => {
+const mapStateToProps = (state) => {
   return {
-    user: firebase?.auth,
-    profile: firebase?.profile,
+    user: state.firebase?.auth,
+    profile: state.firebase?.profile,
     // orgs: firestore.data.orgs
   }
 }
@@ -79,7 +79,12 @@ export default compose(
     [{
       collection: 'orgs',
       doc: state?.firebase?.profile?.currentOrg,
-    }]
+    },
+    {
+      collection: 'users',
+      doc: 'tKQwZqL6dbY0LiZ2R63zMPd6QEv2',
+    }
+    ]
+    
   ),
-  connect(mapStateToProps, mapDispatchToProps
-  ))(Main);
+  connect(mapStateToProps, mapDispatchToProps))(Main);

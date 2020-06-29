@@ -33,7 +33,8 @@ export const signIn = (credentials) => {
           initials: newUser.FirstName[0] + newUser.LastName[0],
           currentOrg: null,
           orgs: [],
-          projects: []
+          projects: [],
+          email: newUser.Email,
         });
       }).then(() => {
         dispatch({ type: 'SIGNUP_SUCCESS' });
