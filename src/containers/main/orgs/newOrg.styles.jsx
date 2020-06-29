@@ -8,8 +8,9 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
-  border-radius: 5px;
-  box-shadow: 0px 0px 2px grey;
+  border-radius: 8px;
+  box-shadow: 0px 0px 4px #ccc;
+  margin-top: 100px;
   h1, p {
     margin: 0;
     padding: 0;

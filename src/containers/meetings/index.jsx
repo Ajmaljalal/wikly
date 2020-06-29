@@ -162,12 +162,14 @@ const mapDispatchToProps = (disptach) => {
 
 export default compose(
   firestoreConnect((props) =>
-    [{
+    [
+      {
       collection: 'project-meetings',
       doc: 'SZMKZDDzduTEYipp47Ad',
       subcollections: [{ collection: 'meetings' }],
       storeAs: 'currentProjectMeetings'
-    }]
+      }
+    ]
   ),
   connect(mapStateToProps, mapDispatchToProps
   ))(Meetings);
