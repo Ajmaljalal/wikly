@@ -33,7 +33,7 @@ class Menu extends PureComponent {
 
 const mapStateToProps = ({ firestore, firebase }) => {
   return { 
-    currentOrg: firestore.data.orgs[firebase.profile?.currentOrg]
+    currentOrg: {name: 'ajmal'}
   }
 }
 export default connect(mapStateToProps)(Menu);

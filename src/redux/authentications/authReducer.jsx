@@ -3,14 +3,20 @@ const initState = {}
 const authReducer = (state = initState, action) => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
-      console.log('signed in')
-      break;
+      return {
+        ...state,
+        auth: true
+      }
     case 'SIGNUP_SUCCESS':
-      console.log('user registered')
-      break;
+      return {
+        ...state,
+        auth: true
+      }
     case 'SIGNOUT_SUCCESS':
-      console.log('signed out')
-      break;
+      return {
+        ...state,
+        auth: false
+      }
     default:
       return state
   }

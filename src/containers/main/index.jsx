@@ -1,10 +1,6 @@
 import React, { PureComponent, Fragment } from 'react'
 import { Switch, Route } from 'react-router-dom';
-import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
-import { signIn, signOut } from '../../redux/authentications/authActions'
-
 import { MainContainer, Row } from './index.styles.jsx'
 import Menu from './menu/index';
 import AppHeader from './header/index'
@@ -16,24 +12,31 @@ import Documents from '../documents/index'
 import ChatRooms from '../chat/index'
 import Authentication from '../auth/index'
 import Organization from './orgs/index'
-
+import { getProfile } from '../../redux/userProfile/actions';
+import firebase from '../../firebase/firebase-config'
 class Main extends PureComponent {
 
   componentDidMount() {
-    
+    firebase.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        this.props.getProfile(user.uid)
+      }
+    })
   }
 
   render() {
+    console.log('main screen')
+    console.log(this.props.state)
     return (
       <MainContainer>
-        {!this.props.user.isEmpty ? this.renderContent() : <Authentication />}
+        {this.props.auth ? this.renderContent() : <Authentication />}
       </MainContainer>
     )
   }
 
   renderContent = () => {
-    const { currentOrg } = this.props.profile
-    if (currentOrg) {
+    const { profile } = this.props
+    if (!profile?.currentOrg) {
       return (
         <Fragment>
           <AppHeader />
@@ -57,34 +60,19 @@ class Main extends PureComponent {
   renderCreateOrgs = () => {
     return <Organization />
   }
-
 }
 
 
 const mapStateToProps = (state) => {
   return {
-    user: state.firebase?.auth,
-    profile: state.firebase?.profile,
-    // orgs: firestore.data.orgs
+    profile: state.profileState?.profile,
+    auth: state.authState?.auth,
+    state: state
   }
 }
 const mapDispatchToProps = (disptach, ownProps) => {
   return {
-    signIn: (credentials) => disptach(signIn(credentials)),
-    signOut: () => disptach(signOut())
+    getProfile: (userId) => disptach(getProfile(userId))
   }
 }
-export default compose(
-  firestoreConnect((state) => 
-    [{
-      collection: 'orgs',
-      doc: state?.firebase?.profile?.currentOrg,
-    },
-    {
-      collection: 'users',
-      doc: 'tKQwZqL6dbY0LiZ2R63zMPd6QEv2',
-    }
-    ]
-    
-  ),
-  connect(mapStateToProps, mapDispatchToProps))(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

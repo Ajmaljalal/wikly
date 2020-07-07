@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import Button from '../../../components/button/Button'
 import Input from '../../../components/input/Input'
 import { connect } from 'react-redux'
-import { createNewOrg } from '../../../redux/orgs/orgActions'
+import { createNewOrg } from '../../../redux/orgs/actions'
 import { NewOrgStyles } from './newOrg.styles'
 
 class NewOrg extends Component {

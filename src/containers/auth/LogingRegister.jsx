@@ -1,8 +1,10 @@
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'
+import firebase from '../../firebase/firebase-config'
 import Button from '../../components/button/Button'
 import Input from '../../components/input/Input'
-import { signIn, signUp} from '../../redux/authentications/authActions'
+import { signIn, signUp } from '../../redux/authentications/authActions'
+import { getProfile } from '../../redux/userProfile/actions';
 import { LoginRegisterStyles } from './loginRegisterStyles'
 
 class LoginRegister extends PureComponent {
@@ -25,25 +27,25 @@ class LoginRegister extends PureComponent {
     })
   }
 
-  login = () => {
+  login = async () => {
     const { Email, Password } = this.state
     if (Email && Password) {
-      this.props.signIn({
+      await this.props.signIn({
         email: this.state.Email,
         password: this.state.Password
-      }) 
+      })
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+          await this.props.getProfile(user.uid)
+        }
+      })
     }
   }
 
   register = () => {
     const { FirstName, LastName, Email, Password } = this.state
     if (FirstName && Email && Password) {
-      const user = {
-        FirstName,
-        LastName,
-        Email,
-        Password,
-      }
+      const user = { FirstName, LastName, Email, Password }
       this.props.signUp(user)
     }
   }
@@ -136,7 +138,8 @@ class LoginRegister extends PureComponent {
 const mapDispatchToProps = (disptach, ownProps) => {
   return {
     signIn: (credentials) => disptach(signIn(credentials)),
-    signUp: (user) => disptach(signUp(user))
+    signUp: (user) => disptach(signUp(user)),
+    getProfile: (userId) => disptach(getProfile(userId))
   }
 }
 
