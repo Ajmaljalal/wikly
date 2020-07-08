@@ -12,7 +12,7 @@ export const ButtonWrapper = styled.div`
     font-style: normal;
     font-stretch: normal;
     text-align: center;
-    padding: 10px 7px;
+    padding: 8px 7px;
     transition: background-color 300ms;
     background-color: ${(props) => props.disabled ? 'grey' : props.bgColor};
     border-radius: 3px;

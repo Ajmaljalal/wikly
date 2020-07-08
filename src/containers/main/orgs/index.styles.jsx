@@ -38,9 +38,38 @@ const Logo = styled.h1`
   margin: 3% 0;
 `;
 
+const InvitedToOrgsList = styled.div`
+  width: 100%;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 8px;
+  box-sizing: border-box;
+`;
+
+const InvitedToOrgItem = styled.div`
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #F0F2F5;
+
+  &:hover{
+    border: 1px solid gray;
+    cursor: pointer;
+
+  }
+`;
+
 export const OrgStyles = {
   Container,
   Logo,
   CreatNewOrg,
-  OrSeparator
+  OrSeparator,
+  InvitedToOrgsList,
+  InvitedToOrgItem
 }

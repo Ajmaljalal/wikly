@@ -1,12 +1,13 @@
 import firebase from '../../firebase/firebase-config'
 export const signIn = (credentials) => {
   return (dispatch, getState) => {
-      firebase.login(
-        credentials
+      firebase.auth().signInWithEmailAndPassword(
+        credentials.email,
+        credentials.password
       ).then(() => {
         dispatch({ type: 'LOGIN_SUCCESS' });
       }).catch((err) => {
-        dispatch({ type: 'LOGIN_ERROR', err });
+        dispatch({ type: 'LOGIN_ERSROR', err });
       });
     }
   }

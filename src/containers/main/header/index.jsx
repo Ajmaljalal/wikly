@@ -13,9 +13,9 @@ class AppHeader extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ firebase, firestore }) => {
+const mapStateToProps = ({ profileState }) => {
   return {
-    profile: firebase?.profile,
+    profile: profileState?.profile,
   }
 }
 

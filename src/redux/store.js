@@ -1,14 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-// import { persistStore } from 'redux-persist';
-import { getFirestore, reduxFirestore } from 'redux-firestore';
-import { getFirebase } from 'react-redux-firebase';
+import { persistStore } from 'redux-persist';
 // import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import firebase from '../firebase/firebase-config'
 
 import rootReducer from './root-reducer';
 
-const middlewares = [thunk.withExtraArgument({getFirebase, getFirestore })];
+const middlewares = [thunk];
 
 if (process.env.NODE_ENV === 'development') {
   // middlewares.push(logger);
@@ -16,12 +13,9 @@ if (process.env.NODE_ENV === 'development') {
 
 export const store = createStore(rootReducer,
   compose(
-    applyMiddleware(...middlewares),
-    reduxFirestore(firebase)
+    applyMiddleware(...middlewares)
   )
 );
 
 
-// export const persistor = persistStore(store);
-
-export default { store };
+export const persistor = persistStore(store);
