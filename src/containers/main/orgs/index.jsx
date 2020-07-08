@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getOrgsInvitations } from '../../../redux/orgs/actions'
 import Button from '../../../components/button/Button'
