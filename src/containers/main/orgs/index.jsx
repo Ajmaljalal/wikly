@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getOrgsInvitations } from '../../../redux/orgs/actions'
 import Button from '../../../components/button/Button'
 import NewOrg from './NewOrg'
+import InvitedToOrgsList from './InvitedToOrgsList'
 import { OrgStyles } from './index.styles'
 
 class Organization extends Component {
@@ -24,15 +25,16 @@ class Organization extends Component {
     return (
       <OrgStyles.Container>
         <OrgStyles.Logo>WIKLI</OrgStyles.Logo>
-        {this.state.createNewOrg ? <NewOrg /> : this.renderCreateNewOrgButton()}
+        {this.state.createNewOrg ? <NewOrg /> : this.renderInvitedOrgsListAndCreateNewOrgButton()}
       </OrgStyles.Container>
     )
   }
 
-  renderCreateNewOrgButton = () => {
+  renderInvitedOrgsListAndCreateNewOrgButton = () => {
+    const { orgsInvitations } = this.props
     return (
       <OrgStyles.CreatNewOrg>
-        {this.renderInvitedToOrgsList()}
+        <InvitedToOrgsList orgsInvitations={orgsInvitations} />
         <OrgStyles.OrSeparator>-------------- OR -------------</OrgStyles.OrSeparator>
         <Button
           onClick={this.toggleCreateNewOrg}
@@ -46,61 +48,6 @@ class Organization extends Component {
       </OrgStyles.CreatNewOrg>
     )
   }
-
-
-  renderInvitedToOrgsList = () => {
-    const { orgsInvitations } = this.props
-    if (orgsInvitations?.length > 0) {
-      return (
-        <OrgStyles.InvitedToOrgsList>
-          {
-            orgsInvitations.map((org) => {
-              return (
-                this.renderInvitedToOrgItem(org)
-              )
-            })
-         }
-        </OrgStyles.InvitedToOrgsList>
-      )
-    } else {
-      return (
-        <Fragment>
-          <p>You are not invited to any org (organization) yet.</p>
-          <p>Please contact someone in your work place to invite you to an existing org.</p>
-        </Fragment>
-      )
-    }
-  }
-  renderInvitedToOrgItem = (org) => {
-    return (
-      <OrgStyles.InvitedToOrgItem>
-        <span style={{fontSize: '14px'}}>You're invited to {org.orgName}</span>
-        {/* <span>{org.role}</span> */}
-        {/* <span>By {org.invitedByName}</span> */}
-        <Button
-          onClick={this.toggleCreateNewOrg}
-          children='Reject'
-          bgColor='gray'
-          fontSize='12px'
-          margin={false}
-          color='white'
-          width='40px'
-          disabled={false}
-        />
-        <Button
-          onClick={this.toggleCreateNewOrg}
-          children='Accept'
-          bgColor='green'
-          fontSize='12px'
-          margin={false}
-          color='white'
-          width='40px'
-          disabled={false}
-        />
-      </OrgStyles.InvitedToOrgItem>
-   )
-  }
-
 }
 
 

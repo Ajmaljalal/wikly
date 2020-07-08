@@ -17,7 +17,7 @@ const CreatNewOrg = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 80px;
   width: 500px;
   padding: 42px 35px;
   box-shadow: 0px 0px 4px #ccc;
@@ -35,7 +35,7 @@ const OrSeparator = styled.div`
 `
 
 const Logo = styled.h1`
-  margin: 3% 0;
+  margin-top: 80px;
 `;
 
 const InvitedToOrgsList = styled.div`
@@ -44,11 +44,14 @@ const InvitedToOrgsList = styled.div`
   border-radius: 5px;
   padding: 8px;
   box-sizing: border-box;
+  max-height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 const InvitedToOrgItem = styled.div`
   width: 100%;
-  padding: 10px 20px;
+  padding: 10px 10px;
   box-sizing: border-box;
   margin-bottom: 5px;
   border-radius: 5px;
@@ -65,11 +68,22 @@ const InvitedToOrgItem = styled.div`
   }
 `;
 
+const InvitedToOrgName = styled.span`
+  width: 65%;
+  
+  span {
+    font-weight: 500;
+  }
+`;
+
+
+
 export const OrgStyles = {
   Container,
   Logo,
   CreatNewOrg,
   OrSeparator,
   InvitedToOrgsList,
-  InvitedToOrgItem
+  InvitedToOrgItem,
+  InvitedToOrgName
 }
