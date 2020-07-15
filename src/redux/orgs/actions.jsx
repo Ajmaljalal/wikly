@@ -2,7 +2,16 @@
 import firebase from '../../firebase/firebase-config'
 import { uuid } from '../../helpers/uuid'
 import { OrgActionTypes } from './types'
+
 const firestore = firebase.firestore()
+
+const orgsInvitationCollection = firestore.collection('invitations-to-orgs')
+
+
+/**
+ * 
+ * @param {object} org 
+ */
 export const createNewOrg = (org) => {
   return (dispatch) => {
     const orgId = uuid()
@@ -17,25 +26,65 @@ export const createNewOrg = (org) => {
         dispatch({ type: OrgActionTypes.CREATE_ORG_SUCCESS, payload: org });
       }).catch(err => {
         dispatch({ type: OrgActionTypes.CREATE_ORG_ERROR, payload: err });
-      });
+      })
   }
-};
+}
 
+
+
+/**
+ * 
+ * @param {string} userEmail
+ */
 export const getOrgsInvitations = (userEmail) => {
-  console.log('get orgs called')
   return (dispatch) => {
-    firestore.collection('invitations-to-orgs').doc(userEmail).collection('invitations')
+    orgsInvitationCollection.doc(userEmail).collection('invitations').where('status', '==', 'pending')
       .onSnapshot((querySnapShot) => {
         const array = [];
         querySnapShot.forEach(doc => {
-          array.push(doc.data())
-       })
+          const org = {...doc.data(), invitationId: doc.id}
+          array.push(org)
+        })
         dispatch({ type: OrgActionTypes.GET_ORG_SUCCESS, payload: array });
 
       }, (err => {
         dispatch({ type: OrgActionTypes.GET_ORG_ERROR, payload: err });
       })
       )
-
   }
-};
+}
+
+
+
+/**
+ * 
+ * @param {object} data 
+ */
+export const updateInvitation = ({userEmail, invitationId, value}) => {
+  return (dispatch) => {
+    orgsInvitationCollection.doc(userEmail).collection('invitations').doc(invitationId)
+      .update({
+        status: value
+      }).then(() => {
+        dispatch({ type: OrgActionTypes.UPDATE_INVITE_SUCCESS });
+      }).catch((err => {
+        dispatch({ type: OrgActionTypes.UPDATE_INVITE_ERROR, payload: err });
+      }))
+  }
+}
+
+/**
+ * 
+ * @param {object} data
+ */
+export const rejectInvitation = ({userEmail, invitationId}) => {
+  return (dispatch) => {
+    orgsInvitationCollection.doc(userEmail).collection('invitations').doc(invitationId)
+      .delete()
+      .then(() => {
+        dispatch({ type: OrgActionTypes.DELETE_INVITE_SUCCESS });
+      }).catch((err => {
+        dispatch({ type: OrgActionTypes.DELETE_INVITE_ERROR, payload: err });
+      }))
+  }
+}

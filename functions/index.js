@@ -7,8 +7,6 @@ exports.onCreateOrg = functions.firestore
   .document("/orgs/{orgId}")
   .onCreate(async (snapshot, context) => {
     const orgId = context.params.orgId;
-    console.log(context.params)
-    console.log(snapshot.data())
     const projectName = snapshot.data().projectName
     const creatorId = snapshot.data().creatorId
     const orgName = snapshot.data().name
@@ -19,6 +17,7 @@ exports.onCreateOrg = functions.firestore
         name: projectName
       })
       await userRef.update({
+        currentOrg: orgId,
         orgs: admin.firestore.FieldValue.arrayUnion({
           name: orgName,
           id: orgId,

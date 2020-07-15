@@ -63,8 +63,6 @@ const InvitedToOrgItem = styled.div`
 
   &:hover{
     border: 1px solid gray;
-    cursor: pointer;
-
   }
 `;
 

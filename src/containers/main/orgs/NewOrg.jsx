@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Button from '../../../components/button/Button'
 import Input from '../../../components/input/Input'
 import { connect } from 'react-redux'

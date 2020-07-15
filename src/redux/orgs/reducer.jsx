@@ -11,6 +11,10 @@ const orgReducer = (state = initState, action) => {
         ...state,
         invitations: action.payload
       };
+    case OrgActionTypes.UPDATE_INVITE_SUCCESS:
+      return state
+    
+    // TODO: add casses for delete invite
     default:
       return state
   }
