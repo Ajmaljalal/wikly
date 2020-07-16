@@ -7,12 +7,14 @@ import { updateInvitation, rejectInvitation } from '../../../redux/orgs/actions'
 class InvitedToOrgsList extends React.Component {
 
 
-  acceptInvitation = async (invitationId) => {
+  acceptInvitation = async (invitation, invitationId) => {
     const { updateInvitation, profile } = this.props
     await updateInvitation({
-      userEmail: profile?.email,
+      userEmail: profile.email,
+      userName: profile.name,
+      invitation: invitation,
       invitationId: invitationId,
-      value: 'accepted'
+      fieldValue: 'accepted'
     })
   }
 
@@ -66,7 +68,7 @@ class InvitedToOrgsList extends React.Component {
           disabled={false}
         />
         <Button
-          onClick={() => this.acceptInvitation(invitationId)}
+          onClick={() => this.acceptInvitation(invitation, invitationId)}
           children='Accept'
           bgColor='green'
           fontSize='12px'

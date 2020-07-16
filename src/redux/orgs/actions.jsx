@@ -60,11 +60,13 @@ export const getOrgsInvitations = (userEmail) => {
  * 
  * @param {object} data 
  */
-export const updateInvitation = ({userEmail, invitationId, value}) => {
+export const updateInvitation = ({userEmail, userName, invitation, invitationId, fieldValue}) => {
   return (dispatch) => {
     orgsInvitationCollection.doc(userEmail).collection('invitations').doc(invitationId)
       .update({
-        status: value
+        ...invitation,
+        status: fieldValue,
+        inviteeName: userName
       }).then(() => {
         dispatch({ type: OrgActionTypes.UPDATE_INVITE_SUCCESS });
       }).catch((err => {
