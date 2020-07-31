@@ -25,8 +25,6 @@ class Main extends PureComponent {
   }
 
   render() {
-    console.log('main screen')
-    console.log(this.props.state)
     return (
       <MainContainer>
         {this.props.auth ? this.renderContent() : <Authentication />}
@@ -36,7 +34,7 @@ class Main extends PureComponent {
 
   renderContent = () => {
     const { profile } = this.props
-    if (!profile?.currentOrg) {
+    if (profile?.currentOrg) {
       return (
         <Fragment>
           <AppHeader />
@@ -67,7 +65,6 @@ const mapStateToProps = (state) => {
   return {
     profile: state.profileState?.profile,
     auth: state.authState?.auth,
-    state: state
   }
 }
 const mapDispatchToProps = (disptach, ownProps) => {

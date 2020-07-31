@@ -8,6 +8,8 @@ const profileReducer = (state = initState, action) => {
         ...state,
         profile: action.payload
       };
+    case profileActions.UPDATE_PROFILE_SUCCESS:
+      return state
     default:
       return state
   }
