@@ -1,14 +1,26 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { signOut } from '../../../redux/authentications/authActions'
-import { HeaderContainer } from './Header.styles'
+import { HeaderStyles } from './Header.styles'
+import UserAvatar from './userAvatar'
 
 class AppHeader extends PureComponent {
   render() {
     return (
-      <HeaderContainer>
+      <HeaderStyles.HeaderContainer>
         <button onClick={this.props.signOut}>Sign out</button>
-      </HeaderContainer>
+        {this.renderUserAvatar()}
+      </HeaderStyles.HeaderContainer>
+    )
+  }
+
+  renderUserAvatar = () => {
+    const { profile } = this.props
+    return (
+      <HeaderStyles.UserAvatarWrapper>
+        <UserAvatar profile={profile} status='online' />
+        {profile.name}
+      </HeaderStyles.UserAvatarWrapper>
     )
   }
 }

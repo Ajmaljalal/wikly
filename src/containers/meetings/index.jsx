@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { firestoreConnect } from 'react-redux-firebase'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Skeleton from 'react-loading-skeleton';
 import Tippy from '@tippyjs/react';
@@ -132,7 +130,7 @@ class Meetings extends PureComponent {
     const { meetings } = this.props
     const { weekDates } = this.state
     const weekDayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
-    if (!weekDates || !this.props.meetings) return <Skeleton/>
+    if (!weekDates || !this.props.meetingsState) return <Skeleton/>
     return weekDates.map((date, index) => {
       // date.replace(, '')
       return (
@@ -148,9 +146,9 @@ class Meetings extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ firestore }) => {
+const mapStateToProps = (state) => {
   return {
-    meetings: firestore.data.currentProjectMeetings
+    meetingsState: state.meetingsState
   }
 }
 
@@ -160,16 +158,4 @@ const mapDispatchToProps = (disptach) => {
   }
 }
 
-export default compose(
-  firestoreConnect((props) =>
-    [
-      {
-      collection: 'project-meetings',
-      doc: 'SZMKZDDzduTEYipp47Ad',
-      subcollections: [{ collection: 'meetings' }],
-      storeAs: 'currentProjectMeetings'
-      }
-    ]
-  ),
-  connect(mapStateToProps, mapDispatchToProps
-  ))(Meetings);
+export default connect(mapStateToProps, mapDispatchToProps)(Meetings);

@@ -34,7 +34,7 @@ class Main extends PureComponent {
 
   renderContent = () => {
     const { profile } = this.props
-    if (!profile?.currentOrg) {
+    if (profile?.currentOrg) {
       return (
         <Fragment>
           <AppHeader />

@@ -5,10 +5,10 @@ const MenuBar = styled.div`
   width: 3.3%;
   min-width: 50px;
   max-width: 3.3%;
-  background: white;
+  background: #2a4865;
   display: flex;
   flex-direction: column;
-  border-top: 0.5px solid lightgrey;
+  border-top: 0.5px solid #2a4865;
   box-shadow: 0px 4px 4px lightgrey;
   justify-content: space-between;
 `
