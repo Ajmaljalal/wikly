@@ -43,9 +43,6 @@ const MenuItem = styled.div`
     &:not(:last-child){
         border-bottom: .5px solid #d2d2d2;
     }
-    &:hover{
-        background: #d2d2d2;
-    }
 `;
 
 const MenuItemLabel = styled.div`
@@ -59,6 +56,11 @@ const MenuItemLabel = styled.div`
     }
     svg {
         margin-right: 8px;
+    }
+
+    &:hover{
+        color: darkblue;
+        font-weight: 400;
     }
 `;
 
