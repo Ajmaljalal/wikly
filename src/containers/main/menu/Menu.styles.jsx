@@ -43,6 +43,7 @@ const MenuItemsBottom = styled.div`
     img {
       border-radius: 50%;
       margin-bottom: 5px;
+      padding: 1px;
     }
 `;
 

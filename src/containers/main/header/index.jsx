@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { signOut } from '../../../redux/authentications/authActions'
 import { HeaderStyles } from './Header.styles'

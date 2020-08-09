@@ -14,7 +14,7 @@ const Container = styled.div`
     } 
     &:hover{
         border-radius: 50%;
-        background: #476282;
+        background: ${(props) => props.isHover ? '#476282' : 'none'};
     }
 `;
 
@@ -22,9 +22,10 @@ const Menu = styled.div`
     position: absolute;
     z-index: 1000;
     min-width: 180px;
-    top: 35px;
     right:${(props) => props.left ? '' : '0px'};
-    left: ${(props) => props.left ? '0px': ''};
+    left: ${(props) => props.left ? '0px' : ''};
+    top: ${(props) => props.bottom ? '' : '30px'};
+    bottom: ${(props) => props.bottom ? '30px': ''};
     font-weight: 300;
     font-size: 14px;
     background-color: white;
