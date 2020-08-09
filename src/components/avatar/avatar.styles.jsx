@@ -28,7 +28,7 @@ const Avatar = styled.div`
 `;
 
 const Status = styled.div`
-    border: 3px solid white;
+    border: 2px solid white;
     background: ${
     (props) => props.status === 'online' ? 'green' :
         props.status === 'offline' ? 'red' :

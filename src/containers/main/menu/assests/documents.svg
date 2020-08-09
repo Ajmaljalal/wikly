@@ -1,1 +1,68 @@
-<svg height="512pt" viewBox="-21 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m186.667969 416c-49.984375 0-90.667969-40.683594-90.667969-90.667969v-218.664062h-37.332031c-32.363281 0-58.667969 26.300781-58.667969 58.664062v288c0 32.363281 26.304688 58.667969 58.667969 58.667969h266.664062c32.363281 0 58.667969-26.304688 58.667969-58.667969v-37.332031zm0 0"/><path d="m469.332031 58.667969c0-32.40625-26.261719-58.667969-58.664062-58.667969h-224c-32.40625 0-58.667969 26.261719-58.667969 58.667969v266.664062c0 32.40625 26.261719 58.667969 58.667969 58.667969h224c32.402343 0 58.664062-26.261719 58.664062-58.667969zm0 0"/></svg>
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve">
+<path style="fill:#78B9EB;" d="M408,480H72c-8.837,0-16-7.163-16-16V16c0-8.837,7.163-16,16-16h264l88,88v376
+	C424,472.837,416.837,480,408,480z"/>
+<path style="fill:#679FC9;" d="M336,0v72c0,8.837,7.163,16,16,16h72L336,0z"/>
+<g>
+	<path style="fill:#FFFFFF;" d="M104,48h16v16h-16V48z"/>
+	<path style="fill:#FFFFFF;" d="M136,48h160v16H136V48z"/>
+	<path style="fill:#FFFFFF;" d="M104,80h192v16H104V80z"/>
+</g>
+<path style="fill:#FBB040;" d="M112,128h256c4.418,0,8,3.582,8,8v64c0,4.418-3.582,8-8,8H112c-4.418,0-8-3.582-8-8v-64
+	C104,131.582,107.582,128,112,128z"/>
+<path style="fill:#FFEB99;" d="M112,224h64c4.418,0,8,3.582,8,8v64c0,4.418-3.582,8-8,8h-64c-4.418,0-8-3.582-8-8v-64
+	C104,227.582,107.582,224,112,224z"/>
+<path style="fill:#FFE477;" d="M208,224h64c4.418,0,8,3.582,8,8v64c0,4.418-3.582,8-8,8h-64c-4.418,0-8-3.582-8-8v-64
+	C200,227.582,203.582,224,208,224z"/>
+<path style="fill:#FFDA44;" d="M304,224h64c4.418,0,8,3.582,8,8v64c0,4.418-3.582,8-8,8h-64c-4.418,0-8-3.582-8-8v-64
+	C296,227.582,299.582,224,304,224z"/>
+<g>
+	<path style="fill:#FFFFFF;" d="M104,320h16v16h-16V320z"/>
+	<path style="fill:#FFFFFF;" d="M136,320h48v16h-48V320z"/>
+	<path style="fill:#FFFFFF;" d="M200,320h48v16h-48V320z"/>
+	<path style="fill:#FFFFFF;" d="M264,320h16v16h-16V320z"/>
+	<path style="fill:#FFFFFF;" d="M296,320h16v16h-16V320z"/>
+	<path style="fill:#FFFFFF;" d="M328,320h48v16h-48V320z"/>
+	<path style="fill:#FFFFFF;" d="M104,352h80v16h-80V352z"/>
+	<path style="fill:#FFFFFF;" d="M200,352h80v16h-80V352z"/>
+	<path style="fill:#FFFFFF;" d="M296,352h80v16h-80V352z"/>
+	<path style="fill:#FFFFFF;" d="M104,384h80v16h-80V384z"/>
+	<path style="fill:#FFFFFF;" d="M200,384h80v16h-80V384z"/>
+	<path style="fill:#FFFFFF;" d="M296,384h80v16h-80V384z"/>
+	<path style="fill:#FFFFFF;" d="M104,416h80v16h-80V416z"/>
+	<path style="fill:#FFFFFF;" d="M200,416h80v16h-80V416z"/>
+	<path style="fill:#FFFFFF;" d="M296,416h80v16h-80V416z"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>

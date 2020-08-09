@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Button from '../../../components/button/Button'
 import Input from '../../../components/input/Input'
 import { connect } from 'react-redux'
@@ -10,7 +10,6 @@ class NewOrg extends Component {
     screen: 'chooseName',
     name: '',
     project: ''
-
   }
 
   handleInputChange = (e) => {
@@ -79,8 +78,8 @@ class NewOrg extends Component {
         />
         <NewOrgStyles.Policy>
           By clicking to continue you accept our
-					<a href='#'> terms</a> and
-					<a href='#'> privacy policy</a>
+					<span> terms</span> and
+					<span> privacy policy</span>
         </NewOrgStyles.Policy>
         <Button
           onClick={this.toggleScreen}
@@ -113,33 +112,6 @@ class NewOrg extends Component {
           width='390px'
           onChange={this.handleInputChange}
         />
-        {/* <Input
-					name='typeOfbusiness'
-					value={this.state.typeOfbusiness}
-					label={'Type of your business:'}
-					required='true'
-					placeholder='Select type of business'
-					width='390px'
-					onChange={this.handleInputChange}
-				/>
-				<Input
-					name='name'
-					value={this.state.name}
-					label={'Type of your organization:'}
-					required='true'
-					placeholder='Enter a name for your org'
-					width='390px'
-					onChange={this.handleInputChange}
-				/>
-				<Input
-					name='name'
-					value={this.state.name}
-					label={'Type of your organization:'}
-					required='true'
-					placeholder='Enter a name for your org'
-					width='390px'
-					onChange={this.handleInputChange}
-				/> */}
         <Button
           onClick={this.createOrg}
           children='GO'

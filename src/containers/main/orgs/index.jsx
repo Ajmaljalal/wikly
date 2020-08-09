@@ -39,7 +39,7 @@ class Organization extends Component {
         <Button
           onClick={this.toggleCreateNewOrg}
           children='Create your own org'
-          bgColor='green'
+          bgColor='#2a4865'
           margin='20px'
           color='white'
           width='200px'
@@ -62,7 +62,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getOrgsInvitations: (userEmail) => dispatch(getOrgsInvitations(userEmail))
-
   }
 }
 

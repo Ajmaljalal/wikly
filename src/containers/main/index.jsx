@@ -1,9 +1,9 @@
 import React, { PureComponent, Fragment } from 'react'
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { MainContainer, Row } from './index.styles.jsx'
-import Menu from './menu/index';
-import AppHeader from './header/index'
+import firebase from '../../firebase/firebase-config'
+import { getProfile } from '../../redux/userProfile/actions';
+import { setCurrentOrg } from '../../redux/orgs/actions'
 
 import Dashboard from '../dashboard/index'
 import Meetings from '../meetings/index'
@@ -12,21 +12,22 @@ import Documents from '../documents/index'
 import ChatRooms from '../chat/index'
 import Authentication from '../auth/index'
 import Organization from './orgs/index'
-import { getProfile } from '../../redux/userProfile/actions';
-import firebase from '../../firebase/firebase-config'
+
+import Menu from './menu/index';
+import AppHeader from './header/index'
+import { MainContainer, Row } from './index.styles.jsx'
 class Main extends PureComponent {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        this.props.getProfile(user.uid)
+        await this.props.getProfile(user.uid)
       }
     })
+    this.props.setCurrentOrg(this.props.profile?.currentOrg)
   }
 
   render() {
-    console.log('main screen')
-    console.log(this.props.state)
     return (
       <MainContainer>
         {this.props.auth ? this.renderContent() : <Authentication />}
@@ -36,7 +37,7 @@ class Main extends PureComponent {
 
   renderContent = () => {
     const { profile } = this.props
-    if (!profile?.currentOrg) {
+    if (profile?.currentOrg) {
       return (
         <Fragment>
           <AppHeader />
@@ -47,7 +48,7 @@ class Main extends PureComponent {
               <Route path='/meetings' component={Meetings} />
               <Route path='/tasks' component={Tasks} />
               <Route path='/documents' component={Documents} />
-              <Route path='/chat-rooms' component={ChatRooms} />
+              <Route path='/chat' component={ChatRooms} />
             </Switch>
           </Row>
         </Fragment>
@@ -67,12 +68,12 @@ const mapStateToProps = (state) => {
   return {
     profile: state.profileState?.profile,
     auth: state.authState?.auth,
-    state: state
   }
 }
 const mapDispatchToProps = (disptach, ownProps) => {
   return {
-    getProfile: (userId) => disptach(getProfile(userId))
+    getProfile: (userId) => disptach(getProfile(userId)),
+    setCurrentOrg: (orgId) => disptach(setCurrentOrg(orgId))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

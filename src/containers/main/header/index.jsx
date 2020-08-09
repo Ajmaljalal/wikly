@@ -1,16 +1,51 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { signOut } from '../../../redux/authentications/authActions'
-import { HeaderContainer } from './Header.styles'
+import { HeaderStyles } from './Header.styles'
+import UserAvatar from './userAvatar'
+import ActionsDropdown from '../../../components/actions-dropdown/index'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class AppHeader extends PureComponent {
+
+
   render() {
     return (
-      <HeaderContainer>
-        <button onClick={this.props.signOut}>Sign out</button>
-      </HeaderContainer>
+      <HeaderStyles.HeaderContainer>
+        <div></div>
+        {this.renderUserAvatar()}
+      </HeaderStyles.HeaderContainer>
     )
   }
+
+  renderUserAvatar = () => {
+    const { profile } = this.props
+    const dropdownActions = [
+      {
+        element: this.renderSignoutBtn(),
+        onClick: this.props.signOut
+      }
+    ]
+
+    return (
+      <HeaderStyles.UserAvatarWrapper>
+        <UserAvatar profile={profile} status='online' />
+        {profile.name}
+        <ActionsDropdown actions={dropdownActions} />
+      </HeaderStyles.UserAvatarWrapper>
+    )
+  }
+
+  renderSignoutBtn = () => {
+    return (
+      <div>
+        <FontAwesomeIcon icon='sign-out-alt' color="red"/>
+        Sign Out
+      </div>
+
+    )
+  }
+
 }
 
 const mapStateToProps = ({ profileState }) => {

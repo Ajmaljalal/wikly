@@ -4,14 +4,14 @@ const MenuBar = styled.div`
   height:100%;
   width: 3.3%;
   min-width: 50px;
-  max-width: 3.3%;
-  background: white;
+  max-width: 50px;
+  background: #2a4865;
   display: flex;
   flex-direction: column;
-  border-top: 0.5px solid lightgrey;
+  border-top: 0.5px solid #476282;
   box-shadow: 0px 4px 4px lightgrey;
   justify-content: space-between;
-`
+`;
 
 const Logo = styled.div`
   display: flex;
@@ -22,24 +22,15 @@ const Logo = styled.div`
       width: 30px;
       height:30px;
     }
-`
+`;
 const MenuItemsTop = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-    img {
-      width: 20px;
-      height:20px;
-      margin: 2px 0;
-      padding: 7px 35px;
-      border: 2px solid transparent;
-      border-radius: 5px;
-      &:hover {
-        border: 2px solid purple;
-        padding: 7px;
-      }
-    }
+  max-width: 100%;
+  margin-top: 5px;
+  cursor: pointer;
 `;
 
 const MenuItemsBottom = styled.div`
@@ -47,16 +38,25 @@ const MenuItemsBottom = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
     img {
-      width: 30px;
-      height: 30px;
       border-radius: 50%;
-      margin-bottom: 10px;
-      border: 2px solid transparent;
-      &:hover {
-        border: 2px solid purple;
-      }
+      margin-bottom: 5px;
+      padding: 1px;
+    }
+`;
+
+const Image = styled.img`
+    width: 25px;
+    height: 25px;
+    background: ${(props) => props.isActive ? 'white' : 'none'};
+    margin: 2px 0;
+    padding: 4px;
+    border-radius: 5px;
+    border: 3px solid transparent;
+    &:hover{
+      border: 3px solid white;
     }
 `;
 
@@ -64,5 +64,6 @@ export const MenuStyles = {
   MenuBar,
   Logo,
   MenuItemsTop,
-  MenuItemsBottom
+  MenuItemsBottom,
+  Image
 }

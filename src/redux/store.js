@@ -11,7 +11,9 @@ if (process.env.NODE_ENV === 'development') {
   // middlewares.push(logger);
 }
 
-export const store = createStore(rootReducer,
+export const store = createStore(
+  rootReducer,
+  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   compose(
     applyMiddleware(...middlewares)
   )

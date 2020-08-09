@@ -7,14 +7,15 @@ class DropdownList extends Component {
   state = {
     isOpen: false
   }
-  container = React.createRef()
 
+  // lines 11-18 are needed for onClickOutside 
+  container = React.createRef()
+  setClickOutsideRef = () => this.container.current // this is necessiary for removing findDOMNode deprication warning 
   handleClickOutside = (evt) => {
     this.setState({
       isOpen: false
     })
   }
-  setClickOutsideRef = () => this.container.current // this is necessiary for removign findDOMNode deprication warning 
 
   toggleDropDown = () => {
     this.setState({
