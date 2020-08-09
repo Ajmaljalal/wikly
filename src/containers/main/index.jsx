@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import firebase from '../../firebase/firebase-config'
 import { getProfile } from '../../redux/userProfile/actions';
 import { setCurrentOrg } from '../../redux/orgs/actions'
+import { getProjects } from '../../redux/projects/actions'
 
 import Dashboard from '../dashboard/index'
 import Meetings from '../meetings/index'
@@ -17,14 +18,14 @@ import Menu from './menu/index';
 import AppHeader from './header/index'
 import { MainContainer, Row } from './index.styles.jsx'
 class Main extends PureComponent {
-
-  componentDidMount() {
+  
+  async componentDidMount () {
+    const { profile, setCurrentOrg, getProfile, getProjects, currentOrg } = this.props
     firebase.auth().onAuthStateChanged(async (user) => {
-      if (user) {
-        await this.props.getProfile(user.uid)
-      }
+      if (user) await getProfile(user.uid)
     })
-    this.props.setCurrentOrg(this.props.profile?.currentOrg)
+    if (profile.currentOrg) await setCurrentOrg(profile.currentOrg)
+    if (currentOrg) await getProjects(currentOrg.orgId)
   }
 
   render() {
@@ -64,16 +65,19 @@ class Main extends PureComponent {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({profileState, authState, orgsState}) => {
   return {
-    profile: state.profileState?.profile,
-    auth: state.authState?.auth,
+    profile: profileState?.profile,
+    auth: authState?.auth,
+    currentOrg: orgsState?.current_org
   }
 }
-const mapDispatchToProps = (disptach, ownProps) => {
+const mapDispatchToProps = (disptach) => {
   return {
     getProfile: (userId) => disptach(getProfile(userId)),
-    setCurrentOrg: (orgId) => disptach(setCurrentOrg(orgId))
+    setCurrentOrg: (orgId) => disptach(setCurrentOrg(orgId)),
+    getProjects: (orgId) => disptach(getProjects(orgId))
+
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Skeleton from 'react-loading-skeleton';
 import Tippy from '@tippyjs/react';
 import { Colors } from '../../assets/colors'
-import { createMeeting } from '../../redux/meetings/meetingsActions'
+import { createMeeting } from '../../redux/meetings/actions'
 import { getCurrentWeek, getLastWeek, getNextWeek } from '../../helpers/getDate'
 import ContentHeader from '../../components/content-header/index'
 import MeetingColumn from './MeetingColumn'
@@ -146,9 +146,9 @@ class Meetings extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({meetingsState}) => {
   return {
-    meetingsState: state.meetingsState
+    meetings: meetingsState.meetings
   }
 }
 
