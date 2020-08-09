@@ -77,8 +77,8 @@ class ChatScreen extends Component {
   }
 
   renderChatItems = () => {
-    return messages.map(message => {
-      return <ChatItem message={message} />
+    return messages.map((message, index) => {
+      return <ChatItem message={message} key={index}/>
     })
   }
 }

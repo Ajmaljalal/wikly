@@ -8,7 +8,7 @@ const HeaderContainer = styled.div`
   width: 100%;
   min-height: 40px;
   background: #2a4865;
-  box-shadow: 0px 1px 4px lightgray;
+  box-shadow: 0px 1px 8px lightgray;
 `;
 
 const UserAvatarWrapper = styled.div`
@@ -16,7 +16,6 @@ const UserAvatarWrapper = styled.div`
   align-items: center;
   cursor: pointer;
   color: white;
-  padding: 3px 10px;
 
 `;
 

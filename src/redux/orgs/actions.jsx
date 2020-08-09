@@ -46,11 +46,10 @@ export const getOrgsInvitations = (userEmail) => {
           array.push(org)
         })
         dispatch({ type: OrgActionTypes.GET_ORG_SUCCESS, payload: array });
-
       }, (err => {
         dispatch({ type: OrgActionTypes.GET_ORG_ERROR, payload: err });
       })
-      )
+    )
   }
 }
 
