@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { changeCurrentAppScreen } from '../../../redux/application/actions'
 import Tippy from '@tippyjs/react';
+import { changeCurrentAppScreen } from '../../../redux/application/actions'
+import { setCurrentOrg } from '../../../redux/orgs/actions'
+import ActionsDropdown from '../../../components/actions-dropdown/index'
 import meeting from './assests/meeting.svg'
 import dashboard from './assests/dashboard.svg'
 import tasks from './assests/tasks.svg'
@@ -12,8 +14,8 @@ import { MenuStyles } from './Menu.styles'
 
 class Menu extends PureComponent {
 
-  checkCurrentScreen = (currentScreen, buttonLable) => {
-    return currentScreen === buttonLable
+  checkCurrentScreen = (currentScreen, buttonLabel) => {
+    return currentScreen === buttonLabel
   }
 
   changeCurrentScreen = (screen) => {
@@ -21,7 +23,16 @@ class Menu extends PureComponent {
   }
 
   render() {
-    const { currentOrg, currentScreen } = this.props
+    return (
+      <MenuStyles.MenuBar>
+        {this.renderMenuBtns()}
+        {this.renderCurrentOrgLogo()}
+      </MenuStyles.MenuBar>
+    )
+  }
+
+  renderMenuBtns = () => {
+    const { currentScreen } = this.props
     const menuButtons = [
       {
         icon: dashboard,
@@ -50,49 +61,63 @@ class Menu extends PureComponent {
       },
     ]
     return (
-      <MenuStyles.MenuBar>
-        <MenuStyles.MenuItemsTop>
-          {menuButtons.map((button, index) => {
-            return (
-              <Tippy placement='right' content={button.label.toUpperCase()} className='tippy-tooltip' key={index}>
-                <span>
-                  <MenuButton
-                    onClick={this.changeCurrentScreen}
-                    icon={button.icon}
-                    isActive={this.checkCurrentScreen(currentScreen, button.label)}
-                    path={button.path}
-                  />
-                </span>
-              </Tippy>
-            )
-          })}
-        </MenuStyles.MenuItemsTop>
-        <MenuStyles.MenuItemsBottom>
-          <Tippy placement='right' content={`Current org: ${currentOrg.name}`} className='tippy-tooltip'>
-            <span>
-              <MenuButton
-                onClick={()=>console.log('clicked')}
-                icon={currentOrg.logo}
-                path={null}
-              />
-            </span>
-          </Tippy>
-        </MenuStyles.MenuItemsBottom>
-      </MenuStyles.MenuBar>
+      <MenuStyles.MenuItemsTop>
+        {menuButtons.map((button, index) => {
+          return (
+            <Tippy placement='right' content={button.label.toUpperCase()} className='tippy-tooltip' key={index}>
+              <span>
+                <MenuButton
+                  onClick={this.changeCurrentScreen}
+                  icon={button.icon}
+                  isActive={this.checkCurrentScreen(currentScreen, button.label)}
+                  path={button.path}
+                />
+              </span>
+            </Tippy>
+          )
+        })}
+      </MenuStyles.MenuItemsTop>
     )
+  }
+
+  renderCurrentOrgLogo = () => {
+    const { currentOrg } = this.props
+    return (
+      <MenuStyles.MenuItemsBottom>
+        <Tippy placement='right' content={`Current Org: ${currentOrg.name.toUpperCase()}, click to change org`} className='tippy-tooltip'>
+          <span>
+            <ActionsDropdown actions={this.renderUsersOrgsDropdownActionsList()} img={currentOrg.logo} />
+          </span>
+        </Tippy>
+      </MenuStyles.MenuItemsBottom>
+    )
+  }
+
+  renderUsersOrgsDropdownActionsList = () => {
+    const { profile, setCurrentOrg } = this.props
+    const dropdownActions = []
+    profile.orgs.forEach((org) => {
+      dropdownActions.push({
+        element: <div key={org.orgId}>{org.orgName}</div>,
+        onClick: () => setCurrentOrg(org.orgId)
+      })
+    })
+    return dropdownActions
   }
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ profileState, orgsState, applicationState }) => {
   return {
-    currentOrg: { name: 'ajmal' },
-    currentScreen: state.applicationState.current_screen
+    profile: profileState.profile,
+    currentOrg: orgsState.current_org,
+    currentScreen: applicationState.current_screen
   }
 }
 const mapDispatchToProps = (disptach, ownProps) => {
   return {
-    changeCurrentAppScreen: (screen) => disptach(changeCurrentAppScreen(screen))
+    changeCurrentAppScreen: (screen) => disptach(changeCurrentAppScreen(screen)),
+    setCurrentOrg: (orgId) => disptach(setCurrentOrg(orgId))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);

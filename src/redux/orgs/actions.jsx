@@ -6,11 +6,23 @@ import { OrgActionTypes } from './types'
 const firestore = firebase.firestore()
 
 const orgsInvitationCollection = firestore.collection('invitations-to-orgs')
+const orgsCollection = firestore.collection('orgs')
 
 
 /**
  * 
- * @param {object} org 
+ * @param {Object} org 
+ */
+export const setCurrentOrg = (orgId) => {
+  return (dispatch) => {
+    orgsCollection.doc(orgId).get().then((doc) => {
+      dispatch({type: OrgActionTypes.SET_CURRENT_ORG_SUCCESS, payload: doc.data()})
+    })
+  }
+}
+/**
+ * 
+ * @param {Object} org 
  */
 export const createNewOrg = (org) => {
   return (dispatch) => {
