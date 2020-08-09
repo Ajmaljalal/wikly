@@ -62,7 +62,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getOrgsInvitations: (userEmail) => dispatch(getOrgsInvitations(userEmail))
-
   }
 }
 

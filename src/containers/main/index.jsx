@@ -45,7 +45,7 @@ class Main extends PureComponent {
               <Route path='/meetings' component={Meetings} />
               <Route path='/tasks' component={Tasks} />
               <Route path='/documents' component={Documents} />
-              <Route path='/chat-rooms' component={ChatRooms} />
+              <Route path='/chat' component={ChatRooms} />
             </Switch>
           </Row>
         </Fragment>
