@@ -27,10 +27,10 @@ class ActionsDropdown extends Component {
   toggleDropdown = (e) => {
     let left
     let bottom
-    if (e.screenX > 1000) {
+    if (e.clientX > 700) {
       left = false
     } else left = true
-    if (e.screenY > 430) {
+    if (e.clientY > 430) {
       bottom = true
     } else bottom = false
     this.setState({
