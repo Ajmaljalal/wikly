@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import onClickOutside from "react-onclickoutside";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -9,7 +9,7 @@ import { ActionsDropdownStyles } from './actions-dropdown.styles'
  * @param {Array} actions
  * @param {String} img
  */
-class ActionsDropdown extends Component {
+class ActionsDropdown extends PureComponent {
 
   state = {
     open: false

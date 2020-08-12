@@ -5,6 +5,12 @@ import { meetingsActions } from './types'
 const firestore = firebase.firestore()
 const meetingsCollection = firestore.collection('projects-meetings')
 
+/**
+ * 
+ * @param {Object} profile 
+ * @param {String} projectId 
+ * @param {Object} meeting 
+ */
 export const createMeeting = (profile, projectId, meeting) => {
   const { date, startTime, endTime, endDate } = meeting
   const startTimeWithDate = new Date(moment(`${date} ${startTime}:00`, 'YYYY-MM-DD HH:mm:ss').format());
@@ -37,5 +43,42 @@ export const createMeeting = (profile, projectId, meeting) => {
     }).catch(err => {
       dispatch({ type: meetingsActions.CREATE_MEETING_ERROR }, err);
     });
+  }
+};
+
+/**
+ * 
+ * @param {String} projectId 
+ * @param {String} meetingId 
+ */
+export const getOneMeeting = (projectId, meetingId) => {
+  console.log('ids: ', projectId, meetingId)
+  return (dispatch) => {
+    meetingsCollection.doc(projectId).collection('meetings').doc(meetingId).onSnapshot((doc) => {
+      dispatch({ type: meetingsActions.GET_ONE_MEETING_SUCCESS, payload: doc.data() });
+    }, (err => {
+      dispatch({ type: meetingsActions.GET_ONE_MEETING_ERROR }, err);
+    })
+    );
+  }
+};
+
+/**
+ * 
+ * @param {String} projectId 
+ */
+export const getMeetings = (projectId) => {
+  return (dispatch) => {
+    meetingsCollection.doc(projectId).collection('meetings').onSnapshot((querySnapShot) => {
+      const array = [];
+      querySnapShot.forEach(doc => {
+        const meeting = { ...doc.data() }
+        array.push(meeting)
+      })
+      dispatch({ type: meetingsActions.GET_MEETINGS_SUCCESS, payload: array });
+    }, (err => {
+      dispatch({ type: meetingsActions.GET_MEETINGS_ERROR }, err);
+    })
+    );
   }
 };

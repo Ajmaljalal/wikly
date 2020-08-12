@@ -33,7 +33,7 @@ class CreateNewMeeting extends Component {
     const { title, date, startTime, invitedMembers } = this.state.newMeeting
     const { profile } = this.props
     if (title && date && startTime && invitedMembers.length) {
-      await this.props.createNewMeeting({ ...this.state.newMeeting }, '8HNHyd0dWi393bKn1Ncm', profile)
+      await this.props.createNewMeeting( profile, '8HNHyd0dWi393bKn1Ncm', this.state.newMeeting )
       this.props.toggleAddMeetingModal()
     } else {
       this.setState({
@@ -51,7 +51,7 @@ class CreateNewMeeting extends Component {
     })
   }
 
-  addAllMembers = (members) => (e) => {
+  addRemoveAllMembers = (members) => (e) => {
     const { newMeeting } = this.state
     const meeting = newMeeting
     if (meeting.invitedMembers.length === members.length) {
@@ -183,7 +183,7 @@ class CreateNewMeeting extends Component {
           color={bgColor}
           bgColor='white'
           fontSize='12px'
-          onClick={this.addAllMembers(options)}
+          onClick={this.addRemoveAllMembers(options)}
         >
           {btnText}
         </Button>
@@ -392,7 +392,7 @@ const mapDStateToProps = ({ profileState }) => {
 }
 const mapDispatchToProps = (disptach) => {
   return {
-    createNewMeeting: (meeting, projectId, profile) => disptach(createMeeting(meeting, projectId, profile))
+    createNewMeeting: ( profile, projectId, meeting ) => disptach(createMeeting( profile, projectId, meeting ))
   }
 }
 

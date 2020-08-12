@@ -6,7 +6,9 @@ import MeetingDetails from './MeetingDetails'
 import { MeetingItemStyles } from './meetingItem.styles'
 import { Colors } from '../../assets/colors'
 
-
+/**
+ * @param {Object} meeting
+ */
 class MeetingItem extends React.PureComponent {
   constructor() {
     super()
@@ -34,7 +36,7 @@ class MeetingItem extends React.PureComponent {
           {this.renderBody(meeting.title, meeting.scheduler, meeting.startTime, meeting.endTime, meeting.frequency)}
           {this.renderFooter(meeting)}
         </MeetingItemStyles.MeetingContainer>
-        {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal} meeting={meeting} /> : null}
+        {openMeetingDetails ? <MeetingDetails onClose={this.toggleMeetingDetailsModal} meetingId={meeting.meetingId} /> : null}
       </Fragment>
     )
   }
@@ -55,23 +57,20 @@ class MeetingItem extends React.PureComponent {
   renderBody = (title, scheduler, startTime, endTime, frequency) => {
     let status = `Starts ${getTimeLeft(startTime)}`
     let now = new Date()
-    if (now > startTime.toDate()) {
+    if (now > startTime) {
       status = 'In Progress'
     }
-    if (now > endTime.toDate()) {
-      status = 'Meeting Ended'
+    if (now > endTime) {
+      status = 'Ended'
     }
     return (
       <MeetingItemStyles.MeetinBody onClick={this.toggleMeetingDetailsModal}>
-        <MeetingItemStyles.MeetingTitle>
-          {title}
-          {this.renderRecurringIndicator(frequency)}
-        </MeetingItemStyles.MeetingTitle>
+        <MeetingItemStyles.MeetingTitle>{title}</MeetingItemStyles.MeetingTitle>
+        {this.renderRecurringIndicator(frequency)}
         <MeetingItemStyles.MeetingHost>
             <span>By: {scheduler.name}</span>
             <MeetingItemStyles.Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</MeetingItemStyles.Status>
           </MeetingItemStyles.MeetingHost>
-          
       </MeetingItemStyles.MeetinBody>
     )
   }

@@ -7,11 +7,13 @@ import { Column } from '../../components/common.styles'
 
 import MeetingItem from './MeetingItem'
 
-
+/**
+ * 
+ * @param {Objec} meeting 
+ * @param {String} day 
+ * @param {String} date 
+ */
 const isMeetingInColumn = (meeting, day, date) => {
-  if (meeting.date !== date) {
-    console.log(meeting.date, date)
-  }
   if (
     meeting &&
     (meeting.date === date ||
@@ -34,7 +36,6 @@ const MeetingColumn = ({ date, day, meetings, onAddMeeting }) => {
   if (meetings) {
     Object.keys(meetings).forEach(meetingId => {
       if (isMeetingInColumn(meetings[meetingId], day, date)) {
-        console.log('meeting included')
         meetingsOnCurrentDate.push(meetings[meetingId])
       }   
     })
@@ -71,7 +72,7 @@ const renderColumnBody = (meetingsOnCurrentDate) => {
   })
   return sortedMeetingsOnCurrentDate && sortedMeetingsOnCurrentDate.map(meeting => {
     return (
-      <MeetingItem key={meeting.id} meeting={meeting} />
+      <MeetingItem key={meeting.meetingId} meeting={meeting} />
     )
   })
 }

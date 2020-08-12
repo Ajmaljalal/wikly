@@ -4,7 +4,6 @@ const MeetingContainer = styled.div`
   flex-direction: column;
   width: 100%;
   min-width:130px; 
-  min-height: 150px;
   max-height: 150px;
   background: white;
   box-sizing: border-box;
@@ -50,14 +49,16 @@ const MoreIconWrapper = styled.div`
   }
 `;
 const MeetinBody = styled.div`
-  min-height:95px;
   min-width: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  span {
+    width: 40%;
+  }
 `;
 const MeetingTitle = styled.div`
-  height: 55px;
+  min-height: 20px;
   max-height: 55px;
   font-size: 14px;
   overflow: hidden;
@@ -70,10 +71,9 @@ const MeetingTitle = styled.div`
   }
 `;
 const MeetingHost = styled.div`
-  padding:3px;
-  padding-bottom:3px;
+  padding:3px 0;
   font-size: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   border-radius: 3px;
   display: flex;
   justify-content: space-between;

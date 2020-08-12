@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Skeleton from 'react-loading-skeleton';
 import Tippy from '@tippyjs/react';
 import { Colors } from '../../assets/colors'
-import { createMeeting } from '../../redux/meetings/actions'
+import { createMeeting, getMeetings } from '../../redux/meetings/actions'
 import { getCurrentWeek, getLastWeek, getNextWeek } from '../../helpers/getDate'
 import ContentHeader from '../../components/content-header/index'
 import MeetingColumn from './MeetingColumn'
@@ -33,6 +33,7 @@ class Meetings extends PureComponent {
   }
 
   componentDidMount() {
+    this.props.getMeetings('8HNHyd0dWi393bKn1Ncm')
     this.setState({
       weekDates: getCurrentWeek(),
     })
@@ -130,7 +131,7 @@ class Meetings extends PureComponent {
     const { meetings } = this.props
     const { weekDates } = this.state
     const weekDayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
-    if (!weekDates || !this.props.meetingsState) return <Skeleton/>
+    if (!weekDates || !this.props.meetings) return <div>no meetings scheduled</div>
     return weekDates.map((date, index) => {
       // date.replace(, '')
       return (
@@ -154,7 +155,8 @@ const mapStateToProps = ({meetingsState}) => {
 
 const mapDispatchToProps = (disptach) => {
   return {
-    createNewMeeting: (meeting) => disptach(createMeeting(meeting))
+    createNewMeeting: (meeting) => disptach(createMeeting(meeting)),
+    getMeetings: (projectId) => disptach(getMeetings(projectId))
   }
 }
 
