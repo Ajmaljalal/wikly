@@ -1,6 +1,6 @@
 import { applicationActions } from './types'
 const initState = {
-  current_screen: 'meetings'
+  current_screen: 'dashboard'
 }
 
 const applicationReducer = (state = initState, action) => {

@@ -1,7 +1,7 @@
 import React, { memo }from 'react'
-import {ContentHeaderContainer, HeaderTitle } from './content-header.styles'
+import {ContentHeaderContainer, HeaderTitle } from './screen-title.styles'
 
-function ContentHeader({title}) {
+function ScreenTitle({title}) {
     return (
         <ContentHeaderContainer>
             <HeaderTitle>{title}</HeaderTitle>
@@ -9,4 +9,4 @@ function ContentHeader({title}) {
     )
 }
 
-export default memo(ContentHeader);
+export default memo(ScreenTitle);

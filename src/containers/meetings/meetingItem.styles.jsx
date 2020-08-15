@@ -1,10 +1,10 @@
 import styled from 'styled-components'
+import { Colors } from '../../assets/colors'
 const MeetingContainer = styled.div`
   display:flex;
   flex-direction: column;
   width: 100%;
   min-width:130px; 
-  min-height: 150px;
   max-height: 150px;
   background: white;
   box-sizing: border-box;
@@ -12,7 +12,8 @@ const MeetingContainer = styled.div`
   border-radius: 5px;
   margin-top: 10px;
   padding: 5px;
-  border: ${(props)=>props.isFocused ? '1px solid grey' : '1px solid transparent'};
+  padding-left: 8px;
+  border: ${(props) => props.isFocused ? '1px solid grey' : '1px solid transparent'};
   transition: all .5s;
   cursor: pointer;
   &:hover{
@@ -50,30 +51,27 @@ const MoreIconWrapper = styled.div`
   }
 `;
 const MeetinBody = styled.div`
-  min-height:95px;
   min-width: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 const MeetingTitle = styled.div`
-  height: 55px;
+  min-height: 20px;
   max-height: 55px;
   font-size: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  span {
-    margin-left: 3px;
-    width: 20px;
-  }
+`;
+const Frequency = styled.div`
+  width: 14px;
 `;
 const MeetingHost = styled.div`
-  padding:3px;
-  padding-bottom:3px;
+  padding:3px 0;
   font-size: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   border-radius: 3px;
   display: flex;
   justify-content: space-between;
@@ -112,6 +110,7 @@ export const MeetingItemStyles = {
   MoreIconWrapper,
   MeetinBody,
   MeetingTitle,
+  Frequency,
   MeetingHost,
   Scheduler,
   Status,

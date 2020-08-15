@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Skeleton from 'react-loading-skeleton';
 import Tippy from '@tippyjs/react';
 import { Colors } from '../../assets/colors'
-import { createMeeting } from '../../redux/meetings/meetingsActions'
+import { createMeeting, getMeetings } from '../../redux/meetings/actions'
 import { getCurrentWeek, getLastWeek, getNextWeek } from '../../helpers/getDate'
-import ContentHeader from '../../components/content-header/index'
+import ScreenTitle from '../../components/screen-title/index'
 import MeetingColumn from './MeetingColumn'
 import CreateNewMeeting from './CreateNewMeeting'
 import Button from '../../components/button/Button'
@@ -28,11 +27,12 @@ class Meetings extends PureComponent {
   state = {
     isAddMeetingModalOpen: false,
     weekDates: null,
-    week: 'current'
+    week: 'Current'
     
   }
 
   componentDidMount() {
+    this.props.getMeetings('8HNHyd0dWi393bKn1Ncm')
     this.setState({
       weekDates: getCurrentWeek(),
     })
@@ -41,33 +41,33 @@ class Meetings extends PureComponent {
 
   setPreviousWeek = () => {
     const { week } = this.state
-    if (week === 'previous') return
-    if (week === 'next') {
+    if (week === 'Previous') return
+    if (week === 'Next') {
       this.setState({
         weekDates: getCurrentWeek(),
-        week: 'current'
+        week: 'Current'
       })
     }
-    if (week === 'current')
+    if (week === 'Current')
     this.setState({
       weekDates: getLastWeek(),
-      week: 'previous'
+      week: 'Previous'
     })
   }
 
   setNextWeek = () => {
     const { week } = this.state
-    if (week === 'next') return
-    if (week === 'previous') {
+    if (week === 'Next') return
+    if (week === 'Previous') {
       this.setState({
         weekDates: getCurrentWeek(),
-        week: 'current'
+        week: 'Current'
       })
     }
-    if (week === 'current') {
+    if (week === 'Current') {
       this.setState({
         weekDates: getNextWeek(),
-        week: 'next'
+        week: 'Next'
       })
     }
   }
@@ -96,13 +96,12 @@ class Meetings extends PureComponent {
   renderHeader = () => {
     return (
       <Header>
-        <ContentHeader title={'Meetings'} />
+        <ScreenTitle title={'Meetings'} />
         {this.renderNextAndPreviousButton()}
         <Buttons>
             <Button
               color='white'
-              bgColor={Colors.green}
-              fontSize='12px'
+              bgColor={Colors["wikli-color-primary-dark"]}
               onClick={this.toggleAddMeetingModal}
               >
               <FontAwesomeIcon icon='plus' color='white' />
@@ -114,11 +113,13 @@ class Meetings extends PureComponent {
   }
 
   renderNextAndPreviousButton = () => {
+    const { week } = this.state
     return (
       <NextPreviousWeek>
         <Tippy content='Previous week' className='tippy-tooltip'>
           <Previous onClick={this.setPreviousWeek}><FontAwesomeIcon icon='angle-left' color='black' size='lg' /></Previous>
         </Tippy>
+        {`${week} Week`}
         <Tippy content='Next week' className='tippy-tooltip'>
           <Next onClick={this.setNextWeek}><FontAwesomeIcon icon='angle-right' color='black' size='lg' /></Next>
         </Tippy>
@@ -130,9 +131,8 @@ class Meetings extends PureComponent {
     const { meetings } = this.props
     const { weekDates } = this.state
     const weekDayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
-    if (!weekDates || !this.props.meetingsState) return <Skeleton/>
+    if (!weekDates || !this.props.meetings) return <div>no meetings scheduled</div>
     return weekDates.map((date, index) => {
-      // date.replace(, '')
       return (
         <MeetingColumn
           key={date}
@@ -146,15 +146,16 @@ class Meetings extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({meetingsState}) => {
   return {
-    meetingsState: state.meetingsState
+    meetings: meetingsState.meetings
   }
 }
 
 const mapDispatchToProps = (disptach) => {
   return {
-    createNewMeeting: (meeting) => disptach(createMeeting(meeting))
+    createNewMeeting: (meeting) => disptach(createMeeting(meeting)),
+    getMeetings: (projectId) => disptach(getMeetings(projectId))
   }
 }
 

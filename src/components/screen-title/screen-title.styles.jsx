@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Colors } from '../../assets/colors'
 export const ContentHeaderContainer = styled.div`
   display: flex;
   align-items: center;
@@ -6,6 +7,7 @@ export const ContentHeaderContainer = styled.div`
 `;
 
 export const HeaderTitle = styled.h1`
-  font-size: 14px;
-  text-transform: uppercase;
+  font-size: 20px;
+  text-transform: sentenceCase;
+  color: ${Colors["theme-color-fg-primary"]}
 `;

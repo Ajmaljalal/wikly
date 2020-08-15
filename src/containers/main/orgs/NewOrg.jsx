@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Button from '../../../components/button/Button'
-import Input from '../../../components/input/Input'
 import { connect } from 'react-redux'
 import { createNewOrg } from '../../../redux/orgs/actions'
+import Button from '../../../components/button/Button'
+import Input from '../../../components/input/Input'
 import { NewOrgStyles } from './newOrg.styles'
 
 class NewOrg extends Component {
@@ -33,12 +33,12 @@ class NewOrg extends Component {
 
   createOrg = async () => {
     const { name, project } = this.state
+    const { profile } = this.props
     const projectName = project ? project : 'general'
+    const creatorId = profile?.userId
     if (name) {
-      const newOrg = { name, projectName }
-      // const newProject = { name }
+      const newOrg = { name, projectName, creatorId }
       await this.props.createNewOrg(newOrg)
-      // await this.props.createNewProject(newProject)
     }
   }
 
@@ -126,10 +126,15 @@ class NewOrg extends Component {
   }
 }
 
+const mapStateToProps = ({ profileState }) => {
+  return {
+    profile: profileState.profile
+  }
+}
 const mapDispatchToProps = (disptach) => {
   return {
     createNewOrg: (org) => disptach(createNewOrg(org))
   }
 }
-export default connect(null, mapDispatchToProps)(NewOrg);
+export default connect(mapStateToProps, mapDispatchToProps)(NewOrg);
 

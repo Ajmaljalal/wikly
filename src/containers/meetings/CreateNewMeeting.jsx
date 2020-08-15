@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createMeeting } from '../../redux/meetings/meetingsActions'
+import { createMeeting } from '../../redux/meetings/actions'
 import { findInArrayOfObjects } from '../../helpers/arrays'
 import Modal from '../../components/modal/Modal'
 import Input from '../../components/input/Input'
@@ -31,8 +31,9 @@ class CreateNewMeeting extends Component {
 
   scheduleNewMeeting = async () => {
     const { title, date, startTime, invitedMembers } = this.state.newMeeting
+    const { profile } = this.props
     if (title && date && startTime && invitedMembers.length) {
-      await this.props.createNewMeeting({...this.state.newMeeting})
+      await this.props.createNewMeeting( profile, '8HNHyd0dWi393bKn1Ncm', this.state.newMeeting )
       this.props.toggleAddMeetingModal()
     } else {
       this.setState({
@@ -50,7 +51,7 @@ class CreateNewMeeting extends Component {
     })
   }
 
-  addAllMembers = (members) => (e) => {
+  addRemoveAllMembers = (members) => (e) => {
     const { newMeeting } = this.state
     const meeting = newMeeting
     if (meeting.invitedMembers.length === members.length) {
@@ -96,7 +97,7 @@ class CreateNewMeeting extends Component {
   }
 
   renderForm = () => {
-    const {title, url} = this.state.newMeeting
+    const { title, url } = this.state.newMeeting
     const { emptyFormError } = this.state
     const options = [
       {
@@ -180,9 +181,9 @@ class CreateNewMeeting extends Component {
         {this.renderInviteesDropdownList(options)}
         <Button
           color={bgColor}
-          bgColor= 'white'
+          bgColor='white'
           fontSize='12px'
-          onClick={this.addAllMembers(options)}
+          onClick={this.addRemoveAllMembers(options)}
         >
           {btnText}
         </Button>
@@ -199,8 +200,8 @@ class CreateNewMeeting extends Component {
             return <NewMeetingStyles.Invited key={member.id}>{member.name}</NewMeetingStyles.Invited>
           })}
         </NewMeetingStyles.InvitedList>
-        )
-      } else return null
+      )
+    } else return null
   }
 
   renderInviteesDropdownList = (options) => {
@@ -293,7 +294,7 @@ class CreateNewMeeting extends Component {
     const repeatOptions = ['day', 'week', 'month']
     return (
       <NewMeetingStyles.RecurrenceRepeatEvery>
-        Repeat every: 
+        Repeat every:
         {repeatOptions.map((option) => {
           return (
             <Input
@@ -306,8 +307,8 @@ class CreateNewMeeting extends Component {
               key={option}
             />
           )
-        })} 
-    </NewMeetingStyles.RecurrenceRepeatEvery>
+        })}
+      </NewMeetingStyles.RecurrenceRepeatEvery>
     )
   }
 
@@ -339,20 +340,20 @@ class CreateNewMeeting extends Component {
 
   renderEndDate = () => {
     const { endDate } = this.state.newMeeting
-      return (
-        <NewMeetingStyles.RecurrenceEnds>
-          <Input
-            name='endDate'
-            value={endDate}
-            label='End date:'
-            required='true'
-            type='date'
-            oneLine={true}
-          />
-        </NewMeetingStyles.RecurrenceEnds>
+    return (
+      <NewMeetingStyles.RecurrenceEnds>
+        <Input
+          name='endDate'
+          value={endDate}
+          label='End date:'
+          required='true'
+          type='date'
+          oneLine={true}
+        />
+      </NewMeetingStyles.RecurrenceEnds>
 
-      )
-    
+    )
+
   }
   renderActionButtons = () => {
     const { toggleAddMeetingModal } = this.props
@@ -360,34 +361,37 @@ class CreateNewMeeting extends Component {
       <NewMeetingStyles.ActionButtons>
         <Button
           color='white'
-          bgColor= {Colors.flame}
+          bgColor={Colors["wikli-color-red-600"]}
           fontSize='12px'
           margin={true}
-          width='45px'
           onClick={toggleAddMeetingModal}
         >
           {'Cancel'}
         </Button>
         <Button
           color='white'
-          bgColor= {Colors.cyan}
+          bgColor={Colors["wikli-color-primary-default"]}
           fontSize='12px'
           margin={true}
-          width='45px'
           onClick={this.scheduleNewMeeting}
         >
           {'Save'}
         </Button>
-        
+
       </NewMeetingStyles.ActionButtons>
     )
   }
 }
 
+const mapDStateToProps = ({ profileState }) => {
+  return {
+    profile: profileState.profile
+  }
+}
 const mapDispatchToProps = (disptach) => {
   return {
-    createNewMeeting: (meeting) => disptach(createMeeting(meeting))
+    createNewMeeting: ( profile, projectId, meeting ) => disptach(createMeeting( profile, projectId, meeting ))
   }
 }
 
-export default connect(null, mapDispatchToProps)(CreateNewMeeting);
+export default connect(mapDStateToProps, mapDispatchToProps)(CreateNewMeeting);

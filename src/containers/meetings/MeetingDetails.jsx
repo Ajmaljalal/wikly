@@ -1,20 +1,35 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { firestoreConnect } from 'react-redux-firebase'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
+import { getOneMeeting } from '../..//redux/meetings/actions'
 
 import { MeetingDetailsStyles } from './meetingDetails.styles'
 import arrowDownIcon from '../../assets/icons/caret-down.svg'
 
+
+/**
+ * @param {Function} onClose
+ * @param {String} meetingId
+ * @param {Fucntion} getOneMeeting
+ * @param {Object} meetingAgenda
+ * @param {Object} meetingNotes
+ * @param {Object} meetingInvitees
+ * @param {Object} currentProject
+ */
 class MeetingDetails extends PureComponent {
 
   constructor() {
     super()
     this.state = {
       currentTab: 'agenda',
+      meeting: null
     }
+  }
+
+  async componentDidMount() {
+    const { getOneMeeting, currentProject, meetingId } = this.props
+    await getOneMeeting(currentProject.projectId, meetingId)
   }
 
   toggleCurrentTab = (currentTabName) => {
@@ -23,29 +38,33 @@ class MeetingDetails extends PureComponent {
     })
   }
 
+
   render() {
     const { meeting } = this.props
-    let status = `Starts ${getTimeLeft(meeting.startTime)}`
+    if (!meeting) {
+      return
+    }
+    let status = meeting && `Starts ${getTimeLeft(meeting.startTime)}`
     let now = new Date()
-    if (now > meeting.startTime.toDate()) {
+    if (now > meeting.startTime.seconds * 1000) {
       status = 'In Progress'
     }
-    if (now > meeting.endTime.toDate()) {
+    if (now > meeting.endTime.seconds * 1000) {
       status = 'Meeting Ended'
     }
     return (
-      <MeetingDetailsStyles.Container>
+      meeting ? <MeetingDetailsStyles.Container>
         {this.renderTitleAndCloseButton(meeting.title)}
         <MeetingDetailsStyles.MeetingTime>{getTimeFromDate(meeting.startTime)} -
-          {getTimeFromDate(meeting.endTime)} - 
+          {getTimeFromDate(meeting.endTime)} -
           <MeetingDetailsStyles.Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</MeetingDetailsStyles.Status>
         </MeetingDetailsStyles.MeetingTime>
         <MeetingDetailsStyles.Options>
           Manage meeting
-          <img src={arrowDownIcon} alt='arrow-down'/>
+          <img src={arrowDownIcon} alt='arrow-down' />
         </MeetingDetailsStyles.Options>
         {this.renderMeetingDetails()}
-      </MeetingDetailsStyles.Container>
+      </MeetingDetailsStyles.Container> : null
     )
   }
 
@@ -66,10 +85,10 @@ class MeetingDetails extends PureComponent {
     return (
       <MeetingDetailsStyles.DetialsContainer>
         <MeetingDetailsStyles.Tab>
-          <MeetingDetailsStyles.TabItem htmlFor='agenda' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('agenda')}>Agenda ({meeting.agenda})</MeetingDetailsStyles.TabItem>
-          <MeetingDetailsStyles.TabItem htmlFor='notes' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('notes')}>Notes ({meeting.notes})</MeetingDetailsStyles.TabItem>
-          <MeetingDetailsStyles.TabItem htmlFor='resources' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('resources')}>Resources ({meeting.attachments})</MeetingDetailsStyles.TabItem>
-          <MeetingDetailsStyles.TabItem htmlFor='invitees' currentTab={this.state.currentTab} onClick={()=>this.toggleCurrentTab('invitees')}>Invitees ({meeting.invitees})</MeetingDetailsStyles.TabItem>
+          <MeetingDetailsStyles.TabItem htmlFor='agenda' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('agenda')}>Agenda ({meeting.agenda})</MeetingDetailsStyles.TabItem>
+          <MeetingDetailsStyles.TabItem htmlFor='notes' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('notes')}>Notes ({meeting.notes})</MeetingDetailsStyles.TabItem>
+          <MeetingDetailsStyles.TabItem htmlFor='resources' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('resources')}>Resources ({meeting.attachments})</MeetingDetailsStyles.TabItem>
+          <MeetingDetailsStyles.TabItem htmlFor='invitees' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('invitees')}>Invitees ({meeting.invitees})</MeetingDetailsStyles.TabItem>
         </MeetingDetailsStyles.Tab>
         {this.renderTabItemDetails()}
       </MeetingDetailsStyles.DetialsContainer>
@@ -91,37 +110,24 @@ class MeetingDetails extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ firestore }) => {
+
+const mapStateToProps = ({ meetingsState, projectsState }) => {
   return {
-    meetingAgenda: firestore.data['Ww9NsfzVJDsNWWOrre8w-agenda'],
-    meetingNotes: firestore.data['Ww9NsfzVJDsNWWOrre8w-notes'],
-    meetingInvitees: firestore.data['Ww9NsfzVJDsNWWOrre8w-invitees'],
+    meetingAgenda: meetingsState.meeting_agenda,
+    meetingNotes: meetingsState.meeting_notes,
+    meetingInvitees: meetingsState.meeting_invitees,
+    currentProject: projectsState.projects[0],
+    meeting: meetingsState.current_meeting,
+
   }
 }
 
-export default compose(
-  firestoreConnect((props) =>
-    [
-      {
-        collection: 'meeting-notes',
-        doc: 'Ww9NsfzVJDsNWWOrre8w',
-        subcollections: [{ collection: 'notes'}], 
-        storeAs: 'Ww9NsfzVJDsNWWOrre8w-notes'
-      },
-      {
-        collection: 'meeting-agenda',
-        doc: 'Ww9NsfzVJDsNWWOrre8w',
-        subcollections: [{ collection: 'agenda-items'}], 
-        storeAs: 'Ww9NsfzVJDsNWWOrre8w-agenda'
-      },
-      {
-        collection: 'meeting-invitees',
-        doc: 'Ww9NsfzVJDsNWWOrre8w',
-        subcollections: [{ collection: 'invitees'}], 
-        storeAs: 'Ww9NsfzVJDsNWWOrre8w-invitees'
-      },
-    
-    ],
-  ),
-  connect(mapStateToProps))(MeetingDetails)
+const mapDispatchToProps = (disptach) => {
+  return {
+    getOneMeeting: (projectId, meetingId) => disptach(getOneMeeting(projectId, meetingId))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MeetingDetails);
+
 

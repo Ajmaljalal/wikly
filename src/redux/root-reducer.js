@@ -1,29 +1,27 @@
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-// import { firestoreReducer } from 'redux-firestore';
-// import { firebaseReducer } from 'react-redux-firebase'
 
-import applicationReducer from './application/reducer'
-import meetingsReducer from './meetings/meetingsReducer'
-import orgReducer from './orgs/reducer'
-import profileReducer from './userProfile/reducer'
 import authReducer from './authentications/authReducer'
-
+import profileReducer from './userProfile/reducer'
+import applicationReducer from './application/reducer'
+import orgReducer from './orgs/reducer'
+import projectsReducer from './projects/reducer'
+import meetingsReducer from './meetings/reducer'
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['applicationState', 'authState', 'meetingsState', 'orgsState', 'profileState']
+  whitelist: ['authState', 'profileState', 'applicationState','orgsState', 'projectsState', 'meetingsState' ]
 };
 
-
 const rootReducer = combineReducers({
-  applicationState: applicationReducer,
-  meetingsState: meetingsReducer,
-  orgsState: orgReducer,
+  authState: authReducer,
   profileState: profileReducer,
-  authState: authReducer
+  applicationState: applicationReducer,
+  orgsState: orgReducer,
+  projectsState: projectsReducer,
+  meetingsState: meetingsReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

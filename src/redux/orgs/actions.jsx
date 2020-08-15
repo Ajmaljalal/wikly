@@ -16,7 +16,11 @@ const orgsCollection = firestore.collection('orgs')
 export const setCurrentOrg = (orgId) => {
   return (dispatch) => {
     orgsCollection.doc(orgId).get().then((doc) => {
-      dispatch({type: OrgActionTypes.SET_CURRENT_ORG_SUCCESS, payload: doc.data()})
+      dispatch(
+        {
+          type: OrgActionTypes.SET_CURRENT_ORG_SUCCESS,
+          payload: { orgId: orgId, ...doc.data() }
+        })
     })
   }
 }
@@ -54,14 +58,14 @@ export const getOrgsInvitations = (userEmail) => {
       .onSnapshot((querySnapShot) => {
         const array = [];
         querySnapShot.forEach(doc => {
-          const org = {...doc.data(), invitationId: doc.id}
+          const org = { ...doc.data(), invitationId: doc.id }
           array.push(org)
         })
         dispatch({ type: OrgActionTypes.GET_ORG_SUCCESS, payload: array });
       }, (err => {
         dispatch({ type: OrgActionTypes.GET_ORG_ERROR, payload: err });
       })
-    )
+      )
   }
 }
 
@@ -71,7 +75,7 @@ export const getOrgsInvitations = (userEmail) => {
  * 
  * @param {object} data 
  */
-export const updateInvitation = ({userEmail, userName, invitation, invitationId, fieldValue}) => {
+export const updateInvitation = ({ userEmail, userName, invitation, invitationId, fieldValue }) => {
   return (dispatch) => {
     orgsInvitationCollection.doc(userEmail).collection('invitations').doc(invitationId)
       .update({
@@ -90,7 +94,7 @@ export const updateInvitation = ({userEmail, userName, invitation, invitationId,
  * 
  * @param {object} data
  */
-export const rejectInvitation = ({userEmail, invitationId}) => {
+export const rejectInvitation = ({ userEmail, invitationId }) => {
   return (dispatch) => {
     orgsInvitationCollection.doc(userEmail).collection('invitations').doc(invitationId)
       .delete()
