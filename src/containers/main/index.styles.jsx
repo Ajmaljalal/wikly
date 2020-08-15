@@ -1,13 +1,14 @@
 import styled from 'styled-components'
+import { Colors } from '../../assets/colors'
 export const MainContainer = styled.div`
   width: 100vw;
   height: 100vh;
   max-height: 100vh;
   display:flex;
   flex-direction: column;
-  background: #F0F2F5;
+  background: ${Colors["theme-color-bg"]};;
   overflow: visible;
-  position:relative;
+  position: relative;
   box-sizing: border-box;
 `;
 

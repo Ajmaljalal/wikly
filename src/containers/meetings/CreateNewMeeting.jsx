@@ -361,20 +361,18 @@ class CreateNewMeeting extends Component {
       <NewMeetingStyles.ActionButtons>
         <Button
           color='white'
-          bgColor={Colors.flame}
+          bgColor={Colors["wikli-color-red-600"]}
           fontSize='12px'
           margin={true}
-          width='45px'
           onClick={toggleAddMeetingModal}
         >
           {'Cancel'}
         </Button>
         <Button
           color='white'
-          bgColor={Colors.cyan}
+          bgColor={Colors["wikli-color-primary-default"]}
           fontSize='12px'
           margin={true}
-          width='45px'
           onClick={this.scheduleNewMeeting}
         >
           {'Save'}

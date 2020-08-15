@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Colors } from '../../assets/colors'
 const MeetingContainer = styled.div`
   display:flex;
   flex-direction: column;
@@ -11,7 +12,8 @@ const MeetingContainer = styled.div`
   border-radius: 5px;
   margin-top: 10px;
   padding: 5px;
-  border: ${(props)=>props.isFocused ? '1px solid grey' : '1px solid transparent'};
+  padding-left: 8px;
+  border: ${(props) => props.isFocused ? '1px solid grey' : '1px solid transparent'};
   transition: all .5s;
   cursor: pointer;
   &:hover{
@@ -53,9 +55,6 @@ const MeetinBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  span {
-    width: 40%;
-  }
 `;
 const MeetingTitle = styled.div`
   min-height: 20px;
@@ -65,10 +64,9 @@ const MeetingTitle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  span {
-    margin-left: 3px;
-    width: 20px;
-  }
+`;
+const Frequency = styled.div`
+  width: 14px;
 `;
 const MeetingHost = styled.div`
   padding:3px 0;
@@ -112,6 +110,7 @@ export const MeetingItemStyles = {
   MoreIconWrapper,
   MeetinBody,
   MeetingTitle,
+  Frequency,
   MeetingHost,
   Scheduler,
   Status,

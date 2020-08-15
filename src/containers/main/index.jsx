@@ -17,9 +17,10 @@ import Organization from './orgs/index'
 import Menu from './menu/index';
 import AppHeader from './header/index'
 import { MainContainer, Row } from './index.styles.jsx'
+
 class Main extends PureComponent {
-  
-  async componentDidMount () {
+
+  async componentDidMount() {
     const { profile, setCurrentOrg, getProfile, getProjects, currentOrg } = this.props
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) await getProfile(user.uid)
@@ -65,7 +66,7 @@ class Main extends PureComponent {
 }
 
 
-const mapStateToProps = ({profileState, authState, orgsState}) => {
+const mapStateToProps = ({ profileState, authState, orgsState }) => {
   return {
     profile: profileState?.profile,
     auth: authState?.auth,

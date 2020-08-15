@@ -37,11 +37,11 @@ export const getTodayDate = () => {
 }
 
 export const getTimeFromDate = (time) => {
-  return moment(time.seconds).format("LT")
+  return moment(time.seconds * 1000).format("LT")
 }
 
 export const getTimeLeft = (startTime) => {
   const now = moment();
-  const deadline = moment(startTime.seconds);
+  const deadline = moment(startTime.seconds * 1000);
   return now.to(deadline)
 }

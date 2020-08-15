@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Colors } from '../../assets/colors'
 
 
 const MeetingsColumnHeader = styled.div`
@@ -7,7 +8,10 @@ const MeetingsColumnHeader = styled.div`
   box-sizing: border-box;
   width: 100%;
   padding:  8px 10px;
-  border-bottom: 1px solid grey;
+  border-bottom: 0.5px solid ${Colors["wikli-color-grey-400"]};
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  background: ${Colors["wikli-color-grey-50"]}
 `
 const HeaderTitle = styled.div`
   font-weight: 500;

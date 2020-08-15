@@ -3,8 +3,8 @@ import styled from 'styled-components'
 const MenuBar = styled.div`
   height:100%;
   width: 3.3%;
-  min-width: 50px;
-  max-width: 50px;
+  min-width: 48px;
+  max-width: 48px;
   background: #2a4865;
   display: flex;
   flex-direction: column;
@@ -44,6 +44,9 @@ const MenuItemsBottom = styled.div`
       border-radius: 50%;
       margin-bottom: 5px;
       padding: 1px;
+    }
+    svg {
+      color: green;
     }
 `;
 

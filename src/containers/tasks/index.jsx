@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { BodyContainer, Container } from '../../components/common.styles'
-import ContentHeader from '../../components/content-header/index'
+import ScreenTitle from '../../components/screen-title/index'
 
 import TasksColumn from './TasksColumn'
 
@@ -12,7 +12,7 @@ class Tasks extends Component {
     console.log('dashboard page')
     return (
       <BodyContainer>
-        <ContentHeader title={'Tasks'} />
+        <ScreenTitle title={'Tasks'} />
         <DragDropContext onDragEnd={result => console.log(result)}>
           <Container>
             <ColumnsContainer>

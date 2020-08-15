@@ -46,10 +46,10 @@ class MeetingDetails extends PureComponent {
     }
     let status = meeting && `Starts ${getTimeLeft(meeting.startTime)}`
     let now = new Date()
-    if (now > meeting.startTime) {
+    if (now > meeting.startTime.seconds * 1000) {
       status = 'In Progress'
     }
-    if (now > meeting.endTime) {
+    if (now > meeting.endTime.seconds * 1000) {
       status = 'Meeting Ended'
     }
     return (

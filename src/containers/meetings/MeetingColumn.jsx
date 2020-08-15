@@ -41,7 +41,7 @@ const MeetingColumn = ({ date, day, meetings, onAddMeeting }) => {
     })
   }
   return (
-    <Column width={'18%'}>
+    <Column width={'19.5%'}>
       {renderColumnHeader(formatedDate, title, day, onAddMeeting)}
       <ColumnStyles.ColumnBody>
         {renderColumnBody(meetingsOnCurrentDate)}
