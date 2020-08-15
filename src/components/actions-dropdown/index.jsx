@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import onClickOutside from "react-onclickoutside";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -9,7 +9,7 @@ import { ActionsDropdownStyles } from './actions-dropdown.styles'
  * @param {Array} actions
  * @param {String} img
  */
-class ActionsDropdown extends Component {
+class ActionsDropdown extends PureComponent {
 
   state = {
     open: false
@@ -27,10 +27,10 @@ class ActionsDropdown extends Component {
   toggleDropdown = (e) => {
     let left
     let bottom
-    if (e.screenX > 1000) {
+    if (e.clientX > 700) {
       left = false
     } else left = true
-    if (e.screenY > 430) {
+    if (e.clientY > 430) {
       bottom = true
     } else bottom = false
     this.setState({

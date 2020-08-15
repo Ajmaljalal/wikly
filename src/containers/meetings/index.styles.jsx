@@ -21,11 +21,12 @@ export const NextPreviousWeek = styled.div`
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  width: 70px;
-  color: ${Colors.cyan};
+  width: 150px;
+  color: ${Colors["wikli-color-primary-dark"]};
   border-radius: 3px;
+  user-select: none;
   svg {
-    color: ${Colors.cyan}
+    color: ${Colors["wikli-color-primary-dark"]}
   }
 `;
 
@@ -34,10 +35,13 @@ export const Next = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid ${Colors.green};
   width: 20px;
   height: 20px;
   border-radius: 3px;
+  border: 1px solid transparent;
+  &:hover{
+    border: 1px solid ${Colors["wikli-color-primary-dark"]};
+  }
 `;
 
 export const Previous = styled.div`
@@ -45,8 +49,11 @@ export const Previous = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid ${Colors.green};
   width: 20px;
   height: 20px;
   border-radius: 3px;
+  border: 1px solid transparent;
+  &:hover{
+    border: 1px solid ${Colors["wikli-color-primary-dark"]};
+  }
 `;
