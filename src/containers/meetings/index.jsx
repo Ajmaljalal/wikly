@@ -20,7 +20,8 @@ import {
   Buttons,
   NextPreviousWeek,
   Previous,
-  Next
+  Next,
+  Null
 } from './index.styles'
 
 class Meetings extends PureComponent {
@@ -28,7 +29,7 @@ class Meetings extends PureComponent {
     isAddMeetingModalOpen: false,
     weekDates: null,
     week: 'Current'
-    
+
   }
 
   componentDidMount() {
@@ -36,7 +37,7 @@ class Meetings extends PureComponent {
     this.setState({
       weekDates: getCurrentWeek(),
     })
-    
+
   }
 
   setPreviousWeek = () => {
@@ -49,10 +50,10 @@ class Meetings extends PureComponent {
       })
     }
     if (week === 'Current')
-    this.setState({
-      weekDates: getLastWeek(),
-      week: 'Previous'
-    })
+      this.setState({
+        weekDates: getLastWeek(),
+        week: 'Previous'
+      })
   }
 
   setNextWeek = () => {
@@ -80,15 +81,21 @@ class Meetings extends PureComponent {
 
   render() {
     const { isAddMeetingModalOpen } = this.state
+    // const { meetings } = this.props
+    const meetings = null
     return (
       <BodyContainer>
         {this.renderHeader()}
         <Container>
-          <ColumnsContainer>
-            {this.renderColumns()}
-          </ColumnsContainer>
+          {meetings ?
+            (
+              <ColumnsContainer>
+                {this.renderColumns()}
+              </ColumnsContainer>
+            ) : this.renderNull()
+          }
         </Container>
-         { isAddMeetingModalOpen ? <CreateNewMeeting toggleAddMeetingModal={this.toggleAddMeetingModal} /> : null }
+        {isAddMeetingModalOpen ? <CreateNewMeeting toggleAddMeetingModal={this.toggleAddMeetingModal} /> : null}
       </BodyContainer>
     )
   }
@@ -99,14 +106,14 @@ class Meetings extends PureComponent {
         <ScreenTitle title={'Meetings'} />
         {this.renderNextAndPreviousButton()}
         <Buttons>
-            <Button
-              color='white'
-              bgColor={Colors["wikli-color-primary-dark"]}
-              onClick={this.toggleAddMeetingModal}
-              >
-              <FontAwesomeIcon icon='plus' color='white' />
-              <span>Add Meeting</span>
-            </Button>
+          <Button
+            color='white'
+            bgColor={Colors["wikli-color-primary-dark"]}
+            onClick={this.toggleAddMeetingModal}
+          >
+            <FontAwesomeIcon icon='plus' color='white' />
+            <span>Add Meeting</span>
+          </Button>
         </Buttons>
       </Header>
     )
@@ -116,11 +123,11 @@ class Meetings extends PureComponent {
     const { week } = this.state
     return (
       <NextPreviousWeek>
-        <Tippy content='Previous week' className='tippy-tooltip'>
+        <Tippy content='Previous week' className='tippy-tooltip' placement='bottom'>
           <Previous onClick={this.setPreviousWeek}><FontAwesomeIcon icon='angle-left' color='black' size='lg' /></Previous>
         </Tippy>
         {`${week} Week`}
-        <Tippy content='Next week' className='tippy-tooltip'>
+        <Tippy content='Next week' className='tippy-tooltip' placement='bottom'>
           <Next onClick={this.setNextWeek}><FontAwesomeIcon icon='angle-right' color='black' size='lg' /></Next>
         </Tippy>
       </NextPreviousWeek>
@@ -144,9 +151,17 @@ class Meetings extends PureComponent {
       )
     })
   }
+
+  renderNull = () => {
+    return (
+      <Null>
+        No meetings scheduled for you. Please schedule a meeting now.
+      </Null>
+    )
+  }
 }
 
-const mapStateToProps = ({meetingsState}) => {
+const mapStateToProps = ({ meetingsState }) => {
   return {
     meetings: meetingsState.meetings
   }

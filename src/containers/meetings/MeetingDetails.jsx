@@ -42,7 +42,7 @@ class MeetingDetails extends PureComponent {
   render() {
     const { meeting } = this.props
     if (!meeting) {
-      return
+      return null
     }
     let status = meeting && `Starts ${getTimeLeft(meeting.startTime)}`
     let now = new Date()
@@ -118,7 +118,6 @@ const mapStateToProps = ({ meetingsState, projectsState }) => {
     meetingInvitees: meetingsState.meeting_invitees,
     currentProject: projectsState.projects[0],
     meeting: meetingsState.current_meeting,
-
   }
 }
 

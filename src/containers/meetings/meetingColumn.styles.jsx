@@ -19,7 +19,6 @@ const HeaderTitle = styled.div`
   align-items: center;
   font-size: ${(props) => props.isToday ? '15px' : '12px'};
   color: ${(props) => props.isToday ? 'red' : 'black'};
-  
 `
 
 const HeaderIconsWrapper = styled.div`

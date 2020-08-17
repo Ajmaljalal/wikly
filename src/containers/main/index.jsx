@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux'
+import { withRouter } from "react-router";
 import firebase from '../../firebase/firebase-config'
 import { getProfile } from '../../redux/userProfile/actions';
 import { setCurrentOrg } from '../../redux/orgs/actions'
@@ -21,7 +22,16 @@ import { MainContainer, Row } from './index.styles.jsx'
 class Main extends PureComponent {
 
   async componentDidMount() {
-    const { profile, setCurrentOrg, getProfile, getProjects, currentOrg } = this.props
+    const {
+      profile,
+      setCurrentOrg,
+      getProfile,
+      getProjects,
+      currentOrg,
+      currentScreen,
+      history
+    } = this.props
+    history.push(`/${currentScreen}`)
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) await getProfile(user.uid)
     })
@@ -66,11 +76,12 @@ class Main extends PureComponent {
 }
 
 
-const mapStateToProps = ({ profileState, authState, orgsState }) => {
+const mapStateToProps = ({ profileState, authState, orgsState, applicationState }) => {
   return {
     profile: profileState?.profile,
     auth: authState?.auth,
-    currentOrg: orgsState?.current_org
+    currentOrg: orgsState?.current_org,
+    currentScreen: applicationState.current_screen
   }
 }
 const mapDispatchToProps = (disptach) => {
@@ -81,4 +92,4 @@ const mapDispatchToProps = (disptach) => {
 
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

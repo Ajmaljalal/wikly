@@ -57,3 +57,13 @@ export const Previous = styled.div`
     border: 1px solid ${Colors["wikli-color-primary-dark"]};
   }
 `;
+
+export const Null = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  width: 100%;
+  height: 70%;
+  color: ${Colors["theme-color-fg-disabled"]};
+`;
