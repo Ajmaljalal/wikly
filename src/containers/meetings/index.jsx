@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippyjs/react';
-import { Colors } from '../../assets/colors'
 import { createMeeting, getMeetings } from '../../redux/meetings/actions'
 import { getCurrentWeek, getLastWeek, getNextWeek } from '../../helpers/getDate'
 import ScreenTitle from '../../components/screen-title/index'
+import Button from '../../components/button/Button'
+import { Colors } from '../../assets/colors'
 import MeetingColumn from './MeetingColumn'
 import CreateNewMeeting from './CreateNewMeeting'
-import Button from '../../components/button/Button'
+import NullMeetings from './NullMeetings'
 
 import {
   BodyContainer,
@@ -20,8 +21,7 @@ import {
   Buttons,
   NextPreviousWeek,
   Previous,
-  Next,
-  Null
+  Next
 } from './index.styles'
 
 class Meetings extends PureComponent {
@@ -82,17 +82,16 @@ class Meetings extends PureComponent {
   render() {
     const { isAddMeetingModalOpen } = this.state
     // const { meetings } = this.props
-    const meetings = null
+    const meetings = []
+    const isMeetingNull = !meetings || !meetings.length
     return (
       <BodyContainer>
-        {this.renderHeader()}
+        {this.renderHeader(isMeetingNull)}
         <Container>
-          {meetings ?
+          {!isMeetingNull ?
             (
-              <ColumnsContainer>
-                {this.renderColumns()}
-              </ColumnsContainer>
-            ) : this.renderNull()
+              <ColumnsContainer>{this.renderColumns()}</ColumnsContainer>
+            ) : <NullMeetings onClick = {this.toggleAddMeetingModal} />
           }
         </Container>
         {isAddMeetingModalOpen ? <CreateNewMeeting toggleAddMeetingModal={this.toggleAddMeetingModal} /> : null}
@@ -100,23 +99,25 @@ class Meetings extends PureComponent {
     )
   }
 
-  renderHeader = () => {
-    return (
-      <Header>
-        <ScreenTitle title={'Meetings'} />
-        {this.renderNextAndPreviousButton()}
-        <Buttons>
-          <Button
-            color='white'
-            bgColor={Colors["wikli-color-primary-dark"]}
-            onClick={this.toggleAddMeetingModal}
-          >
-            <FontAwesomeIcon icon='plus' color='white' />
-            <span>Add Meeting</span>
-          </Button>
-        </Buttons>
-      </Header>
-    )
+  renderHeader = (isMeetingNull) => {
+    if (!isMeetingNull) {
+      return (
+        <Header>
+          <ScreenTitle title={'Meetings'} />
+          {this.renderNextAndPreviousButton()}
+          <Buttons>
+            <Button
+              color='white'
+              bgColor={Colors["wikli-color-primary-dark"]}
+              onClick={this.toggleAddMeetingModal}
+            >
+              <FontAwesomeIcon icon='plus' color='white' />
+              <span>Add Meeting</span>
+            </Button>
+          </Buttons>
+        </Header>
+      )
+    }
   }
 
   renderNextAndPreviousButton = () => {
@@ -152,13 +153,6 @@ class Meetings extends PureComponent {
     })
   }
 
-  renderNull = () => {
-    return (
-      <Null>
-        No meetings scheduled for you. Please schedule a meeting now.
-      </Null>
-    )
-  }
 }
 
 const mapStateToProps = ({ meetingsState }) => {

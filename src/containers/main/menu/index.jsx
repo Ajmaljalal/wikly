@@ -4,7 +4,7 @@ import Tippy from '@tippyjs/react';
 import { changeCurrentAppScreen } from '../../../redux/application/actions'
 import { setCurrentOrg } from '../../../redux/orgs/actions'
 import ActionsDropdown from '../../../components/actions-dropdown/index'
-import meeting from './assests/meeting.svg'
+import meeting from './assests/nullIcon.svg'
 import dashboard from './assests/dashboard.svg'
 import tasks from './assests/tasks.svg'
 import chat from './assests/chat.svg'
