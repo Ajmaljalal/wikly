@@ -25,9 +25,10 @@ const Contents = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%);
+  text-align: center;
   div {
     margin-top: 15px;
   }
@@ -38,7 +39,6 @@ const Blur = styled.div`
   display: flex;
   justify-content: space-around;
   width: 100%;
-  ali
 `;
 
 export const NullStateStyles = {

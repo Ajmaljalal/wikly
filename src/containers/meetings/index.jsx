@@ -29,7 +29,6 @@ class Meetings extends PureComponent {
     isAddMeetingModalOpen: false,
     weekDates: null,
     week: 'Current'
-
   }
 
   componentDidMount() {
@@ -91,7 +90,7 @@ class Meetings extends PureComponent {
           {!isMeetingNull ?
             (
               <ColumnsContainer>{this.renderColumns()}</ColumnsContainer>
-            ) : <NullMeetings onClick = {this.toggleAddMeetingModal} />
+            ) : <NullMeetings onClick={this.toggleAddMeetingModal} />
           }
         </Container>
         {isAddMeetingModalOpen ? <CreateNewMeeting toggleAddMeetingModal={this.toggleAddMeetingModal} /> : null}
