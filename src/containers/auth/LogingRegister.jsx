@@ -40,7 +40,7 @@ class LoginRegister extends PureComponent {
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
           await this.props.getProfile(user.uid)
-          if (profile.currentOrg) await setCurrentOrg(profile.currentOrg)
+          if (profile?.currentOrg) await setCurrentOrg(profile.currentOrg)
           if (currentOrg) await getProjects(currentOrg.orgId)
         }
       })

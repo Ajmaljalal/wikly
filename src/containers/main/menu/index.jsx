@@ -82,15 +82,17 @@ class Menu extends PureComponent {
 
   renderCurrentOrgLogo = () => {
     const { currentOrg } = this.props
-    return (
-      <MenuStyles.MenuItemsBottom>
-        <Tippy placement='right' content={`Current Org: ${currentOrg.name.toUpperCase()}, click to change org`} className='tippy-tooltip'>
-          <span>
-            <ActionsDropdown actions={this.renderUsersOrgsDropdownActionsList()} img={currentOrg.logo} />
-          </span>
-        </Tippy>
-      </MenuStyles.MenuItemsBottom>
-    )
+    if(currentOrg) {
+      return (
+        <MenuStyles.MenuItemsBottom>
+          <Tippy placement='right' content={`Current Org: ${currentOrg.name.toUpperCase()}, click to change org`} className='tippy-tooltip'>
+            <span>
+              <ActionsDropdown actions={this.renderUsersOrgsDropdownActionsList()} img={currentOrg.logo} />
+            </span>
+          </Tippy>
+        </MenuStyles.MenuItemsBottom>
+      )
+    }
   }
 
   renderUsersOrgsDropdownActionsList = () => {

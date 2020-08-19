@@ -32,7 +32,10 @@ class Meetings extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.getMeetings('8HNHyd0dWi393bKn1Ncm')
+    const { getMeetings, currentProject } = this.props
+    if(currentProject) {
+      getMeetings(currentProject.projectId)
+    }
     this.setState({
       weekDates: getCurrentWeek(),
     })
@@ -80,8 +83,7 @@ class Meetings extends PureComponent {
 
   render() {
     const { isAddMeetingModalOpen } = this.state
-    // const { meetings } = this.props
-    const meetings = []
+    const { meetings } = this.props
     const isMeetingNull = !meetings || !meetings.length
     return (
       <BodyContainer>
@@ -154,9 +156,10 @@ class Meetings extends PureComponent {
 
 }
 
-const mapStateToProps = ({ meetingsState }) => {
+const mapStateToProps = ({ meetingsState, projectsState }) => {
   return {
-    meetings: meetingsState.meetings
+    meetings: meetingsState.meetings,
+    currentProject: projectsState.current_project
   }
 }
 

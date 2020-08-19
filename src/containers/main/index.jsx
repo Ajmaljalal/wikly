@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 import firebase from '../../firebase/firebase-config'
 import { getProfile } from '../../redux/userProfile/actions';
 import { setCurrentOrg } from '../../redux/orgs/actions'
-import { getProjects } from '../../redux/projects/actions'
+import { getProjects, setCurrentPorject } from '../../redux/projects/actions'
 
 import Dashboard from '../dashboard/index'
 import Meetings from '../meetings/index'
@@ -27,18 +27,22 @@ class Main extends PureComponent {
       setCurrentOrg,
       getProfile,
       getProjects,
+      setCurrentPorject,
       currentOrg,
       currentScreen,
+      currentProject,
+      projects,
       history
     } = this.props
+
     history.push(`/${currentScreen}`)
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) await getProfile(user.uid)
     })
-    if (profile.currentOrg) await setCurrentOrg(profile.currentOrg)
+    if (profile?.currentOrg) await setCurrentOrg(profile.currentOrg)
     if (currentOrg) await getProjects(currentOrg.orgId)
+    if(!currentProject && projects) await setCurrentPorject(projects[0])
   }
-
   render() {
     return (
       <MainContainer>
@@ -48,7 +52,10 @@ class Main extends PureComponent {
   }
 
   renderContent = () => {
-    const { profile, currentOrg } = this.props
+    const { profile, currentOrg} = this.props
+    if (!profile) {
+      return null
+    }
     if (profile?.currentOrg && currentOrg) {
       return (
         <Fragment>
@@ -76,19 +83,22 @@ class Main extends PureComponent {
 }
 
 
-const mapStateToProps = ({ profileState, authState, orgsState, applicationState }) => {
+const mapStateToProps = ({ profileState, authState, orgsState, applicationState, projectsState }) => {
   return {
     profile: profileState?.profile,
     auth: authState?.auth,
     currentOrg: orgsState?.current_org,
+    projects: projectsState.projects,
+    currentProject: projectsState.current_project,
     currentScreen: applicationState.current_screen
   }
 }
-const mapDispatchToProps = (disptach) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getProfile: (userId) => disptach(getProfile(userId)),
-    setCurrentOrg: (orgId) => disptach(setCurrentOrg(orgId)),
-    getProjects: (orgId) => disptach(getProjects(orgId))
+    getProfile: (userId) => dispatch(getProfile(userId)),
+    setCurrentOrg: (orgId) => dispatch(setCurrentOrg(orgId)),
+    getProjects: (orgId) => dispatch(getProjects(orgId)),
+    setCurrentPorject: (project) => dispatch(setCurrentPorject(project)),
 
   }
 }

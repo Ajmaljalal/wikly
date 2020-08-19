@@ -21,7 +21,7 @@ export const setCurrentOrg = (orgId) => {
           type: OrgActionTypes.SET_CURRENT_ORG_SUCCESS,
           payload: { orgId: orgId, ...doc.data() }
         })
-    })
+      })
   }
 }
 /**

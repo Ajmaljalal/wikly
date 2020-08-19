@@ -31,9 +31,9 @@ class CreateNewMeeting extends Component {
 
   scheduleNewMeeting = async () => {
     const { title, date, startTime, invitedMembers } = this.state.newMeeting
-    const { profile } = this.props
+    const { profile, currentProject } = this.props
     if (title && date && startTime && invitedMembers.length) {
-      await this.props.createNewMeeting(profile, '8HNHyd0dWi393bKn1Ncm', this.state.newMeeting)
+      await this.props.createNewMeeting(profile, currentProject.projectId, this.state.newMeeting)
       this.props.toggleAddMeetingModal()
     } else {
       this.setState({
@@ -385,9 +385,10 @@ class CreateNewMeeting extends Component {
   }
 }
 
-const mapDStateToProps = ({ profileState }) => {
+const mapDStateToProps = ({ profileState, projectsState }) => {
   return {
-    profile: profileState.profile
+    profile: profileState.profile,
+    currentProject: projectsState.current_project
   }
 }
 const mapDispatchToProps = (disptach) => {

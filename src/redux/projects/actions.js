@@ -25,3 +25,12 @@ export const getProjects = (orgId) => {
     });
   }
 };
+
+export const setCurrentPorject = (project) => {
+  return (dispatch) => {
+      dispatch({
+        type: projectsActions.SET_CURRENT_PROJECT_SUCCESS,
+        payload: project
+      });
+    };
+  };
