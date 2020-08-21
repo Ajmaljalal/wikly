@@ -1,23 +1,22 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent, Fragment, Suspense, lazy } from 'react'
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { withRouter } from "react-router";
 import firebase from '../../firebase/firebase-config'
 import { getProfile } from '../../redux/userProfile/actions';
 import { setCurrentOrg } from '../../redux/orgs/actions'
-import { getProjects, setCurrentPorject } from '../../redux/projects/actions'
-
-import Dashboard from '../dashboard/index'
-import Meetings from '../meetings/index'
-import Tasks from '../tasks/index'
-import Documents from '../documents/index'
-import ChatRooms from '../chat/index'
-import Authentication from '../auth/index'
-import Organization from './orgs/index'
-
-import Menu from './menu/index';
-import AppHeader from './header/index'
+import { getProjects } from '../../redux/projects/actions'
 import { MainContainer, Row } from './index.styles.jsx'
+import Menu from './menu/index'
+import AppHeader from './header/index'
+
+const Dashboard = lazy(() => import('../dashboard/index'))
+const Meetings = lazy(() => import('../meetings/index'))
+const Tasks = lazy(() => import('../tasks/index'))
+const Documents = lazy(() => import('../documents/index'))
+const ChatRooms = lazy(() => import('../chat/index'))
+const Authentication = lazy(() => import('../auth/index'))
+const Organization = lazy(() => import('./orgs/index'))
 
 class Main extends PureComponent {
 
@@ -26,12 +25,7 @@ class Main extends PureComponent {
       profile,
       setCurrentOrg,
       getProfile,
-      getProjects,
-      setCurrentPorject,
-      currentOrg,
       currentScreen,
-      currentProject,
-      projects,
       history
     } = this.props
 
@@ -40,35 +34,43 @@ class Main extends PureComponent {
       if (user) await getProfile(user.uid)
     })
     if (profile?.currentOrg) await setCurrentOrg(profile.currentOrg)
-    if (currentOrg) await getProjects(currentOrg.orgId)
-    if(!currentProject && projects) await setCurrentPorject(projects[0])
   }
+
+  componentDidUpdate(prevProps) {
+    const { orgsState, projects, getProjects } = this.props
+    if (prevProps.orgsState.current_org !== orgsState.current_org && !projects) {
+      console.log('main did update called')
+      getProjects(this.props.orgsState.current_org.orgId)
+    }
+  }
+
   render() {
     return (
       <MainContainer>
-        {this.props.auth ? this.renderContent() : <Authentication />}
+        {
+          this.props.auth ? this.renderContent() :
+            <Suspense fallback={<div>Loading...</div>}>
+              <Authentication />
+            </Suspense>
+        }
       </MainContainer>
     )
   }
 
   renderContent = () => {
-    const { profile, currentOrg} = this.props
+    const { profile, orgsState } = this.props
     if (!profile) {
       return null
     }
-    if (profile?.currentOrg && currentOrg) {
+    if (profile?.currentOrg && orgsState.current_org) {
       return (
         <Fragment>
           <AppHeader />
           <Row>
             <Menu />
-            <Switch>
-              <Route path='/dashboard' component={Dashboard} />
-              <Route path='/meetings' component={Meetings} />
-              <Route path='/tasks' component={Tasks} />
-              <Route path='/documents' component={Documents} />
-              <Route path='/chat' component={ChatRooms} />
-            </Switch>
+            <Suspense fallback={<div>Loading...</div>}>
+              {this.renderRoutes()}
+            </Suspense>
           </Row>
         </Fragment>
       )
@@ -77,17 +79,32 @@ class Main extends PureComponent {
     }
   }
 
+  renderRoutes = () => {
+      return (
+        <Switch>
+          <Route path='/dashboard' component={Dashboard} />
+          <Route path='/meetings' component={Meetings} />
+          <Route path='/tasks' component={Tasks} />
+          <Route path='/documents' component={Documents} />
+          <Route path='/chat' component={ChatRooms} />
+        </Switch>
+      )
+  }
+
   renderCreateOrgs = () => {
-    return <Organization />
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Organization />
+      </Suspense>
+    )
   }
 }
-
 
 const mapStateToProps = ({ profileState, authState, orgsState, applicationState, projectsState }) => {
   return {
     profile: profileState?.profile,
     auth: authState?.auth,
-    currentOrg: orgsState?.current_org,
+    orgsState: orgsState,
     projects: projectsState.projects,
     currentProject: projectsState.current_project,
     currentScreen: applicationState.current_screen
@@ -98,8 +115,6 @@ const mapDispatchToProps = (dispatch) => {
     getProfile: (userId) => dispatch(getProfile(userId)),
     setCurrentOrg: (orgId) => dispatch(setCurrentOrg(orgId)),
     getProjects: (orgId) => dispatch(getProjects(orgId)),
-    setCurrentPorject: (project) => dispatch(setCurrentPorject(project)),
-
   }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippyjs/react';
+import { setCurrentPorject } from '../../redux/projects/actions'
 import { createMeeting, getMeetings } from '../../redux/meetings/actions'
 import { getCurrentWeek, getLastWeek, getNextWeek } from '../../helpers/getDate'
 import ScreenTitle from '../../components/screen-title/index'
@@ -32,14 +33,21 @@ class Meetings extends PureComponent {
   }
 
   componentDidMount() {
-    const { getMeetings, currentProject } = this.props
-    if(currentProject) {
-      getMeetings(currentProject.projectId)
+    const { setCurrentPorject, currentProject, projects } = this.props
+    if(!currentProject && projects) {
+      setCurrentPorject(projects[0])
     }
     this.setState({
       weekDates: getCurrentWeek(),
     })
+  }
 
+  componentDidUpdate() {
+    const { getMeetings, currentProject } = this.props
+    if (!this.props.meetings && currentProject) {
+      console.log('meetings did update')
+      getMeetings(currentProject.projectId)
+    }
   }
 
   setPreviousWeek = () => {
@@ -159,14 +167,16 @@ class Meetings extends PureComponent {
 const mapStateToProps = ({ meetingsState, projectsState }) => {
   return {
     meetings: meetingsState.meetings,
-    currentProject: projectsState.current_project
+    currentProject: projectsState.current_project,
+    projects: projectsState.projects,
   }
 }
 
-const mapDispatchToProps = (disptach) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    createNewMeeting: (meeting) => disptach(createMeeting(meeting)),
-    getMeetings: (projectId) => disptach(getMeetings(projectId))
+    setCurrentPorject: (project) => dispatch(setCurrentPorject(project)),
+    createNewMeeting: (meeting) => dispatch(createMeeting(meeting)),
+    getMeetings: (projectId) => dispatch(getMeetings(projectId))
   }
 }
 

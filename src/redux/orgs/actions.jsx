@@ -14,14 +14,18 @@ const orgsCollection = firestore.collection('orgs')
  * @param {Object} org 
  */
 export const setCurrentOrg = (orgId) => {
-  return (dispatch) => {
-    orgsCollection.doc(orgId).get().then((doc) => {
+  return async (dispatch) => {
+    dispatch({ type: OrgActionTypes.SET_CURRENT_ORG_START })
+    try {
+      const doc = await orgsCollection.doc(orgId).get()
       dispatch(
         {
           type: OrgActionTypes.SET_CURRENT_ORG_SUCCESS,
           payload: { orgId: orgId, ...doc.data() }
         })
-      })
+    } catch(err) {
+      dispatch({type: OrgActionTypes.SET_CURRENT_ORG_ERROR})
+    }
   }
 }
 /**

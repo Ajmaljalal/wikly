@@ -2,7 +2,6 @@ import React, { memo } from 'react'
 import { NullStateStyles } from './nullState.styles'
 
 function NullState({ icon, text, button }) {
-  console.log(icon)
   return (
     <NullStateStyles.Container bgImag={icon}>
       {/* <NullStateStyles.Blur>

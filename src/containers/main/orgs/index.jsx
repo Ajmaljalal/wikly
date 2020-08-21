@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getOrgsInvitations, setCurrentOrg } from '../../../redux/orgs/actions'
+import { getProjects, setCurrentPorject } from '../../../redux/projects/actions'
 import Button from '../../../components/button/Button'
 import NewOrg from './NewOrg'
 import InvitedToOrgsList from './InvitedToOrgsList'
@@ -18,13 +19,16 @@ class Organization extends Component {
   }
 
   async componentDidMount() {
-    const { profile, getOrgsInvitations, setCurrentOrg } = this.props
+    const { 
+      profile, 
+      getOrgsInvitations, 
+      setCurrentOrg, 
+    } = this.props
+
     if (profile.currentOrg) {
-      console.log(profile.currentOrg)
       await setCurrentOrg(profile.currentOrg)
-      return
-    }
-    if(profile && profile.email && !profile.currentOrg) {
+    }   
+    if(profile && !profile.currentOrg) {
       getOrgsInvitations(this.props.profile.email)
     }
   }
@@ -62,7 +66,10 @@ class Organization extends Component {
 const mapStateToProps = (state) => {
   return {
     orgsInvitations: state.orgsState.invitations,
-    profile: state.profileState.profile
+    profile: state.profileState.profile,
+    orgsState: state.orgsState,
+    currentProject: state.projectsState.current_project,
+    projects: state.projectsState.projects
   }
 }
 
@@ -70,6 +77,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getOrgsInvitations: (userEmail) => dispatch(getOrgsInvitations(userEmail)),
     setCurrentOrg: (orgId) => dispatch(setCurrentOrg(orgId)),
+    getProjects: (orgId) => dispatch(getProjects(orgId)),
+    setCurrentPorject: (project) => dispatch(setCurrentPorject(project)),
   }
 }
 

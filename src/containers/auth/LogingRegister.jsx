@@ -4,7 +4,6 @@ import firebase from '../../firebase/firebase-config'
 import { getProfile } from '../../redux/userProfile/actions';
 import { signIn, signUp } from '../../redux/authentications/authActions'
 import { setCurrentOrg } from '../../redux/orgs/actions'
-import { getProjects } from '../../redux/projects/actions'
 import Button from '../../components/button/Button'
 import Input from '../../components/input/Input'
 import { LoginRegisterStyles } from './loginRegisterStyles'
@@ -30,7 +29,7 @@ class LoginRegister extends PureComponent {
   }
 
   login = async () => {
-    const { profile, currentOrg, setCurrentOrg, getProjects } = this.props
+    const { profile, setCurrentOrg } = this.props
     const { Email, Password } = this.state
     if (Email && Password) {
       await this.props.signIn({
@@ -41,7 +40,6 @@ class LoginRegister extends PureComponent {
         if (user) {
           await this.props.getProfile(user.uid)
           if (profile?.currentOrg) await setCurrentOrg(profile.currentOrg)
-          if (currentOrg) await getProjects(currentOrg.orgId)
         }
       })
     }
@@ -143,7 +141,6 @@ class LoginRegister extends PureComponent {
 const mapStateToProps = ({ profileState, orgsState }) => {
   return {
     profile: profileState?.profile,
-    currentOrg: orgsState?.current_org,
   }
 }
 const mapDispatchToProps = (disptach) => {
@@ -152,7 +149,6 @@ const mapDispatchToProps = (disptach) => {
     signUp: (user) => disptach(signUp(user)),
     getProfile: (userId) => disptach(getProfile(userId)),
     setCurrentOrg: (orgId) => disptach(setCurrentOrg(orgId)),
-    getProjects: (orgId) => disptach(getProjects(orgId))
   }
 }
 

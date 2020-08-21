@@ -21,7 +21,7 @@ export const getProjects = (orgId) => {
         payload: array
       });
     }, (err) => {
-      dispatch({ type: projectsActions.GET_PROJECTS_SUCCESS, payload: err });
+      dispatch({ type: projectsActions.GET_PROJECTS_ERROR, payload: err });
     });
   }
 };
