@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { createMeeting } from '../../redux/meetings/actions'
 import { findInArrayOfObjects } from '../../helpers/arrays'
@@ -8,7 +8,7 @@ import Button from '../../components/button/Button'
 import DropdownList from '../../components/dropdown-list/DropdownList'
 import Avatar from '../../components/avatar/Avatar'
 import { Colors } from '../../assets/colors'
-import { NewMeetingStyles } from './createNewMeeting.styles'
+import { NewMeetingStyles } from './assets/styles/createNewMeeting.styles'
 
 class CreateNewMeeting extends Component {
 
@@ -31,9 +31,9 @@ class CreateNewMeeting extends Component {
 
   scheduleNewMeeting = async () => {
     const { title, date, startTime, invitedMembers } = this.state.newMeeting
-    const { profile } = this.props
+    const { profile, currentProject } = this.props
     if (title && date && startTime && invitedMembers.length) {
-      await this.props.createNewMeeting( profile, '8HNHyd0dWi393bKn1Ncm', this.state.newMeeting )
+      await this.props.createNewMeeting(profile, currentProject.projectId, this.state.newMeeting)
       this.props.toggleAddMeetingModal()
     } else {
       this.setState({
@@ -89,7 +89,10 @@ class CreateNewMeeting extends Component {
         onClose={toggleAddMeetingModal}
         headerText='Schedule a Meeting'
         width='500px'
-        height='72%'
+        height='550px'
+        withHeader={true}
+        buttons={this.renderActionButtons()}
+        headerBg={Colors["wikli-color-primary-default"]}
       >
         {this.renderForm()}
       </Modal>
@@ -130,14 +133,13 @@ class CreateNewMeeting extends Component {
           value={url}
           label='Url (e.g. zoom meeting url)'
           required='true'
-          placeholder='Past any relevant url here'
+          placeholder='Paste any relevant url here'
         />
         {this.renderInvitePeopleButtons(options)}
         {this.renderInvitedPeople()}
         {this.renderFrequencyOptions()}
         {this.renderRecurringMeetingOptions()}
         {emptyFormError ? <NewMeetingStyles.EmptyFormError>{emptyFormError}</NewMeetingStyles.EmptyFormError> : null}
-        {this.renderActionButtons()}
       </NewMeetingStyles.Form>
     )
   }
@@ -358,7 +360,7 @@ class CreateNewMeeting extends Component {
   renderActionButtons = () => {
     const { toggleAddMeetingModal } = this.props
     return (
-      <NewMeetingStyles.ActionButtons>
+      <Fragment>
         <Button
           color='white'
           bgColor={Colors["wikli-color-red-600"]}
@@ -378,19 +380,20 @@ class CreateNewMeeting extends Component {
           {'Save'}
         </Button>
 
-      </NewMeetingStyles.ActionButtons>
+      </Fragment>
     )
   }
 }
 
-const mapDStateToProps = ({ profileState }) => {
+const mapDStateToProps = ({ profileState, projectsState }) => {
   return {
-    profile: profileState.profile
+    profile: profileState.profile,
+    currentProject: projectsState.current_project
   }
 }
 const mapDispatchToProps = (disptach) => {
   return {
-    createNewMeeting: ( profile, projectId, meeting ) => disptach(createMeeting( profile, projectId, meeting ))
+    createNewMeeting: (profile, projectId, meeting) => disptach(createMeeting(profile, projectId, meeting))
   }
 }
 

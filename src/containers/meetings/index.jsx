@@ -2,13 +2,15 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippyjs/react';
-import { Colors } from '../../assets/colors'
+import { setCurrentPorject } from '../../redux/projects/actions'
 import { createMeeting, getMeetings } from '../../redux/meetings/actions'
 import { getCurrentWeek, getLastWeek, getNextWeek } from '../../helpers/getDate'
 import ScreenTitle from '../../components/screen-title/index'
+import Button from '../../components/button/Button'
+import { Colors } from '../../assets/colors'
 import MeetingColumn from './MeetingColumn'
 import CreateNewMeeting from './CreateNewMeeting'
-import Button from '../../components/button/Button'
+import NullMeetings from './NullMeetings'
 
 import {
   BodyContainer,
@@ -21,22 +23,38 @@ import {
   NextPreviousWeek,
   Previous,
   Next
-} from './index.styles'
+} from './assets/styles/index.styles'
 
 class Meetings extends PureComponent {
   state = {
     isAddMeetingModalOpen: false,
     weekDates: null,
     week: 'Current'
-    
   }
 
-  componentDidMount() {
-    this.props.getMeetings('8HNHyd0dWi393bKn1Ncm')
+  componentWillMount() {
+    const { setCurrentPorject, currentProject, projects } = this.props
+    if(!currentProject && projects) {
+      setCurrentPorject(projects[0])
+    }
+    if(currentProject) {
+      getMeetings(currentProject.projectId)
+      console.log('meetings component did mount')
+    }
     this.setState({
       weekDates: getCurrentWeek(),
     })
-    
+  }
+
+  componentDidUpdate() {
+    const { getMeetings, currentProject, projects } = this.props
+    if(!currentProject && projects) {
+      setCurrentPorject(projects[0])
+    }
+    if (!this.props.meetings && currentProject) {
+      console.log('meetings did update')
+      getMeetings(currentProject.projectId)
+    }
   }
 
   setPreviousWeek = () => {
@@ -49,10 +67,10 @@ class Meetings extends PureComponent {
       })
     }
     if (week === 'Current')
-    this.setState({
-      weekDates: getLastWeek(),
-      week: 'Previous'
-    })
+      this.setState({
+        weekDates: getLastWeek(),
+        week: 'Previous'
+      })
   }
 
   setNextWeek = () => {
@@ -80,47 +98,53 @@ class Meetings extends PureComponent {
 
   render() {
     const { isAddMeetingModalOpen } = this.state
+    const { meetings } = this.props
+    const isMeetingNull = !meetings || !meetings.length
     return (
       <BodyContainer>
-        {this.renderHeader()}
+        {this.renderHeader(isMeetingNull)}
         <Container>
-          <ColumnsContainer>
-            {this.renderColumns()}
-          </ColumnsContainer>
+          {!isMeetingNull ?
+            (
+              <ColumnsContainer>{this.renderColumns()}</ColumnsContainer>
+            ) : <NullMeetings onClick={this.toggleAddMeetingModal} />
+          }
         </Container>
-         { isAddMeetingModalOpen ? <CreateNewMeeting toggleAddMeetingModal={this.toggleAddMeetingModal} /> : null }
+        {isAddMeetingModalOpen ? <CreateNewMeeting toggleAddMeetingModal={this.toggleAddMeetingModal} /> : null}
       </BodyContainer>
     )
   }
 
-  renderHeader = () => {
-    return (
-      <Header>
-        <ScreenTitle title={'Meetings'} />
-        {this.renderNextAndPreviousButton()}
-        <Buttons>
+  renderHeader = (isMeetingNull) => {
+    if (!isMeetingNull) {
+      return (
+        <Header>
+          <ScreenTitle title={'Meetings'} />
+          {this.renderNextAndPreviousButton()}
+          <Buttons>
             <Button
               color='white'
               bgColor={Colors["wikli-color-primary-dark"]}
               onClick={this.toggleAddMeetingModal}
-              >
+            >
               <FontAwesomeIcon icon='plus' color='white' />
               <span>Add Meeting</span>
             </Button>
-        </Buttons>
-      </Header>
-    )
+          </Buttons>
+        </Header>
+      )
+    }
   }
 
   renderNextAndPreviousButton = () => {
     const { week } = this.state
     return (
       <NextPreviousWeek>
-        <Tippy content='Previous week' className='tippy-tooltip'>
+        <Tippy content='Previous week' className='tippy-tooltip' placement='bottom'>
           <Previous onClick={this.setPreviousWeek}><FontAwesomeIcon icon='angle-left' color='black' size='lg' /></Previous>
         </Tippy>
-        {`${week} Week`}
-        <Tippy content='Next week' className='tippy-tooltip'>
+        <span>{`${week.toUpperCase()} WEEK`}</span>
+        <Tippy content='Next week' className='tippy-tooltip' placement='bottom'>
           <Next onClick={this.setNextWeek}><FontAwesomeIcon icon='angle-right' color='black' size='lg' /></Next>
         </Tippy>
       </NextPreviousWeek>
@@ -144,18 +168,22 @@ class Meetings extends PureComponent {
       )
     })
   }
+
 }
 
-const mapStateToProps = ({meetingsState}) => {
+const mapStateToProps = ({ meetingsState, projectsState }) => {
   return {
-    meetings: meetingsState.meetings
+    meetings: meetingsState.meetings,
+    currentProject: projectsState.current_project,
+    projects: projectsState.projects,
   }
 }
 
-const mapDispatchToProps = (disptach) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    createNewMeeting: (meeting) => disptach(createMeeting(meeting)),
-    getMeetings: (projectId) => disptach(getMeetings(projectId))
+    setCurrentPorject: (project) => dispatch(setCurrentPorject(project)),
+    createNewMeeting: (meeting) => dispatch(createMeeting(meeting)),
+    getMeetings: (projectId) => dispatch(getMeetings(projectId))
   }
 }
 

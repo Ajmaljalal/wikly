@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getOrgsInvitations } from '../../../redux/orgs/actions'
+import { getOrgsInvitations, setCurrentOrg } from '../../../redux/orgs/actions'
+import { getProjects, setCurrentPorject } from '../../../redux/projects/actions'
 import Button from '../../../components/button/Button'
 import NewOrg from './NewOrg'
 import InvitedToOrgsList from './InvitedToOrgsList'
@@ -17,8 +18,19 @@ class Organization extends Component {
     })
   }
 
-  componentDidMount() {
-    this.props.getOrgsInvitations(this.props.profile?.email)
+  async componentDidMount() {
+    const { 
+      profile, 
+      getOrgsInvitations, 
+      setCurrentOrg, 
+    } = this.props
+
+    if (profile.currentOrg) {
+      await setCurrentOrg(profile.currentOrg)
+    }   
+    if(profile && !profile.currentOrg) {
+      getOrgsInvitations(this.props.profile.email)
+    }
   }
 
   render() {
@@ -54,14 +66,19 @@ class Organization extends Component {
 const mapStateToProps = (state) => {
   return {
     orgsInvitations: state.orgsState.invitations,
-    profile: state.profileState?.profile
-    // orgs: firestore.data.orgs
+    profile: state.profileState.profile,
+    orgsState: state.orgsState,
+    currentProject: state.projectsState.current_project,
+    projects: state.projectsState.projects
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getOrgsInvitations: (userEmail) => dispatch(getOrgsInvitations(userEmail))
+    getOrgsInvitations: (userEmail) => dispatch(getOrgsInvitations(userEmail)),
+    setCurrentOrg: (orgId) => dispatch(setCurrentOrg(orgId)),
+    getProjects: (orgId) => dispatch(getProjects(orgId)),
+    setCurrentPorject: (project) => dispatch(setCurrentPorject(project)),
   }
 }
 

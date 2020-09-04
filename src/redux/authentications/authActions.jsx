@@ -1,4 +1,5 @@
 import firebase from '../../firebase/firebase-config'
+import localStorage from 'redux-persist/es/storage';
 const firestore = firebase.firestore()
 export const signIn = (credentials) => {
   return (dispatch) => {
@@ -16,8 +17,9 @@ export const signIn = (credentials) => {
   export const signOut = () => {
     return (dispatch) => {
       firebase.auth().signOut()
-      .then(() => {
+      .then(async () => {
         dispatch({ type: 'SIGNOUT_SUCCESS' })
+        await localStorage.removeItem('persist:root')
       });
     }
   }

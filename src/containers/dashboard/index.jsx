@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+// import { setCurrentOrg } from '../../redux/orgs/actions'
 import { BodyContainer } from '../../components/common.styles'
 import ScreenTitle from '../../components/screen-title/index'
 
 class Dashboard extends Component {
+
   render() {
-    console.log('dashboard page')
     return (
       <BodyContainer>
         <ScreenTitle title='Dashboard' />
@@ -20,4 +21,10 @@ const mapStateToProps = ({ profileState }) => {
   }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // setCurrentOrg: (orgId) => dispatch(setCurrentOrg(orgId)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

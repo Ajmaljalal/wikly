@@ -21,7 +21,16 @@ export const getProjects = (orgId) => {
         payload: array
       });
     }, (err) => {
-      dispatch({ type: projectsActions.GET_PROJECTS_SUCCESS, payload: err });
+      dispatch({ type: projectsActions.GET_PROJECTS_ERROR, payload: err });
     });
   }
 };
+
+export const setCurrentPorject = (project) => {
+  return (dispatch) => {
+      dispatch({
+        type: projectsActions.SET_CURRENT_PROJECT_SUCCESS,
+        payload: project
+      });
+    };
+  };

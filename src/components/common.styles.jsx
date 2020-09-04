@@ -7,8 +7,8 @@ export const BodyContainer = styled.div`
   flex-direction: column;
   padding: ${(props)=>props.isInChates ? '0' : '0 20px'};
   box-sizing: border-box;
-  border-top: 1px solid lightgrey;
-  border-left: 1px solid lightgrey;
+  // border-top: 1px solid lightgrey;
+  // border-left: 1px solid lightgrey;
 `;
 
 export const Header = styled.div`

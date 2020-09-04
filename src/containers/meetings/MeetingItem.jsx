@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippyjs/react';
 import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
 import MeetingDetails from './MeetingDetails'
-import { MeetingItemStyles } from './meetingItem.styles'
+import { MeetingItemStyles } from './assets/styles/meetingItem.styles'
 import { Colors } from '../../assets/colors'
 
 /**

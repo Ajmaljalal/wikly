@@ -12,7 +12,7 @@ import meetingsReducer from './meetings/reducer'
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['authState', 'profileState', 'applicationState','orgsState', 'projectsState', 'meetingsState' ]
+  whitelist: ['authState', 'profileState', 'applicationState', ]
 };
 
 const rootReducer = combineReducers({

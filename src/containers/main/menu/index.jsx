@@ -4,7 +4,7 @@ import Tippy from '@tippyjs/react';
 import { changeCurrentAppScreen } from '../../../redux/application/actions'
 import { setCurrentOrg } from '../../../redux/orgs/actions'
 import ActionsDropdown from '../../../components/actions-dropdown/index'
-import meeting from './assests/meeting.svg'
+import meeting from './assests/nullIcon.svg'
 import dashboard from './assests/dashboard.svg'
 import tasks from './assests/tasks.svg'
 import chat from './assests/chat.svg'
@@ -82,15 +82,17 @@ class Menu extends PureComponent {
 
   renderCurrentOrgLogo = () => {
     const { currentOrg } = this.props
-    return (
-      <MenuStyles.MenuItemsBottom>
-        <Tippy placement='right' content={`Current Org: ${currentOrg.name.toUpperCase()}, click to change org`} className='tippy-tooltip'>
-          <span>
-            <ActionsDropdown actions={this.renderUsersOrgsDropdownActionsList()} img={currentOrg.logo} />
-          </span>
-        </Tippy>
-      </MenuStyles.MenuItemsBottom>
-    )
+    if(currentOrg) {
+      return (
+        <MenuStyles.MenuItemsBottom>
+          <Tippy placement='right' content={`Current Org: ${currentOrg.name.toUpperCase()}, click to change org`} className='tippy-tooltip'>
+            <span>
+              <ActionsDropdown actions={this.renderUsersOrgsDropdownActionsList()} img={currentOrg.logo} />
+            </span>
+          </Tippy>
+        </MenuStyles.MenuItemsBottom>
+      )
+    }
   }
 
   renderUsersOrgsDropdownActionsList = () => {
