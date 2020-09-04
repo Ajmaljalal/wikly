@@ -2,16 +2,25 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
-import { getOneMeeting } from '../..//redux/meetings/actions'
-
-import { MeetingDetailsStyles } from './meetingDetails.styles'
-import arrowDownIcon from '../../assets/icons/caret-down.svg'
-
+import { 
+  getOneMeeting,
+  getMeetingAgenda,
+  getMeetingNotes,
+  getMeetingInvitees
+ } from '../..//redux/meetings/actions'
+import Agenda from './Agenda'
+import Notes from './Notes'
+import Invitees from './Invitees'
+import { MeetingDetailsStyles } from './assets/styles/meetingDetails.styles'
+// import arrowDownIcon from '../../assets/icons/caret-down.svg'
 
 /**
- * @param {Function} onClose
  * @param {String} meetingId
- * @param {Fucntion} getOneMeeting
+ * @param {Function} onClose
+ * @param {Function} getOneMeeting
+ * @param {Function} getMeetingAgenda
+ * @param {Function} getMeetingNotes
+ * @param {Function} getMeetingInvitees
  * @param {Object} meetingAgenda
  * @param {Object} meetingNotes
  * @param {Object} meetingInvitees
@@ -23,13 +32,25 @@ class MeetingDetails extends PureComponent {
     super()
     this.state = {
       currentTab: 'agenda',
-      meeting: null
+      meeting: null,
+      unsubsribeFromMeeting: null
     }
   }
 
   async componentDidMount() {
-    const { getOneMeeting, currentProject, meetingId } = this.props
-    await getOneMeeting(currentProject.projectId, meetingId)
+    const { 
+      getOneMeeting, 
+      getMeetingAgenda, 
+      getMeetingNotes, 
+      getMeetingInvitees, 
+      currentProject, 
+      meetingId 
+    } = this.props
+
+    this.state.unsubsribeFromMeeting = await getOneMeeting(currentProject.projectId, meetingId)
+    await getMeetingAgenda(meetingId)
+    await getMeetingNotes(meetingId)
+    await getMeetingInvitees(meetingId)
   }
 
   toggleCurrentTab = (currentTabName) => {
@@ -59,10 +80,10 @@ class MeetingDetails extends PureComponent {
           {getTimeFromDate(meeting.endTime)} -
           <MeetingDetailsStyles.Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</MeetingDetailsStyles.Status>
         </MeetingDetailsStyles.MeetingTime>
-        <MeetingDetailsStyles.Options>
+        {/* <MeetingDetailsStyles.Options>
           Manage meeting
           <img src={arrowDownIcon} alt='arrow-down' />
-        </MeetingDetailsStyles.Options>
+        </MeetingDetailsStyles.Options> */}
         {this.renderMeetingDetails()}
       </MeetingDetailsStyles.Container> : null
     )
@@ -96,15 +117,43 @@ class MeetingDetails extends PureComponent {
   }
 
   renderTabItemDetails = () => {
+    const { currentTab } = this.state
+    switch(currentTab) {
+      case 'agenda':
+        return this.renderAgenda()
+      case 'notes': 
+        return this.renderNotes()
+      case 'invitees':
+        return this.renderInvitees()
+      default:
+        return 'null'
+    } 
+  }
+
+
+
+  renderAgenda = () => {
     const { meetingAgenda } = this.props
-    const agenda = meetingAgenda && Object.keys(meetingAgenda).map(key => {
-      return meetingAgenda[key]
-    })
-    return (
+    return(
       <MeetingDetailsStyles.TabItemDetails>
-        {agenda && agenda.map(agendaItem => {
-          return <div key={agendaItem?.id}>{agendaItem?.text}</div>
-        })}
+        <Agenda agenda={meetingAgenda} />
+      </MeetingDetailsStyles.TabItemDetails>
+    )
+  }
+  renderNotes = () => {
+    const { meetingNotes } = this.props
+    return(
+      <MeetingDetailsStyles.TabItemDetails>
+        <Notes notes={meetingNotes} />
+      </MeetingDetailsStyles.TabItemDetails>
+    )
+  }
+
+  renderInvitees = () => {
+    const { meetingInvitees } = this.props
+    return(
+      <MeetingDetailsStyles.TabItemDetails>
+        <Invitees invitees={meetingInvitees} />
       </MeetingDetailsStyles.TabItemDetails>
     )
   }
@@ -116,17 +165,19 @@ const mapStateToProps = ({ meetingsState, projectsState }) => {
     meetingAgenda: meetingsState.meeting_agenda,
     meetingNotes: meetingsState.meeting_notes,
     meetingInvitees: meetingsState.meeting_invitees,
-    currentProject: projectsState.projects[0],
+    currentProject: projectsState.current_project,
     meeting: meetingsState.current_meeting,
   }
 }
 
-const mapDispatchToProps = (disptach) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getOneMeeting: (projectId, meetingId) => disptach(getOneMeeting(projectId, meetingId))
+    getOneMeeting: (projectId, meetingId) => dispatch(getOneMeeting(projectId, meetingId)),
+    getMeetingAgenda: (meetingId) => dispatch(getMeetingAgenda(meetingId)),
+    getMeetingNotes: (meetingId) => dispatch(getMeetingNotes(meetingId)),
+    getMeetingInvitees: (meetingId) => dispatch(getMeetingInvitees(meetingId))
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingDetails);
 
 

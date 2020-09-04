@@ -23,7 +23,7 @@ import {
   NextPreviousWeek,
   Previous,
   Next
-} from './index.styles'
+} from './assets/styles/index.styles'
 
 class Meetings extends PureComponent {
   state = {
@@ -32,10 +32,14 @@ class Meetings extends PureComponent {
     week: 'Current'
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { setCurrentPorject, currentProject, projects } = this.props
     if(!currentProject && projects) {
       setCurrentPorject(projects[0])
+    }
+    if(currentProject) {
+      getMeetings(currentProject.projectId)
+      console.log('meetings component did mount')
     }
     this.setState({
       weekDates: getCurrentWeek(),
@@ -43,7 +47,10 @@ class Meetings extends PureComponent {
   }
 
   componentDidUpdate() {
-    const { getMeetings, currentProject } = this.props
+    const { getMeetings, currentProject, projects } = this.props
+    if(!currentProject && projects) {
+      setCurrentPorject(projects[0])
+    }
     if (!this.props.meetings && currentProject) {
       console.log('meetings did update')
       getMeetings(currentProject.projectId)
@@ -136,7 +143,7 @@ class Meetings extends PureComponent {
         <Tippy content='Previous week' className='tippy-tooltip' placement='bottom'>
           <Previous onClick={this.setPreviousWeek}><FontAwesomeIcon icon='angle-left' color='black' size='lg' /></Previous>
         </Tippy>
-        {`${week} Week`}
+        <span>{`${week.toUpperCase()} WEEK`}</span>
         <Tippy content='Next week' className='tippy-tooltip' placement='bottom'>
           <Next onClick={this.setNextWeek}><FontAwesomeIcon icon='angle-right' color='black' size='lg' /></Next>
         </Tippy>

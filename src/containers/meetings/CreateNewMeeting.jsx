@@ -8,7 +8,7 @@ import Button from '../../components/button/Button'
 import DropdownList from '../../components/dropdown-list/DropdownList'
 import Avatar from '../../components/avatar/Avatar'
 import { Colors } from '../../assets/colors'
-import { NewMeetingStyles } from './createNewMeeting.styles'
+import { NewMeetingStyles } from './assets/styles/createNewMeeting.styles'
 
 class CreateNewMeeting extends Component {
 

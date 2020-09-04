@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Button from '../../components/button/Button'
 import NullState from '../../components/null-state';
 import { Colors } from '../../assets/colors'
-import nullIcon from './assets/nullIcon.svg'
+import nullIcon from './assets/images/nullIcon.svg'
 
 function NullMeetings({onClick}) {
     const button =
