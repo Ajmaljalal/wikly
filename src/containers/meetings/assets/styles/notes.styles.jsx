@@ -11,35 +11,18 @@ const Container = styled.div`
   padding: 15px 15px;
   margin-bottom: 5px;
 `;
-const Text = styled.p`
-  width: 45%;
-`;
-const Speaker = styled.div`
-  width: 15%;
-  color: ${Colors["wikli-color-grey-600"]};
-`;
 
-const Time = styled.p`
-  width: 10%;
-  color: ${Colors["wikli-color-grey-600"]};
-`;
+const Owner = styled.div``;
 
-const Duration = styled.p`
-  width: 10%;
-  color: ${Colors["wikli-color-grey-600"]};
-`;
-
-const Actions = styled.p`
+const Actions = styled.div`
   width: 35px;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
 `;
-export const AgendaStyles = {
+
+export const NoteStyles = {
   Container,
-  Speaker,
-  Text,
-  Time,
-  Duration,
+  Owner,
   Actions,
 };
