@@ -19,6 +19,7 @@ const Notes = ({ notes }) => {
                 <FontAwesomeIcon icon="pencil-alt" color="green" />
                 <FontAwesomeIcon icon="trash-alt" color="red" />
               </NoteStyles.Actions>
+              <h1>HI</h1>
             </div>
           );
         })}
