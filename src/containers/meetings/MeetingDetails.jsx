@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
+import NullState from '../../components/null-state'
 import { 
   getOneMeeting,
   getMeetingAgenda,
@@ -134,24 +135,39 @@ class MeetingDetails extends PureComponent {
 
   renderAgenda = () => {
     const { meetingAgenda } = this.props
-    return(
-      <MeetingDetailsStyles.TabItemDetails>
-        <Agenda agenda={meetingAgenda} />
-      </MeetingDetailsStyles.TabItemDetails>
+    if (meetingAgenda && meetingAgenda.length) {
+      return (
+        <MeetingDetailsStyles.TabItemDetails>
+          <Agenda agenda={meetingAgenda} />
+        </MeetingDetailsStyles.TabItemDetails>
+      )
+    }
+    return (
+      <NullState
+        text='Agenda not specified yet.'
+        button={<button>button</button>}
+      />
     )
   }
   renderNotes = () => {
     const { meetingNotes } = this.props
-    return(
-      <MeetingDetailsStyles.TabItemDetails>
-        <Notes notes={meetingNotes} />
-      </MeetingDetailsStyles.TabItemDetails>
+    if(meetingNotes && meetingNotes.length) {
+      return(
+        <MeetingDetailsStyles.TabItemDetails>
+          <Notes notes={meetingNotes} />
+        </MeetingDetailsStyles.TabItemDetails>
+      )
+    } 
+    return (
+      <NullState 
+        text='Be first to add a note'
+      />
     )
   }
 
   renderInvitees = () => {
     const { meetingInvitees } = this.props
-    return(
+    return (
       <MeetingDetailsStyles.TabItemDetails>
         <Invitees invitees={meetingInvitees} />
       </MeetingDetailsStyles.TabItemDetails>

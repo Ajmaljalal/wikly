@@ -3,10 +3,11 @@ import { Colors } from '../../../../assets/colors'
 
 const Container = styled.div`
   width: 100%;
+  min-height: 100%;
   display: flex;
   box-sizing: border-box;
   justify-content: space-between;
-  background:white;
+  background: ${(props) => props.bgColor};
   border-radius: 5px;
   padding: 15px 15px;
   margin-bottom: 5px;
@@ -17,20 +18,23 @@ const Text = styled.p`
 const Speaker = styled.div`
   width: 15%;
   color: ${Colors["wikli-color-grey-600"]};
+  font-size: 12px;
 `;
 
 const Time = styled.p`
-  width: 10%;
+  width: 8%;
   color: ${Colors["wikli-color-grey-600"]};
+  font-size: 12px;
 `;
 
 const Duration = styled.p`
-  width: 10%;
+  width: 12%;
   color: ${Colors["wikli-color-grey-600"]};
+  font-size: 12px;
 `;
 
 const Actions = styled.p`
-  width: 35px;
+  width: 30px;
   display: flex;
   justify-content: space-between;
   cursor: pointer;

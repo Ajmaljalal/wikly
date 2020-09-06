@@ -50,7 +50,7 @@ const Status = styled.span`
 
 const DetialsContainer = styled.div`
     width: 100%;
-    // height: 70%;
+    height: 88%;
     margin-top: 20px;
     box-sizing: border-box;
     background: ${Colors["wikli-color-grey-200"]};
@@ -76,7 +76,7 @@ const Options = styled.div`
 
 const Tab = styled.div`
     width: 100%;
-    height: 35px;
+    height: 40px;
     min-height: 30px;
     display: flex;
     font-size: 12px;
@@ -104,7 +104,7 @@ const TabItem = styled.div`
 
 const TabItemDetails = styled.div`
     width: 100%;
-    height: 94%;
+    // height: 94%;
     border-radius: 5px;
     box-sizing: border-box;
     overflow-x: scroll;
