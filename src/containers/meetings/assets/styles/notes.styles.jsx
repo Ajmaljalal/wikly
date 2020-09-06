@@ -3,7 +3,9 @@ import { Colors } from "../../../../assets/colors";
 
 const Container = styled.div`
   width: 100%;
+  display: flex;
   box-sizing: border-box;
+  flex-direction: column;
   background: white;
   border-radius: 5px;
   padding: 15px 15px;
@@ -17,13 +19,14 @@ const Text = styled.p`
 const Owner = styled.div`
   color: ${Colors["wikli-color-grey-600"]};
   cursor: text;
+  padding-bottom: 15px;
 `;
 
 const Actions = styled.div`
   width: 35px;
   display: flex;
   justify-content: space-between;
-  padding-top: 20px;
+  padding-top: 15px;
   cursor: pointer;
 `;
 
