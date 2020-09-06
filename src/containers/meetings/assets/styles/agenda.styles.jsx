@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Colors } from '../../../../assets/colors'
+import styled from "styled-components";
+import { Colors } from "../../../../assets/colors";
 
 const Container = styled.div`
   width: 100%;
@@ -45,5 +45,5 @@ export const AgendaStyles = {
   Text,
   Time,
   Duration,
-  Actions
-}
+  Actions,
+};
