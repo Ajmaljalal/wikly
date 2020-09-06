@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,22 +8,22 @@ import { NoteStyles } from "./assets/styles/notes.styles";
 
 const Notes = ({ notes }) => {
   return (
-    <NoteStyles.Container>
+    <Fragment>
       {notes &&
         notes.map((noteItem) => {
           return (
-            <div key={noteItem.noteId}>
-              {noteItem.text}
-              {noteItem.owner.name}
+            <NoteStyles.Container key={noteItem.noteId}>
+              <NoteStyles.Owner>{noteItem.owner.name}</NoteStyles.Owner>
+              <br />
+              <NoteStyles.Text>{noteItem.text}</NoteStyles.Text>
               <NoteStyles.Actions>
                 <FontAwesomeIcon icon="pencil-alt" color="green" />
                 <FontAwesomeIcon icon="trash-alt" color="red" />
               </NoteStyles.Actions>
-              <h1>HI</h1>
-            </div>
+            </NoteStyles.Container>
           );
         })}
-    </NoteStyles.Container>
+    </Fragment>
   );
 };
 
