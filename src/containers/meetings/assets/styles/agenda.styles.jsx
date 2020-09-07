@@ -7,10 +7,10 @@ const Container = styled.div`
   display: flex;
   box-sizing: border-box;
   justify-content: space-between;
-  background: ${(props) => props.bgColor};
+  border: 0.5px solid ${Colors["wikli-color-grey-400"]};
   border-radius: 5px;
   padding: 15px 15px;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 `;
 const Text = styled.p`
   width: 45%;
@@ -33,8 +33,8 @@ const Duration = styled.p`
   font-size: 12px;
 `;
 
-const Actions = styled.p`
-  width: 30px;
+const Actions = styled.div`
+  width: 35px;
   display: flex;
   justify-content: space-between;
   cursor: pointer;

@@ -30,9 +30,9 @@ const CloseButton = styled.div`
 
 const MeetingTitle = styled.div`
     width: 90%;
-    font-weight: bold;
+    font-weight: 500;
     padding-top:10px; 
-    font-size: 14px; 
+    font-size: 16px; 
 `;
 const MeetingTime = styled.div`
     width: 90%;
@@ -51,11 +51,9 @@ const Status = styled.span`
 const DetialsContainer = styled.div`
     width: 100%;
     height: 88%;
-    margin-top: 20px;
+    margin-top: 30px;
     box-sizing: border-box;
-    background: ${Colors["wikli-color-grey-200"]};
     border-radius: 5px;
-    border: 0.5px solid ${Colors["wikli-color-grey-400"]}
 `;
 
 const Options = styled.div`
@@ -76,13 +74,11 @@ const Options = styled.div`
 
 const Tab = styled.div`
     width: 100%;
-    height: 40px;
+    height: 35px;
     min-height: 30px;
     display: flex;
     font-size: 12px;
-    border-radius: 5px;
-    background: ${Colors["wikli-color-grey-50"]};  
-    border-bottom: 0.5px solid ${Colors["wikli-color-grey-400"]}
+    background: ${Colors["wikli-color-tab"]};  
 `;
 
 const TabItem = styled.div`
@@ -93,12 +89,9 @@ const TabItem = styled.div`
     font-siz: 14px;
     font-weight: 500;
     padding: 0 10px;
-    margin-right: 10px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
     transition: background-color 0.5s ease-in-out;
-    background: ${props => props.currentTab === props.htmlFor ? Colors["wikli-color-grey-200"] : 'none'};
-    color: ${props => props.currentTab === props.htmlFor ? Colors["wikli-color-primary-dark"] : 'black'};
+    background: ${props => props.currentTab === props.htmlFor ? Colors["wikli-color-tab-selected"] : 'none'};
+    color: ${props => props.currentTab === props.htmlFor ? 'white' : 'white'};
     cursor: pointer;
 `;
 
