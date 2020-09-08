@@ -3,13 +3,14 @@ import { Colors } from "../../../../assets/colors";
 
 const Container = styled.div`
   width: 100%;
+  min-height: 100%;
   display: flex;
   box-sizing: border-box;
   justify-content: space-between;
-  background: white;
+  border: 0.5px solid ${Colors["wikli-color-grey-400"]};
   border-radius: 5px;
   padding: 15px 15px;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 `;
 const Text = styled.p`
   width: 45%;
@@ -17,19 +18,22 @@ const Text = styled.p`
 const Speaker = styled.div`
   width: 15%;
   color: ${Colors["wikli-color-grey-600"]};
+  font-size: 12px;
 `;
 
 const Time = styled.p`
-  width: 10%;
+  width: 8%;
   color: ${Colors["wikli-color-grey-600"]};
+  font-size: 12px;
 `;
 
 const Duration = styled.p`
-  width: 10%;
+  width: 12%;
   color: ${Colors["wikli-color-grey-600"]};
+  font-size: 12px;
 `;
 
-const Actions = styled.p`
+const Actions = styled.div`
   width: 35px;
   display: flex;
   justify-content: space-between;

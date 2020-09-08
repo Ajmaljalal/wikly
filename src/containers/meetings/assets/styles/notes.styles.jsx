@@ -4,29 +4,27 @@ import { Colors } from "../../../../assets/colors";
 const Container = styled.div`
   width: 100%;
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   box-sizing: border-box;
-  flex-direction: column;
-  background: white;
+  border: 0.5px solid ${Colors["wikli-color-grey-400"]};
   border-radius: 5px;
   padding: 15px 15px;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 `;
 
 const Text = styled.p`
-  cursor: text;
 `;
 
 const Owner = styled.div`
   color: ${Colors["wikli-color-grey-600"]};
-  cursor: text;
-  padding-bottom: 15px;
+  margin-bottom:5px;
 `;
 
 const Actions = styled.div`
   width: 35px;
   display: flex;
   justify-content: space-between;
-  padding-top: 15px;
   cursor: pointer;
 `;
 
