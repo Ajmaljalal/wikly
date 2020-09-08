@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
+import NullState from '../../components/null-state'
 import { 
   getOneMeeting,
   getMeetingAgenda,
@@ -109,7 +110,6 @@ class MeetingDetails extends PureComponent {
           <MeetingDetailsStyles.TabItem htmlFor='agenda' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('agenda')}>Agenda ({meeting.agenda})</MeetingDetailsStyles.TabItem>
           <MeetingDetailsStyles.TabItem htmlFor='notes' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('notes')}>Notes ({meeting.notes})</MeetingDetailsStyles.TabItem>
           <MeetingDetailsStyles.TabItem htmlFor='resources' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('resources')}>Resources ({meeting.attachments})</MeetingDetailsStyles.TabItem>
-          <MeetingDetailsStyles.TabItem htmlFor='invitees' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('invitees')}>Invitees ({meeting.invitees})</MeetingDetailsStyles.TabItem>
         </MeetingDetailsStyles.Tab>
         {this.renderTabItemDetails()}
       </MeetingDetailsStyles.DetialsContainer>
@@ -134,27 +134,33 @@ class MeetingDetails extends PureComponent {
 
   renderAgenda = () => {
     const { meetingAgenda } = this.props
-    return(
-      <MeetingDetailsStyles.TabItemDetails>
-        <Agenda agenda={meetingAgenda} />
-      </MeetingDetailsStyles.TabItemDetails>
+    if (meetingAgenda && meetingAgenda.length) {
+      return (
+        <MeetingDetailsStyles.TabItemDetails>
+          <Agenda agenda={meetingAgenda} />
+        </MeetingDetailsStyles.TabItemDetails>
+      )
+    }
+    return (
+      <NullState
+        text='Agenda not specified yet.'
+        button={<button>button</button>}
+      />
     )
   }
   renderNotes = () => {
     const { meetingNotes } = this.props
-    return(
-      <MeetingDetailsStyles.TabItemDetails>
-        <Notes notes={meetingNotes} />
-      </MeetingDetailsStyles.TabItemDetails>
-    )
-  }
-
-  renderInvitees = () => {
-    const { meetingInvitees } = this.props
-    return(
-      <MeetingDetailsStyles.TabItemDetails>
-        <Invitees invitees={meetingInvitees} />
-      </MeetingDetailsStyles.TabItemDetails>
+    if(meetingNotes && meetingNotes.length) {
+      return(
+        <MeetingDetailsStyles.TabItemDetails>
+          <Notes notes={meetingNotes} />
+        </MeetingDetailsStyles.TabItemDetails>
+      )
+    } 
+    return (
+      <NullState 
+        text='Be first to add a note'
+      />
     )
   }
 }
