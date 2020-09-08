@@ -110,7 +110,6 @@ class MeetingDetails extends PureComponent {
           <MeetingDetailsStyles.TabItem htmlFor='agenda' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('agenda')}>Agenda ({meeting.agenda})</MeetingDetailsStyles.TabItem>
           <MeetingDetailsStyles.TabItem htmlFor='notes' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('notes')}>Notes ({meeting.notes})</MeetingDetailsStyles.TabItem>
           <MeetingDetailsStyles.TabItem htmlFor='resources' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('resources')}>Resources ({meeting.attachments})</MeetingDetailsStyles.TabItem>
-          <MeetingDetailsStyles.TabItem htmlFor='invitees' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('invitees')}>Invitees ({meeting.invitees})</MeetingDetailsStyles.TabItem>
         </MeetingDetailsStyles.Tab>
         {this.renderTabItemDetails()}
       </MeetingDetailsStyles.DetialsContainer>
@@ -162,15 +161,6 @@ class MeetingDetails extends PureComponent {
       <NullState 
         text='Be first to add a note'
       />
-    )
-  }
-
-  renderInvitees = () => {
-    const { meetingInvitees } = this.props
-    return (
-      <MeetingDetailsStyles.TabItemDetails>
-        <Invitees invitees={meetingInvitees} />
-      </MeetingDetailsStyles.TabItemDetails>
     )
   }
 }

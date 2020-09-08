@@ -20,7 +20,7 @@ function Avatar({ type, img, size, initials, status }) {
       <AvatarStyles.Avatar radius={borderRadius} size={size}>
         {profile}
       </AvatarStyles.Avatar>
-      <AvatarStyles.Status status={status}/>
+      {status ? <AvatarStyles.Status status={status}/> : null }
     </AvatarStyles.Container>
   )
 }

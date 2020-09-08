@@ -1,0 +1,41 @@
+.easy-edit-button-wrapper {
+  display: inline;
+}
+
+.easy-edit-hover-on {
+  cursor: pointer;
+  font-style: italic;
+}
+
+.easy-edit-radio-label {
+  display: block;
+}
+
+.easy-edit-not-allowed {
+  cursor: not-allowed;
+}
+
+.easy-edit-checkbox-label {
+  display: block;
+}
+
+.easy-edit-textarea {
+  min-height: 40px;
+}
+
+.easy-edit-button {
+  border: none;
+  display: inline-block;
+  margin: 0 2px;
+  padding: 4px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.easy-edit-component-wrapper {
+  display: inline-grid;
+}
+
+.easy-edit-validation-error {
+  color: red;
+}
