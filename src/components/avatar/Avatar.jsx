@@ -4,9 +4,19 @@ import { AvatarStyles } from './avatar.styles'
 
 
 function Avatar({ type, img, size, initials, status }) {
+  const colors = ['#00AA55', '#009FD4', '#B381B3', '#939393', '#E3BC00', '#D47500', '#DC2A2A'];
+
+  const numberFromText = (text) => {
+    // numberFromText("AA");
+    const charCodes = text
+      .split('') // => ["A", "A"]
+      .map(char => char.charCodeAt(0)) // => [65, 65]
+      .join(''); // => "6565"
+    return parseInt(charCodes, 10);
+  }
   let borderRadius
   let profile
-  let background = '#'+Math.floor(Math.random()*16777215).toString(16)
+  let background = colors[numberFromText(initials) % colors.length];
   if (type === 'circle') {
     borderRadius = '50%'
   } else borderRadius = '5px'
@@ -20,7 +30,7 @@ function Avatar({ type, img, size, initials, status }) {
       <AvatarStyles.Avatar radius={borderRadius} size={size}>
         {profile}
       </AvatarStyles.Avatar>
-      {status ? <AvatarStyles.Status status={status}/> : null }
+      {status ? <AvatarStyles.Status status={status} /> : null}
     </AvatarStyles.Container>
   )
 }
@@ -30,7 +40,7 @@ Avatar.prototypes = {
   img: PropTypes.string,
   size: PropTypes.number.isRequired,
   initials: PropTypes.string,
-  status: PropTypes.string.isRequired,
+  status: PropTypes.string,
 }
 
 export default memo(Avatar)
