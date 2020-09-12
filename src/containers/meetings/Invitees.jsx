@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Tippy from "@tippyjs/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Avatar from "../../components/avatar/Avatar";
 
@@ -15,19 +17,35 @@ const Invitees = ({ invitees }) => {
             return null;
           } else {
             return (
-              <InviteeStyles.Avatar>
-                <Avatar
-                  key={invitee.inviteeId}
-                  type="circle"
-                  img={invitee.photoUrl}
-                  size="30px"
-                  initials={invitee.initials}
-                />
-              </InviteeStyles.Avatar>
+              <Tippy
+                placement="bottom"
+                content={invitee.name}
+                className="tippy-tooltip"
+                key={index}
+              >
+                <InviteeStyles.Avatar>
+                  <Avatar
+                    key={invitee.inviteeId}
+                    type="circle"
+                    img={invitee.photoUrl}
+                    size="30px"
+                    initials={invitee.initials}
+                  />
+                </InviteeStyles.Avatar>
+              </Tippy>
             );
           }
         })}
       {remainingInviteesNumber(invitees, imagesToShow)}
+      <Tippy
+        placement="bottom"
+        content="Add Invitees"
+        className="tippy-tooltip"
+      >
+        <InviteeStyles.AddIcon>
+          <FontAwesomeIcon icon="plus" size="sm" />
+        </InviteeStyles.AddIcon>
+      </Tippy>
     </InviteeStyles.Container>
   );
 };
