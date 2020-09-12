@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Editable from '../../components/editable-fields/index'
 import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
 import NullState from '../../components/null-state'
 import { 
@@ -11,7 +12,6 @@ import {
  } from '../..//redux/meetings/actions'
 import Agenda from './Agenda'
 import Notes from './Notes'
-import Invitees from './Invitees'
 import { MeetingDetailsStyles } from './assets/styles/meetingDetails.styles'
 // import arrowDownIcon from '../../assets/icons/caret-down.svg'
 
@@ -81,10 +81,6 @@ class MeetingDetails extends PureComponent {
           {getTimeFromDate(meeting.endTime)} -
           <MeetingDetailsStyles.Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</MeetingDetailsStyles.Status>
         </MeetingDetailsStyles.MeetingTime>
-        {/* <MeetingDetailsStyles.Options>
-          Manage meeting
-          <img src={arrowDownIcon} alt='arrow-down' />
-        </MeetingDetailsStyles.Options> */}
         {this.renderMeetingDetails()}
       </MeetingDetailsStyles.Container> : null
     )
@@ -94,7 +90,14 @@ class MeetingDetails extends PureComponent {
     const { onClose } = this.props
     return (
       <MeetingDetailsStyles.ContainerHeader>
-        <MeetingDetailsStyles.MeetingTitle>{title}</MeetingDetailsStyles.MeetingTitle>
+        <MeetingDetailsStyles.MeetingTitle>
+          <Editable
+            type='text'
+            value={title}
+            onSave={val => alert("submitted!")}
+          />
+        </MeetingDetailsStyles.MeetingTitle>
+
         <MeetingDetailsStyles.CloseButton onClick={onClose}>
           <FontAwesomeIcon icon='times' />
         </MeetingDetailsStyles.CloseButton>
