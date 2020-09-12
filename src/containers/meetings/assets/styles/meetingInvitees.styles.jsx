@@ -8,16 +8,17 @@ const Container = styled.div`
 `;
 
 const Avatar = styled.div`
-  position: relative;
-  border: 2.5px solid #fff;
-  border-radius: 50%;
-  width: 31px;
-  height: 31px;
-  margin-left: -12px;
+  width: 33px;
+  height: 33px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  margin-left: -12px;
   color: white;
+  position: relative;
 `;
 
 const AddIcon = styled.div`
@@ -26,8 +27,8 @@ const AddIcon = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 33px;
-  height: 33px;
+  width: 32px;
+  height: 32px;
   box-sizing: border-box;
   cursor: pointer;
   &:hover {

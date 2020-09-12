@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getTimeFromDate, getTimeLeft } from "../../helpers/getDate";
 import NullState from "../../components/null-state";
+import Editable from '../../components/editable-fields/index'
 import {
   getOneMeeting,
   getMeetingAgenda,
@@ -88,10 +89,6 @@ class MeetingDetails extends PureComponent {
           </MeetingDetailsStyles.Status>
         </MeetingDetailsStyles.MeetingTime>
         <Invitees invitees={meetingInvitees} />
-        {/* <MeetingDetailsStyles.Options>
-          Manage meeting
-          <img src={arrowDownIcon} alt='arrow-down' />
-        </MeetingDetailsStyles.Options> */}
         {this.renderMeetingDetails()}
       </MeetingDetailsStyles.Container>
     ) : null;
@@ -102,8 +99,13 @@ class MeetingDetails extends PureComponent {
     return (
       <MeetingDetailsStyles.ContainerHeader>
         <MeetingDetailsStyles.MeetingTitle>
-          {title}
+          <Editable
+            type='text'
+            value={title}
+            onSave={val => alert("submitted!")}
+          />
         </MeetingDetailsStyles.MeetingTitle>
+
         <MeetingDetailsStyles.CloseButton onClick={onClose}>
           <FontAwesomeIcon icon="times" />
         </MeetingDetailsStyles.CloseButton>

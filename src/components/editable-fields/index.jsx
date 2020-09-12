@@ -13,7 +13,7 @@ import EasyColor from "./EasyColor.jsx";
 import EasyDatalist from "./EasyDatalist.jsx";
 import EasyCustom from './EasyCustom.jsx';
 
-export default class EasyEdit extends React.Component {
+export default class Editable extends React.Component {
 
   constructor(props) {
     super(props);
@@ -232,10 +232,8 @@ export default class EasyEdit extends React.Component {
     const { saveOnBlur, saveButtonLabel, saveButtonStyle, cancelButtonLabel, cancelButtonStyle, cssClassPrefix, hideSaveButton, hideCancelButton } = this.props;
     return (
       <div className={cssClassPrefix + "easy-edit-button-wrapper"}>
-        {!hideSaveButton && EasyEdit.generateButton(this.saveButton, this._onSave, saveButtonLabel,
-          (saveButtonStyle === null ? cssClassPrefix + Globals.DEFAULT_BUTTON_CSS_CLASS : saveButtonStyle), "save", saveOnBlur)}
-        {!hideCancelButton && EasyEdit.generateButton(this.cancelButton, this._onCancel, cancelButtonLabel,
-          (cancelButtonStyle === null ? cssClassPrefix + Globals.DEFAULT_BUTTON_CSS_CLASS : cancelButtonStyle), "cancel", saveOnBlur)}
+        {!hideCancelButton && Editable.generateButton(this.cancelButton, this._onCancel, cancelButtonLabel, (Globals.DEFAULT_BUTTON_CSS_CLASS + " easy-edit-button--cancel"), "cancel", saveOnBlur)}
+        {!hideSaveButton && Editable.generateButton(this.saveButton, this._onSave, saveButtonLabel, (Globals.DEFAULT_BUTTON_CSS_CLASS + " easy-edit-button--save"), "save", saveOnBlur)}
       </div>
     )
   }
@@ -284,7 +282,7 @@ export default class EasyEdit extends React.Component {
       return "";
     }
     return (
-      <button ref={ref} onClick={onClick} className={cssClass} name={name}>
+      <button ref={ref} onClick={onClick} className={cssClass} name={name} >
         {label}
       </button>
     )
@@ -438,7 +436,7 @@ export const Types = {
 
 Object.freeze(Types);
 
-EasyEdit.propTypes = {
+Editable.propTypes = {
   type: PropTypes.oneOf([
     'text', 'number', 'color', 'textarea', 'date', 'datetime-local', 'email', 'password',
     'time', 'month', 'week', 'radio', 'checkbox', 'select', 'range', 'datalist'
@@ -482,7 +480,7 @@ EasyEdit.propTypes = {
   saveOnBlur: PropTypes.bool
 };
 
-EasyEdit.defaultProps = {
+Editable.defaultProps = {
   value: null,
   saveButtonLabel: Globals.DEFAULT_SAVE_BUTTON_LABEL,
   saveButtonStyle: null,

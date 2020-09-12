@@ -16,39 +16,35 @@ const Invitees = ({ invitees }) => {
           if (index >= imagesToShow) {
             return null;
           } else {
-            return (
-              <Tippy
-                placement="bottom"
-                content={invitee.name}
-                className="tippy-tooltip"
-                key={index}
-              >
-                <InviteeStyles.Avatar>
-                  <Avatar
-                    key={invitee.inviteeId}
-                    type="circle"
-                    img={invitee.photoUrl}
-                    size="30px"
-                    initials={invitee.initials}
-                  />
-                </InviteeStyles.Avatar>
-              </Tippy>
-            );
+            return renderInviteeAvatar(invitee, index)
           }
         })}
       {remainingInviteesNumber(invitees, imagesToShow)}
-      <Tippy
-        placement="bottom"
-        content="Add Invitees"
-        className="tippy-tooltip"
-      >
-        <InviteeStyles.AddIcon>
-          <FontAwesomeIcon icon="plus" size="sm" />
-        </InviteeStyles.AddIcon>
-      </Tippy>
+      {addInviteesButton()}
     </InviteeStyles.Container>
   );
 };
+
+const renderInviteeAvatar = (invitee, index) => {
+  return (
+    <Tippy
+      placement="bottom"
+      content={invitee.name}
+      className="tippy-tooltip"
+      key={index}
+    >
+      <InviteeStyles.Avatar>
+        <Avatar
+          key={invitee.inviteeId}
+          type="circle"
+          img={invitee.photoUrl}
+          size="30px"
+          initials={invitee.initials}
+        />
+      </InviteeStyles.Avatar>
+    </Tippy>
+  );
+}
 
 const remainingInviteesNumber = (invitees, imagesToShow) => {
   if (invitees && invitees.length >= imagesToShow) {
@@ -61,6 +57,20 @@ const remainingInviteesNumber = (invitees, imagesToShow) => {
     return null;
   }
 };
+
+const addInviteesButton = () => {
+  return (
+    <Tippy
+      placement="bottom"
+      content="Add Invitees"
+      className="tippy-tooltip"
+    >
+      <InviteeStyles.AddIcon>
+        <FontAwesomeIcon icon="plus" size="sm" />
+      </InviteeStyles.AddIcon>
+    </Tippy>
+  )
+}
 
 Invitees.propTypes = {
   invitees: PropTypes.array,

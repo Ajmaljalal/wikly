@@ -30,7 +30,7 @@ class AppHeader extends PureComponent {
     return (
       <HeaderStyles.UserAvatarWrapper>
         <UserAvatar profile={profile} status='online' />
-        {profile.name}
+        <HeaderStyles.UserName>{profile.name}</HeaderStyles.UserName>
         <ActionsDropdown actions={dropdownActions} />
       </HeaderStyles.UserAvatarWrapper>
     )

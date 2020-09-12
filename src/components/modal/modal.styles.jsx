@@ -17,7 +17,7 @@ const Content = styled.div`
   top: 10%;
   left: 50%;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   width: ${(props) => props.width};
@@ -37,8 +37,8 @@ const Header = styled.div`
   color: white;
   background: ${(props) => props.bg};
   font-weight: bold;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   svg {
     cursor: pointer;
   }

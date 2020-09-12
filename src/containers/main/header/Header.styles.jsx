@@ -16,10 +16,14 @@ const UserAvatarWrapper = styled.div`
   align-items: center;
   cursor: pointer;
   color: white;
+`;
 
+const UserName = styled.div`
+  margin-left: 5px;
 `;
 
 export const HeaderStyles = {
   HeaderContainer,
   UserAvatarWrapper,
+  UserName
 }
