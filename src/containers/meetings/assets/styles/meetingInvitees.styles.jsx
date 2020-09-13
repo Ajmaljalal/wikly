@@ -21,24 +21,12 @@ const Avatar = styled.div`
   position: relative;
 `;
 
-const AddIcon = styled.div`
-  transition: 0.5s background;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  box-sizing: border-box;
-  cursor: pointer;
-  &:hover {
-    background: dodgerblue;
-    color: white;
-  }
+const AddInvitees = styled.div`
+  padding-left: 5px;
 `;
 
 export const InviteeStyles = {
   Avatar,
   Container,
-  AddIcon,
+  AddInvitees,
 };
