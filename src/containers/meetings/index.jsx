@@ -32,14 +32,10 @@ class Meetings extends PureComponent {
     week: 'Current'
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { setCurrentPorject, currentProject, projects } = this.props
     if(!currentProject && projects) {
       setCurrentPorject(projects[0])
-    }
-    if(currentProject) {
-      getMeetings(currentProject.projectId)
-      console.log('meetings component did mount')
     }
     this.setState({
       weekDates: getCurrentWeek(),
@@ -47,12 +43,11 @@ class Meetings extends PureComponent {
   }
 
   componentDidUpdate() {
-    const { getMeetings, currentProject, projects } = this.props
-    if(!currentProject && projects) {
+    const { getMeetings, currentProject, projects, meetings } = this.props
+    if(projects && !currentProject) {
       setCurrentPorject(projects[0])
     }
-    if (!this.props.meetings && currentProject) {
-      console.log('meetings did update')
+    if (!meetings && currentProject) {
       getMeetings(currentProject.projectId)
     }
   }
