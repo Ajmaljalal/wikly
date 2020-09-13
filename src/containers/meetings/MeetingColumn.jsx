@@ -14,7 +14,7 @@ import MeetingItem from './MeetingItem'
  * @param {String} date 
  */
 const isMeetingInColumn = (meeting, day, date) => {
-  let columnHeaderDate;
+  let columnHeaderDate = date
   if(date.includes(',')) {
     columnHeaderDate = date.slice(0, date.length-1)
   }

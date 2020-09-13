@@ -9,6 +9,7 @@ import { getProjects } from '../../redux/projects/actions'
 import { MainContainer, Row } from './index.styles.jsx'
 import Menu from './menu/index'
 import AppHeader from './header/index'
+import { getMeetingAgenda } from '../../redux/meetings/actions';
 
 const Dashboard = lazy(() => import('../dashboard/index'))
 const Meetings = lazy(() => import('../meetings/index'))
@@ -40,7 +41,7 @@ class Main extends PureComponent {
     const { orgsState, projects, getProjects } = this.props
     if (prevProps.orgsState.current_org !== orgsState.current_org && !projects) {
       console.log('main did update called')
-      getProjects(this.props.orgsState.current_org.orgId)
+      getProjects(orgsState.current_org.orgId)
     }
   }
 
@@ -80,6 +81,10 @@ class Main extends PureComponent {
   }
 
   renderRoutes = () => {
+    const { gettingProjects } = this.props
+    if (gettingProjects) {
+      return null
+    }
       return (
         <Switch>
           <Route path='/dashboard' component={Dashboard} />
@@ -106,6 +111,7 @@ const mapStateToProps = ({ profileState, authState, orgsState, applicationState,
     auth: authState?.auth,
     orgsState: orgsState,
     projects: projectsState.projects,
+    gettingProjects: projectsState.gettingProjects,
     currentProject: projectsState.current_project,
     currentScreen: applicationState.current_screen
   }

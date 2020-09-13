@@ -10,6 +10,9 @@ const projectsCollection = firestore.collection('orgs-projects')
  */
 export const getProjects = (orgId) => {
   return (dispatch) => {
+    dispatch({
+      type: projectsActions.GET_PROJECTS_START,
+    });
     projectsCollection.doc(orgId).collection('projects').onSnapshot((querySnapShot) => {
         const array = [];
         querySnapShot.forEach(doc => {
