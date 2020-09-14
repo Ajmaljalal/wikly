@@ -15,8 +15,8 @@ const Notes = ({ notes }) => {
                 <NoteStyles.Text>{noteItem.text}</NoteStyles.Text>
               </div>
               <NoteStyles.Actions>
-                <FontAwesomeIcon icon="pencil-alt" color='grey' size='sm'/>
-                <FontAwesomeIcon icon="trash-alt" color='grey' size='sm'/>
+                <FontAwesomeIcon icon="pencil-alt" color="grey" size="sm" />
+                <FontAwesomeIcon icon="trash-alt" color="grey" size="sm" />
               </NoteStyles.Actions>
             </NoteStyles.Container>
           );

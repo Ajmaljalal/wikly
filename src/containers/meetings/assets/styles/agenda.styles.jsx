@@ -3,7 +3,6 @@ import { Colors } from "../../../../assets/colors";
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100%;
   display: flex;
   box-sizing: border-box;
   justify-content: space-between;

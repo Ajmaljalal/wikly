@@ -1,0 +1,56 @@
+.box {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+circle {
+  border-radius: 50%;
+}
+svg {
+  margin: 0;
+  padding: 0;
+}
+
+.box .percent {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  width: 70px;
+  margin: 0;
+  padding: 0;
+}
+
+.box .percent svg circle {
+  fill: none;
+  stroke-width: 5;
+  stroke: #000;
+  transform: translate(5px, 5px);
+  stroke-dasharray: 440;
+  stroke-dashoffset: 440;
+  stroke-linecap: round;
+}
+
+.box .percent svg circle:nth-child(1) {
+  stroke-dashoffset: 0;
+  stroke: #f3f3f3;
+}
+
+.box .percent svg circle:nth-child(2) {
+  stroke-dashoffset: calc(440 - (440 * 28) / 100);
+  stroke: #f5b351;
+}
+
+.box .percent .number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  color: #111;
+}
+
+.box .percent .number h2 {
+  font-weight: 300;
+  font-size: 25px;
+}
