@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getTimeFromDate, getTimeLeft } from "../../helpers/getDate";
 import NullState from "../../components/null-state";
-import Editable from '../../components/editable-fields/index'
+import Editable from "../../components/editable-fields/index";
 import {
   getOneMeeting,
   getMeetingAgenda,
@@ -13,6 +13,7 @@ import {
 import Agenda from "./Agenda";
 import Notes from "./Notes";
 import Invitees from "./Invitees";
+import Resources from "./Resource";
 import { MeetingDetailsStyles } from "./assets/styles/meetingDetails.styles";
 // import arrowDownIcon from '../../assets/icons/caret-down.svg'
 
@@ -100,9 +101,9 @@ class MeetingDetails extends PureComponent {
       <MeetingDetailsStyles.ContainerHeader>
         <MeetingDetailsStyles.MeetingTitle>
           <Editable
-            type='text'
+            type="text"
             value={title}
-            onSave={val => alert("submitted!")}
+            onSave={(val) => alert("submitted!")}
           />
         </MeetingDetailsStyles.MeetingTitle>
 
@@ -154,9 +155,19 @@ class MeetingDetails extends PureComponent {
         return this.renderNotes();
       case "invitees":
         return this.renderInvitees();
+      case "resources":
+        return this.renderResources();
       default:
         return "null";
     }
+  };
+
+  renderResources = () => {
+    return (
+      <MeetingDetailsStyles.TabItemDetails>
+        <Resources />
+      </MeetingDetailsStyles.TabItemDetails>
+    );
   };
 
   renderAgenda = () => {
