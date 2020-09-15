@@ -1,10 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react";
-import DropdownList from "../../components/dropdown-list/DropdownList";
-
 import Avatar from "../../components/avatar/Avatar";
-
+import MembersList from './../../components/members/index';
 import { InviteeStyles } from "./assets/styles/meetingInvitees.styles";
 
 const Invitees = ({ invitees }) => {
@@ -49,7 +47,7 @@ const renderInviteeAvatar = (invitee, index) => {
 const remainingInviteesNumber = (invitees, imagesToShow) => {
   if (invitees && invitees.length >= imagesToShow) {
     return (
-      <InviteeStyles.Avatar style={{ background: "green" }}>
+      <InviteeStyles.Avatar style={{ background: "green", marginRight: '3px'}}>
         +{invitees.length - imagesToShow}
       </InviteeStyles.Avatar>
     );
@@ -59,38 +57,9 @@ const remainingInviteesNumber = (invitees, imagesToShow) => {
 };
 
 const addInviteesButton = () => {
-  const members = [
-    {
-      id: "f8bf518c-9285-4330-895a-afb36009020a",
-      name: "Samara Macejkovic",
-      initials: "SM",
-      username: "Cindy.Jerde83",
-      email: "Liliana.Hauck@hotmail.com",
-    },
-    {
-      id: "ae086bcc-e601-47a6-9366-134f6388d015",
-      name: "Rosalinda Hoeger",
-      initials: "RH",
-      username: "Oda.Jakubowski",
-      email: "Cecelia_Schroeder@yahoo.com",
-    },
-  ];
   return (
     <InviteeStyles.AddInvitees>
-      <DropdownList
-        position="bottom"
-        searchAble={true}
-        closeOnClick={false}
-        placeholder="Invite People to Meeting"
-      >
-        {members.map((member, index) => {
-          return (
-            <div key={index} style={{ margin: "5px" }}>
-              {member.name}
-            </div>
-          );
-        })}
-      </DropdownList>
+      <MembersList placeholder='Invite people' />
     </InviteeStyles.AddInvitees>
   );
 };

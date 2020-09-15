@@ -64,6 +64,7 @@ class InvitedToOrgsList extends React.Component {
           margin={false}
           color='white'
           width='40px'
+          medium={true}
           disabled={false}
         />
         <Button
@@ -74,6 +75,7 @@ class InvitedToOrgsList extends React.Component {
           margin={false}
           color='white'
           width='40px'
+          medium={true}
           disabled={false}
         />
       </OrgStyles.InvitedToOrgItem>

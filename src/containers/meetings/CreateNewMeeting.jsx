@@ -1,14 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { createMeeting } from '../../redux/meetings/actions'
-import { findInArrayOfObjects } from '../../helpers/arrays'
 import Modal from '../../components/modal/Modal'
 import Input from '../../components/input/Input'
 import Button from '../../components/button/Button'
-import DropdownList from '../../components/dropdown-list/DropdownList'
-import Avatar from '../../components/avatar/Avatar'
 import { Colors } from '../../assets/colors'
 import { NewMeetingStyles } from './assets/styles/createNewMeeting.styles'
+import MembersList from './../../components/members/index';
 
 class CreateNewMeeting extends Component {
 
@@ -102,22 +100,6 @@ class CreateNewMeeting extends Component {
   renderForm = () => {
     const { title, url } = this.state.newMeeting
     const { emptyFormError } = this.state
-    const options = [
-      {
-        "id": "f8bf518c-9285-4330-895a-afb36009020a",
-        "name": "Samara Macejkovic",
-        "initials": "SM",
-        "username": "Cindy.Jerde83",
-        "email": "Liliana.Hauck@hotmail.com",
-      },
-      {
-        "id": "ae086bcc-e601-47a6-9366-134f6388d015",
-        "name": "Rosalinda Hoeger",
-        "initials": "RH",
-        "username": "Oda.Jakubowski",
-        "email": "Cecelia_Schroeder@yahoo.com",
-      }
-    ]
     return (
       <NewMeetingStyles.Form onChange={this.handleInputeChange}>
         <Input
@@ -135,7 +117,7 @@ class CreateNewMeeting extends Component {
           required='true'
           placeholder='Paste any relevant url here'
         />
-        {this.renderInvitePeopleButtons(options)}
+        <MembersList placeholder='Invite people' />
         {this.renderInvitedPeople()}
         {this.renderFrequencyOptions()}
         {this.renderRecurringMeetingOptions()}
@@ -204,53 +186,6 @@ class CreateNewMeeting extends Component {
         </NewMeetingStyles.InvitedList>
       )
     } else return null
-  }
-
-  renderInviteesDropdownList = (options) => {
-    return (
-      <DropdownList
-        width='230px'
-        position='bottom'
-        searchAble={true}
-        closeOnClick={false}
-        placeholder='Invite People to Meeting'
-      >
-        {options.map((member) => {
-          return (
-            this.renderInviteesDropDownListItem(member)
-          )
-        })}
-      </DropdownList>
-    )
-  }
-
-  renderInviteesDropDownListItem = (member) => {
-    const { invitedMembers } = this.state.newMeeting
-    const isInvited = findInArrayOfObjects(invitedMembers, 'name', member.name)
-    const btnText = isInvited ? 'Remove' : 'Invite'
-    return (
-      <NewMeetingStyles.InviteesListItem key={member.initials}>
-        <Avatar
-          type='circle'
-          size='30px'
-          initials={member.initials}
-          status='online'
-        />
-        <NewMeetingStyles.InviteeNameAndRole>
-          <NewMeetingStyles.InviteeName>{member.name}</NewMeetingStyles.InviteeName>
-          <NewMeetingStyles.InviteeRole>{member.username}</NewMeetingStyles.InviteeRole>
-        </NewMeetingStyles.InviteeNameAndRole>
-        <Button
-          color='white'
-          bgColor={isInvited ? Colors.pumpkin : Colors.cyan}
-          fontSize='10px'
-          onClick={this.addOrRemoveMember(member, isInvited)}
-        >
-          {btnText}
-        </Button>
-      </NewMeetingStyles.InviteesListItem>
-
-    )
   }
 
   renderFrequencyOptions = () => {
@@ -366,6 +301,7 @@ class CreateNewMeeting extends Component {
           bgColor={Colors["wikli-color-red-600"]}
           fontSize='12px'
           margin={true}
+          medium={true}
           onClick={toggleAddMeetingModal}
         >
           {'Cancel'}
@@ -375,6 +311,7 @@ class CreateNewMeeting extends Component {
           bgColor={Colors["wikli-color-primary-default"]}
           fontSize='12px'
           margin={true}
+          medium={true}
           onClick={this.scheduleNewMeeting}
         >
           {'Save'}
