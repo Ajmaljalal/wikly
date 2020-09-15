@@ -10,6 +10,7 @@ import docImage from "./assets/images/doc.png";
 import pngImage from "./assets/images/png.png";
 import excelImage from "./assets/images/excel.png";
 import folderUpload from "./assets/images/folderUpload.svg";
+import Pause from "./assets/images/pause.svg";
 
 const files = [
   {
@@ -152,25 +153,39 @@ const progressRing = () => {
           <ResourceStyles.FileName>How To Get A Turtle</ResourceStyles.FileName>
           <ResourceStyles.FileDetails>
             <span>9/14/2020</span>
-            10MB
+            1.8MB / 5.3MB
           </ResourceStyles.FileDetails>
         </ResourceStyles.FileNameDetails>
       </ResourceStyles.File>
       <div class="box">
-        <div class="percent">
+        <FontAwesomeIcon
+          icon="times"
+          color="grey"
+          size="lg"
+          style={{ cursor: "pointer" }}
+        />
+        <div
+          class="percent"
+          onMouseEnter={progressRingHover()}
+          onMouseLeave={progressRingHover()}
+        >
           <svg>
             <circle cx="30" cy="30" r="30"></circle>
             <circle cx="30" cy="30" r="30"></circle>
           </svg>
           <div class="number">
             <h2>
-              75<span>%</span>
+              67<span>%</span>
             </h2>
           </div>
         </div>
       </div>
     </ResourceStyles.Container>
   );
+};
+
+const progressRingHover = () => {
+  return <img src={Pause} alt="Pause" />;
 };
 
 export default Resource;
