@@ -162,14 +162,6 @@ class MeetingDetails extends PureComponent {
     }
   };
 
-  renderResources = () => {
-    return (
-      <MeetingDetailsStyles.TabItemDetails>
-        <Resources />
-      </MeetingDetailsStyles.TabItemDetails>
-    );
-  };
-
   renderAgenda = () => {
     const { meetingAgenda } = this.props;
     if (meetingAgenda && meetingAgenda.length) {
@@ -197,6 +189,15 @@ class MeetingDetails extends PureComponent {
     }
     return <NullState text="Be first to add a note" />;
   };
+
+  renderResources = () => {
+    return (
+      <MeetingDetailsStyles.TabItemDetails>
+        <Resources />
+      </MeetingDetailsStyles.TabItemDetails>
+    );
+  };
+
 }
 
 const mapStateToProps = ({ meetingsState, projectsState }) => {

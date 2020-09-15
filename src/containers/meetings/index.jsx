@@ -120,6 +120,7 @@ class Meetings extends PureComponent {
             <Button
               color='white'
               bgColor={Colors["wikli-color-primary-dark"]}
+              large={true}
               onClick={this.toggleAddMeetingModal}
             >
               <FontAwesomeIcon icon='plus' color='white' />

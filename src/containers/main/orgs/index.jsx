@@ -55,6 +55,7 @@ class Organization extends Component {
           margin='20px'
           color='white'
           width='200px'
+          large={true}
           disabled={false}
         />
       </OrgStyles.CreatNewOrg>

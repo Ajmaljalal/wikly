@@ -4,12 +4,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   margin-top: 12px;
-  margin-left: 10px;
 `;
 
 const Avatar = styled.div`
-  width: 33px;
-  height: 33px;
+  min-width: 33px;
+  min-height: 33px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,10 +18,13 @@ const Avatar = styled.div`
   margin-left: -12px;
   color: white;
   position: relative;
+
+  &:nth-child(1){
+    margin-left: 0;
+  }
 `;
 
 const AddInvitees = styled.div`
-  padding-left: 5px;
 `;
 
 export const InviteeStyles = {

@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { ButtonWrapper } from './button.styles'
+import { ButtonStyles } from './button.styles'
 
 const Button = ({
   onClick,
@@ -10,11 +10,13 @@ const Button = ({
   margin,
   width,
   disabled,
-
-
+  large,
+  medium,
+  small
 }) => {
+  if (large) {
     return (
-      <ButtonWrapper
+      <ButtonStyles.ButtonWrapperLarge
         onClick={onClick}
         bgColor={bgColor}
         color={color}
@@ -24,9 +26,41 @@ const Button = ({
         disabled={disabled}
       >
         {children}
-      </ButtonWrapper>
+      </ButtonStyles.ButtonWrapperLarge>
     )
-  
+  }
+  if (medium) {
+    return (
+      <ButtonStyles.ButtonWrapperMedium
+        onClick={onClick}
+        bgColor={bgColor}
+        color={color}
+        size={fontSize}
+        margin={margin}
+        width={width}
+        disabled={disabled}
+      >
+        {children}
+      </ButtonStyles.ButtonWrapperMedium>
+    )
+  }
+  if (small) {
+    return (
+      <ButtonStyles.ButtonWrapperSmall
+        onClick={onClick}
+        bgColor={bgColor}
+        color={color}
+        size={fontSize}
+        margin={margin}
+        width={width}
+        disabled={disabled}
+      >
+        {children}
+      </ButtonStyles.ButtonWrapperSmall>
+    )
+  }
+
+
 }
 
 export default memo(Button)
