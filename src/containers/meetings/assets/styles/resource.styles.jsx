@@ -6,11 +6,9 @@ const Container = styled.div`
   box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid ${Colors["wikli-color-grey-400"]};
-  border-radius: 5px;
-  padding: 15px 15px;
-  margin-bottom: 4px;
-  margin-top: 7px;
+  border-bottom: 1px solid ${Colors["wikli-color-grey-300"]};
+  padding: 0 15px 8px 15px;
+  margin-top: 8px;
   width: 100%;
 `;
 
@@ -89,6 +87,14 @@ const File = styled.div`
   display: flex;
 `;
 
+const CircularProgressbarContainer = styled.div`
+    display: flex;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-weight: 500;
+`
+
 export const ResourceStyles = {
   Container,
   Image,
@@ -99,4 +105,5 @@ export const ResourceStyles = {
   File,
   NullContainer,
   NullButtonContainer,
+  CircularProgressbarContainer
 };
