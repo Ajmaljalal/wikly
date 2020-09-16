@@ -50,6 +50,7 @@ const Status = styled.span`
 
 const DetialsContainer = styled.div`
   width: 100%;
+  position: relative;
   height: 88%;
   margin-top: 30px;
   box-sizing: border-box;
@@ -104,7 +105,6 @@ const TabItemDetails = styled.div`
   box-sizing: border-box;
   height: 80%;
   overflow-y: scroll;
-  padding: 15px 10px;
 `;
 
 export const MeetingDetailsStyles = {
