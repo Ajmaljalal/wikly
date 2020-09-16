@@ -1,8 +1,12 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react";
+import Button from "../../components/button/Button";
+import { Colors } from "../../assets/colors";
+import Upload from "./assets/images/upload.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import Input from "../../components/input/Input";
 
 import { ResourceStyles } from "./assets/styles/resource.styles";
 import pdfImagae from "./assets/images/pdf.png";
@@ -19,7 +23,7 @@ const files = [
     type: "pdf",
     date: "9/13/2020",
     size: "39MB",
-    uploading: true
+    uploading: true,
   },
   {
     id: "f8bf518c-9285-4330-8936009020a",
@@ -28,7 +32,7 @@ const files = [
     type: "doc",
     date: "9/13/2020",
     size: "10MB",
-    uploading: false
+    uploading: false,
   },
   {
     id: "f8c-9285-4330-895a-afb36009020a",
@@ -37,7 +41,7 @@ const files = [
     type: "excel",
     date: "9/13/2020",
     size: "52MB",
-    uploading: false
+    uploading: false,
   },
   {
     id: "f8c-9285-4330-895a-afbe444009020a",
@@ -46,7 +50,7 @@ const files = [
     type: "png",
     date: "9/13/2020",
     size: "3MB",
-    uploading: false
+    uploading: false,
   },
   {
     id: "f8bf518c-9230-895a-afb36009020a",
@@ -55,7 +59,7 @@ const files = [
     type: "pdf",
     date: "9/13/2020",
     size: "39MB",
-    uploading: false
+    uploading: false,
   },
   {
     id: "f8bf518c-9285-4330-8936009020a",
@@ -64,7 +68,7 @@ const files = [
     type: "doc",
     date: "9/13/2020",
     size: "10MB",
-    uploading: true
+    uploading: true,
   },
   {
     id: "f8bf518c-9285-4330-8936009020a",
@@ -73,7 +77,7 @@ const files = [
     type: "doc",
     date: "9/13/2020",
     size: "10MB",
-    uploading: true
+    uploading: false,
   },
   {
     id: "f8bf518c-9285-4330-8936009020a",
@@ -82,7 +86,7 @@ const files = [
     type: "doc",
     date: "9/13/2020",
     size: "10MB",
-    uploading: true
+    uploading: false,
   },
   {
     id: "f8bf518c-9285-4330-8936009020a",
@@ -91,7 +95,7 @@ const files = [
     type: "doc",
     date: "9/13/2020",
     size: "10MB",
-    uploading: true
+    uploading: false,
   },
   {
     id: "f8bf518c-9285-4330-8936009020a",
@@ -100,7 +104,7 @@ const files = [
     type: "doc",
     date: "9/13/2020",
     size: "10MB",
-    uploading: true
+    uploading: false,
   },
   {
     id: "f8bf518c-9285-4330-8936009020a",
@@ -109,8 +113,8 @@ const files = [
     type: "doc",
     date: "9/13/2020",
     size: "10MB",
-    uploading: true
-  }
+    uploading: false,
+  },
 ];
 
 class Resource extends Component {
@@ -119,6 +123,7 @@ class Resource extends Component {
   //   };
 
   state = {
+    searchPhrase: "",
     hovered: {
       0: false,
       1: false,
@@ -132,40 +137,84 @@ class Resource extends Component {
       9: false,
       10: false,
       11: false,
+    },
+  };
 
-    }
-  }
+  onSearchPhraseChange = (e) => {
+    this.setState({
+      searchPhrase: e.target.value,
+    });
+  };
 
   onHover = (index) => {
-    const hovered = this.state.hovered[index]
-    const changedHovered = this.state.hovered
-    changedHovered[index] = !hovered
+    const hovered = this.state.hovered[index];
+    const changedHovered = this.state.hovered;
+    changedHovered[index] = !hovered;
     this.setState({
-      hovered: changedHovered
-    })
-  }
+      hovered: changedHovered,
+    });
+  };
 
   render() {
     if (!files || !files.length) {
       return (
         <ResourceStyles.NullContainer>
           <ResourceStyles.NullButtonContainer>
-            <img src={folderUpload} alt="Upload Files" />
-            <p>Click here to upload your file</p>
+            <div>
+              <img src={folderUpload} alt="Upload Files" />
+              <p>Click here to upload your file</p>
+            </div>
           </ResourceStyles.NullButtonContainer>
         </ResourceStyles.NullContainer>
       );
     }
+
+    const filteredFiles = files.filter((file) => {
+      return file.fileName
+        .toLowerCase()
+        .includes(this.state.searchPhrase.toLowerCase());
+    });
+
     return (
       <Fragment>
-        <button>upload</button>
-        {files &&
-          files.map((file, index) => {
-            return this.renderFile(file, index)
-          })}
+        {this.uploadButton()}
+        <ResourceStyles.FilesContainer>
+          {filteredFiles &&
+            filteredFiles.map((file, index) => {
+              return this.renderFile(file, index);
+            })}
+        </ResourceStyles.FilesContainer>
       </Fragment>
     );
   }
+
+  uploadButton = () => {
+    return (
+      <ResourceStyles.SearchAndUploadContainer>
+        <Input
+          placeholder="Search for files"
+          value={this.state.searchPhrase}
+          onChange={this.onSearchPhraseChange}
+        />
+        <ResourceStyles.Button>
+          <Button
+            color="white"
+            bgColor={Colors["wikli-color-primary-dark"]}
+            medium={true}
+            width="100px"
+            fontSize="14px"
+          >
+            <img
+              src={Upload}
+              alt=""
+              style={{ width: "20px", paddingRight: "7px" }}
+            />
+            Upload
+          </Button>
+        </ResourceStyles.Button>
+      </ResourceStyles.SearchAndUploadContainer>
+    );
+  };
 
   renderFile = (file, index) => {
     return (
@@ -176,23 +225,26 @@ class Resource extends Component {
         </ResourceStyles.File>
         {file.uploading ? this.progressRing(index) : this.Actions()}
       </ResourceStyles.Container>
-    )
-  }
+    );
+  };
 
   progressRing = (index) => {
     const percentage = 66;
     return (
-      <ResourceStyles.CircularProgressbarContainer onMouseEnter={() => this.onHover(index)} onMouseLeave={() => this.onHover(index)}>
+      <ResourceStyles.CircularProgressbarContainer
+        onMouseEnter={() => this.onHover(index)}
+        onMouseLeave={() => this.onHover(index)}
+      >
         <CircularProgressbar
           value={percentage}
           text={this.state.hovered[index] ? "X" : `${percentage}%`}
           styles={buildStyles({
-            textSize: '24',
+            textSize: "24",
             pathTransitionDuration: 0.5,
             pathColor: `#f5b351`,
-            textColor: 'grey',
-            trailColor: '#d6d6d6',
-            backgroundColor: '#3e98c7',
+            textColor: "grey",
+            trailColor: "#d6d6d6",
+            backgroundColor: "#3e98c7",
           })}
         />
       </ResourceStyles.CircularProgressbarContainer>
@@ -225,12 +277,7 @@ class Resource extends Component {
         </ResourceStyles.FileDetails>
       </ResourceStyles.FileNameDetails>
     );
-
   };
 }
-
-
-
-
 
 export default Resource;

@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { Colors } from "../../../../assets/colors";
 
+const FilesContainer = styled.div`
+  margin-top: 80px;
+`;
+
 const Container = styled.div`
   display: flex;
   box-sizing: border-box;
@@ -66,7 +70,7 @@ const FileName = styled.div`
   margin-bottom: 2px;
   transition: 0.5s color;
   &:hover {
-    color: #00acbf;
+    color: #1764bd;
   }
 `;
 
@@ -88,14 +92,34 @@ const File = styled.div`
 `;
 
 const CircularProgressbarContainer = styled.div`
-    display: flex;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    font-weight: 500;
-`
+  display: flex;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  font-weight: 500;
+`;
+
+const SearchAndUploadContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  background: white;
+  position: fixed;
+  box-sizing: border-box;
+  padding: 10px;
+  box-shadow: 0 4px 2px -2px ${Colors["wikli-color-grey-300"]};
+`;
+
+const Button = styled.div`
+  display: flex;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 5px;
+`;
 
 export const ResourceStyles = {
+  FilesContainer,
   Container,
   Image,
   Actions,
@@ -105,5 +129,7 @@ export const ResourceStyles = {
   File,
   NullContainer,
   NullButtonContainer,
-  CircularProgressbarContainer
+  CircularProgressbarContainer,
+  SearchAndUploadContainer,
+  Button,
 };
