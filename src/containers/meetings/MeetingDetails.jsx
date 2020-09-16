@@ -197,7 +197,6 @@ class MeetingDetails extends PureComponent {
       </MeetingDetailsStyles.TabItemDetails>
     );
   };
-
 }
 
 const mapStateToProps = ({ meetingsState, projectsState }) => {

@@ -22,8 +22,8 @@ const Agenda = ({ agenda }) => {
                 {agendaItem.duration}
               </AgendaStyles.Duration>
               <AgendaStyles.Actions>
-                <FontAwesomeIcon icon="pencil-alt" color='grey' size='sm'/>
-                <FontAwesomeIcon icon="trash-alt" color='grey' size='sm' />
+                <FontAwesomeIcon icon="pencil-alt" color="grey" size="sm" />
+                <FontAwesomeIcon icon="trash-alt" color="grey" size="sm" />
               </AgendaStyles.Actions>
             </AgendaStyles.Container>
           );
