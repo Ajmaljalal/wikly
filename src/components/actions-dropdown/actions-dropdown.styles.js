@@ -6,15 +6,15 @@ const Container = styled.div`
     align-items: center;
     position: relative;
     cursor: pointer;
-    width: 30px;
-    height: 30px;
-    margin-left: 3px;
+    width: ${(props)=>props.isIcon ? '30px' : 'auto'};
+    height: ${(props) => props.isIcon ? '30px' : 'auto'};
+    // padding: ${(props) => props.isIcon ? '0' : '7px 10px'};
     img {
         max-width: 24px;
     } 
     &:hover{
-        border-radius: 50%;
-        background: ${(props) => props.isHover ? '#476282' : 'none'};
+        border-radius: ${(props) => props.isIcon ? '50%' : '5px'};
+        background: ${(props) => props.isIcon ? '#476282' : 'none'};
     }
 `;
 

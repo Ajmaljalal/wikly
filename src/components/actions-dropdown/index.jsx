@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import onClickOutside from "react-onclickoutside";
+import { PropTypes } from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { ActionsDropdownStyles } from './actions-dropdown.styles'
 
 
@@ -15,7 +15,7 @@ class ActionsDropdown extends PureComponent {
     open: false
   }
   container = React.createRef()
-  setClickOutsideRef = () => this.container.current 
+  setClickOutsideRef = () => this.container.current
   handleClickOutside = (evt) => {
     this.setState({
       open: false,
@@ -42,15 +42,18 @@ class ActionsDropdown extends PureComponent {
 
   render() {
     const { open } = this.state
-    const { img } = this.props
+    const { img, text } = this.props
+    const icon = img ? <img src={img} alt='dropdownlist icon' /> : <FontAwesomeIcon icon='ellipsis-v' color='white' />
+    const isIcon = text ? false : true
     return (
       <ActionsDropdownStyles.Container
         ref={this.container}
         onClick={this.toggleDropdown}
         isHover={!img}
+        isIcon={isIcon}
       >
-        {img ? <img src={img} alt='organization logo' /> : <FontAwesomeIcon icon='ellipsis-v' color='white' />}
-        {open? this.renderDropdownMenu() : null}
+        {isIcon ? icon : text}
+        {open ? this.renderDropdownMenu() : null}
       </ActionsDropdownStyles.Container>
     )
   }
@@ -81,6 +84,12 @@ class ActionsDropdown extends PureComponent {
         </ActionsDropdownStyles.MenuItem>
       )
     })
+  }
+
+  static propTypes = {
+    actions: PropTypes.array,
+    img: PropTypes.string,
+    text: PropTypes.string
   }
 }
 
