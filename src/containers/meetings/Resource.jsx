@@ -1,13 +1,9 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react";
-import Button from "../../components/button/Button";
-import { Colors } from "../../assets/colors";
-import Upload from "./assets/images/upload.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import Input from "../../components/input/Input";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import UploadAndSearch from './UploadAndSearch';
 import { ResourceStyles } from "./assets/styles/resource.styles";
 import pdfImagae from "./assets/images/pdf.png";
 import docImage from "./assets/images/doc.png";
@@ -118,12 +114,9 @@ const files = [
 ];
 
 class Resource extends Component {
-  //   static propTypes = {
-  //     files: PropTypes.array.isRequired,
-  //   };
 
   state = {
-    searchPhrase: "",
+    searchPhrase: '',
     hovered: {
       0: false,
       1: false,
@@ -177,7 +170,12 @@ class Resource extends Component {
 
     return (
       <Fragment>
-        {this.uploadButton()}
+        <UploadAndSearch 
+          searchPhrase={this.state.searchPhrase} 
+          onChange={this.onSearchPhraseChange} 
+          btnText='Upload'
+          searchPlaceholder='Search for files...'
+        />
         <ResourceStyles.FilesContainer>
           {filteredFiles &&
             filteredFiles.map((file, index) => {
@@ -187,34 +185,6 @@ class Resource extends Component {
       </Fragment>
     );
   }
-
-  uploadButton = () => {
-    return (
-      <ResourceStyles.SearchAndUploadContainer>
-        <Input
-          placeholder="Search for files"
-          value={this.state.searchPhrase}
-          onChange={this.onSearchPhraseChange}
-        />
-        <ResourceStyles.Button>
-          <Button
-            color="white"
-            bgColor={Colors["wikli-color-primary-dark"]}
-            medium={true}
-            width="100px"
-            fontSize="14px"
-          >
-            <img
-              src={Upload}
-              alt=""
-              style={{ width: "20px", paddingRight: "7px" }}
-            />
-            Upload
-          </Button>
-        </ResourceStyles.Button>
-      </ResourceStyles.SearchAndUploadContainer>
-    );
-  };
 
   renderFile = (file, index) => {
     return (
@@ -277,6 +247,9 @@ class Resource extends Component {
         </ResourceStyles.FileDetails>
       </ResourceStyles.FileNameDetails>
     );
+  };
+  static propTypes = {
+    files: PropTypes.array,
   };
 }
 
