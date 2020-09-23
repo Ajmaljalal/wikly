@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+import { PropTypes, string } from 'prop-types';
 import { ButtonStyles } from './button.styles'
 
 const Button = ({
@@ -59,8 +60,19 @@ const Button = ({
       </ButtonStyles.ButtonWrapperSmall>
     )
   }
-
-
+}
+Button.propTypes = {
+  onClick: PropTypes.func,
+  color: PropTypes.string,
+  fontSize: PropTypes.string,
+  children: string,
+  bgColor: PropTypes.color,
+  margin: PropTypes.string,
+  width: PropTypes.string,
+  disabled: PropTypes.bool,
+  large: PropTypes.bool,
+  medium: PropTypes.bool,
+  small: PropTypes.bool,
 }
 
 export default memo(Button)

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { Colors } from "../../../../assets/colors";
 
+const AgendaContainer = styled.div`
+  margin-top: 80px;
+`;
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -39,6 +42,7 @@ const Actions = styled.div`
   cursor: pointer;
 `;
 export const AgendaStyles = {
+  AgendaContainer,
   Container,
   Speaker,
   Text,
