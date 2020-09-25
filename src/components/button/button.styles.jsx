@@ -24,6 +24,7 @@ export const ButtonWrapperLarge = styled.div`
   }
   &:hover {
     background-color: ${(props) => (props.disabled ? "grey" : "#063073")};
+    color: white
   }
 `;
 
@@ -50,6 +51,7 @@ export const ButtonWrapperMedium = styled.div`
   }
   &:hover {
     background-color: ${(props) => (props.disabled ? "grey" : "#063073")};
+    color: white
   }
 `;
 
@@ -76,6 +78,7 @@ export const ButtonWrapperSmall = styled.div`
   }
   &:hover {
     background-color: ${(props) => (props.disabled ? "grey" : "#063073")};
+    color: white
   }
 `;
 

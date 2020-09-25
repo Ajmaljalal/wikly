@@ -115,6 +115,7 @@ class LoginRegister extends PureComponent {
         bgColor='#2a4865'
         margin='20px'
         color='white'
+        large={true}
         width='250px'
         disabled={false}
       />
@@ -131,6 +132,7 @@ class LoginRegister extends PureComponent {
           margin={true}
           color='#2a4865'
           width='250px'
+          large={true}
           disabled={false}
         />
       </Fragment>
