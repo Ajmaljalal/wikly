@@ -4,11 +4,6 @@ import { PropTypes } from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ActionsDropdownStyles } from './actions-dropdown.styles'
 
-
-/**
- * @param {Array} actions
- * @param {String} img
- */
 class ActionsDropdown extends PureComponent {
 
   state = {
@@ -27,7 +22,7 @@ class ActionsDropdown extends PureComponent {
   toggleDropdown = (e) => {
     let left
     let bottom
-    if (e.clientX > 700) {
+    if (e.clientX > 400) {
       left = false
     } else left = true
     if (e.clientY > 430) {

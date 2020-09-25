@@ -12,10 +12,21 @@ const HeaderContainer = styled.div`
   box-shadow: 0px 1px 8px lightgray;
 `;
 
-const UserAvatarWrapper = styled.div`
+const Middle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  min-width: 13%;
+  width: 150px;
+`;
+const Right = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  color: white;
+`;
+const Left = styled.div`
+  display: flex;
+  align-items: center;
   color: white;
 `;
 
@@ -23,11 +34,6 @@ const UserName = styled.div`
   margin-left: 5px;
 `;
 
-const Left = styled.div`
-  display: flex;
-  align-items: center;
-  color: white;
-`;
 
 const CurrentProject = styled.div`
   display: flex;
@@ -36,24 +42,9 @@ const CurrentProject = styled.div`
   border-radius: 5px;
   font-size: 12px;
   font-weight: 400;
-  padding: 7px;
   border: .5px solid transparent;
     &:hover {
     border: .5px solid ${Colors["wikli-color-white-alpha-30"]};
-  }
-  &::after {
-    content: ">";
-    display: block;
-    font-weight: 900;
-    margin-left: 5px;
-    font-size: 14px;
-    transform:rotate(90deg); 
-    -webkit-transform:rotate(90deg);
-    -o-transform:rotate(90deg);
-    -ms-transform:rotate(90deg);
-    width: 7px;
-    cursor: pointer;
-    color: gray
   }
 `;
 
@@ -65,16 +56,9 @@ const ProjectSettings = styled.div`
   font-size: 12px;
   font-weight: 400;
   border: .5px solid transparent;
-  padding: 7px;
   &:hover {
     border: .5px solid ${Colors["wikli-color-white-alpha-30"]};
   }
-  &::after {
-    content: "⚙️";
-    display: block;
-    margin-left: 3px;
-    cursor: pointer;
-}
 `;
 
 const ProjectTeam = styled.div`
@@ -86,33 +70,17 @@ const ProjectTeam = styled.div`
   border-radius: 5px;
   font-size: 12px;
   font-weight: 400;
-  padding: 7px;
   &:hover {
     border: .5px solid ${Colors["wikli-color-white-alpha-30"]};
-  }
-  &::after {
-    content: ">";
-    display: block;
-    font-weight: 900;
-    margin-left: 5px;
-    font-size: 14px;
-    transform:rotate(90deg); 
-    -webkit-transform:rotate(90deg);
-    -o-transform:rotate(90deg);
-    -ms-transform:rotate(90deg);
-    width: 7px;
-    text-align: center;
-    cursor: pointer;
-    color: grey;
-
   }
 `;
 
 export const HeaderStyles = {
   HeaderContainer,
-  UserAvatarWrapper,
-  UserName,
+  Middle,
+  Right,
   Left,
+  UserName,
   CurrentProject,
   ProjectSettings,
   ProjectTeam,

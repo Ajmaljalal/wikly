@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { Colors } from './../../assets/colors';
+
 
 const Container = styled.div`
     display: inline-flex;
@@ -6,9 +8,9 @@ const Container = styled.div`
     align-items: center;
     position: relative;
     cursor: pointer;
-    width: ${(props)=>props.isIcon ? '30px' : 'auto'};
-    height: ${(props) => props.isIcon ? '30px' : 'auto'};
-    // padding: ${(props) => props.isIcon ? '0' : '7px 10px'};
+    width: ${(props) => props.isIcon ? '30px' : '100%'};
+    height: ${(props) => props.isIcon ? '30px' : '100%'};
+    padding: ${(props) => props.isIcon ? '0' : '7px 10px'};
     img {
         max-width: 24px;
     } 
@@ -20,17 +22,18 @@ const Container = styled.div`
 
 const Menu = styled.div`
     position: absolute;
-    z-index: 1000;
+    z-index: 1001;
+    width: 190px;
     min-width: 180px;
     right:${(props) => props.left ? '' : '0px'};
     left: ${(props) => props.left ? '0px' : ''};
     top: ${(props) => props.bottom ? '' : '30px'};
-    bottom: ${(props) => props.bottom ? '30px': ''};
-    font-weight: 300;
+    bottom: ${(props) => props.bottom ? '30px' : ''};
+    font-weight: 400;
     font-size: 14px;
     background-color: white;
     border-radius: 6px;
-    box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
 
 `;
 
@@ -41,8 +44,13 @@ const MenuItem = styled.div`
     cursor:pointer;
     min-height: 28px;
     border-radius: 4px;
+    color: black;
     &:not(:last-child){
         border-bottom: .5px solid #d2d2d2;
+    }
+    &:hover{
+        background: ${Colors["wikli-color-table-row-hover-bg"]};
+        color: ${Colors["wikli-color-banner-text"]};
     }
 `;
 
@@ -57,11 +65,6 @@ const MenuItemLabel = styled.div`
     }
     svg {
         margin-right: 8px;
-    }
-
-    &:hover{
-        color: darkblue;
-        font-weight: 400;
     }
 `;
 
