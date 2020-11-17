@@ -52,20 +52,21 @@ class AppHeader extends PureComponent {
   renderHeaderContainerLeft = () => {
     const { currentProject } = this.props
     const currentProjectSettings = [
-      {
-        element: this.renderDropDownListItem('Project settings', 'cog', 'black'),
-        action: this.signOut
-      },
+
       {
         element: this.renderDropDownListItem('Change project', 'exchange-alt', 'black'),
         action: this.signOut
       },
       {
-        element: this.renderDropDownListItem('See all project', 'folder-open', 'black'),
+        element: this.renderDropDownListItem('See all projects', 'folder-open', 'black'),
         action: this.signOut
       },
       {
         element: this.renderDropDownListItem('Add a project', 'plus', 'black'),
+        action: this.signOut
+      },
+      {
+        element: this.renderDropDownListItem('Project settings', 'cog', 'black'),
         action: this.signOut
       },
       {
@@ -94,9 +95,6 @@ class AppHeader extends PureComponent {
         <HeaderStyles.CurrentProject>
           {this.renderActionsDropdown(currentProjectSettings, `${currentProject?.name}`)}
         </HeaderStyles.CurrentProject>
-        {/* <HeaderStyles.ProjectSettings>
-          {this.renderActionsDropdown(dropdownActions, 'Project settings')}
-        </HeaderStyles.ProjectSettings> */}
         <HeaderStyles.ProjectTeam>
           {this.renderActionsDropdown(projectTeam, 'People')}
         </HeaderStyles.ProjectTeam>
@@ -109,6 +107,7 @@ class AppHeader extends PureComponent {
       <ActionsDropdown
         actions={actions}
         text={text}
+        icon='caret-down'
       />
     )
   }
@@ -125,7 +124,7 @@ class AppHeader extends PureComponent {
       <HeaderStyles.Right>
         <UserAvatar profile={profile} status='online' />
         <HeaderStyles.UserName>{profile.name}</HeaderStyles.UserName>
-        <ActionsDropdown actions={dropdownActions} />
+        <ActionsDropdown actions={dropdownActions} icon='ellipsis-v' />
       </HeaderStyles.Right>
     )
   }

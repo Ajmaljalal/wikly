@@ -8,15 +8,19 @@ const Container = styled.div`
     align-items: center;
     position: relative;
     cursor: pointer;
-    width: ${(props) => props.isIcon ? '30px' : '100%'};
-    height: ${(props) => props.isIcon ? '30px' : '100%'};
-    padding: ${(props) => props.isIcon ? '0' : '7px 10px'};
+    width: ${(props) => props.isRound ? '30px' : '100%'};
+    height: ${(props) => props.isRound ? '30px' : '100%'};
+    padding: ${(props) => props.isRound ? '0' : '7px 10px'};
     img {
         max-width: 24px;
+        border: 2px solid transparent;
+        &:hover {
+            border: ${(props) => props.border ? '2px solid white' : 'none'};
+        }
     } 
     &:hover{
-        border-radius: ${(props) => props.isIcon ? '50%' : '5px'};
-        background: ${(props) => props.isIcon ? '#476282' : 'none'};
+        border-radius: ${(props) => props.isRound ? '50%' : '5px'};
+        background: ${(props) => props.isHover ? '#476282' : 'none'};
     }
 `;
 

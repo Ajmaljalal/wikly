@@ -31,7 +31,7 @@ const Left = styled.div`
 `;
 
 const UserName = styled.div`
-  margin-left: 5px;
+  margin: 0 5px;
 `;
 
 
