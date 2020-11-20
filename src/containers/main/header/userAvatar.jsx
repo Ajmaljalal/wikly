@@ -6,7 +6,7 @@ export default function UserAvatar({ profile, status }) {
     <Avatar
       type='circle'
       img={profile.photoUrl}
-      size='30px'
+      size='25px'
       initials={profile.initials}
       status={status}
     />

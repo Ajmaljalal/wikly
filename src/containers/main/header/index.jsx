@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import Tippy from '@tippyjs/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Button from '../../../components/button/Button';
 import ActionsDropdown from '../../../components/actions-dropdown/index'
 import { signOut } from '../../../redux/authentications/authActions'
+import { setCurrentOrg } from '../../../redux/orgs/actions'
 import { HeaderStyles } from './Header.styles'
 import UserAvatar from './userAvatar'
 import { Colors } from './../../../assets/colors';
@@ -34,17 +36,6 @@ class AppHeader extends PureComponent {
         >
           Create
         </Button>
-        {/* <Button
-          color={Colors["wikli-color-primary-dark"]}
-          bgColor={Colors["wikli-color-white-alpha-95"]}
-          fontSize='12px'
-          margin={false}
-          medium={true}
-          width='120px'
-          onClick={() => console.log('clicked')}
-        >
-          Add new project
-        </Button> */}
       </HeaderStyles.Middle>
     )
   }
@@ -92,6 +83,9 @@ class AppHeader extends PureComponent {
 
     return (
       <HeaderStyles.Left>
+        <HeaderStyles.OrgLogoWrapper>
+          {this.renderCurrentOrgLogo()}
+        </HeaderStyles.OrgLogoWrapper>
         <HeaderStyles.CurrentProject>
           {this.renderActionsDropdown(currentProjectSettings, `${currentProject?.name}`)}
         </HeaderStyles.CurrentProject>
@@ -100,6 +94,36 @@ class AppHeader extends PureComponent {
         </HeaderStyles.ProjectTeam>
       </HeaderStyles.Left>
     )
+  }
+
+  renderCurrentOrgLogo = () => {
+    const { currentOrg } = this.props
+    if (currentOrg) {
+      return (
+        <HeaderStyles.OrgLogo>
+          <img src={currentOrg.logo} alt='org logo' />
+          <HeaderStyles.OrgName> 
+            <Tippy placement='right' content={'Current Org'} className='tippy-tooltip'>
+              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {this.renderActionsDropdown(this.renderUsersOrgsDropdownActionsList(), currentOrg.name)}
+              </span>
+            </Tippy>
+          </HeaderStyles.OrgName>
+        </HeaderStyles.OrgLogo>
+      )
+    }
+  }
+
+  renderUsersOrgsDropdownActionsList = () => {
+    const { profile, setCurrentOrg } = this.props
+    const dropdownActions = []
+    profile.orgs.forEach((org) => {
+      dropdownActions.push({
+        element: <div key={org.orgId}>{org.orgName}</div>,
+        onClick: () => setCurrentOrg(org.orgId)
+      })
+    })
+    return dropdownActions
   }
 
   renderActionsDropdown = (actions, text) => {
@@ -124,7 +148,7 @@ class AppHeader extends PureComponent {
       <HeaderStyles.Right>
         <UserAvatar profile={profile} status='online' />
         <HeaderStyles.UserName>{profile.name}</HeaderStyles.UserName>
-        <ActionsDropdown actions={dropdownActions} icon='ellipsis-v' />
+        <ActionsDropdown actions={dropdownActions} icon='caret-down' />
       </HeaderStyles.Right>
     )
   }
@@ -141,9 +165,10 @@ class AppHeader extends PureComponent {
 
 }
 
-const mapStateToProps = ({ profileState, projectsState }) => {
+const mapStateToProps = ({ profileState, orgsState, projectsState }) => {
   return {
     profile: profileState?.profile,
+    currentOrg: orgsState.current_org,
     projects: projectsState.projects,
     currentProject: projectsState.current_project
   }
@@ -151,7 +176,8 @@ const mapStateToProps = ({ profileState, projectsState }) => {
 
 const mapDispatchToProps = (disptach, ownProps) => {
   return {
-    signOut: () => disptach(signOut())
+    signOut: () => disptach(signOut()),
+    setCurrentOrg: (orgId) => disptach(setCurrentOrg(orgId))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

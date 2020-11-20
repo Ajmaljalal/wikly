@@ -12,7 +12,7 @@ const Container = styled.div`
     height: ${(props) => props.isRound ? '30px' : '100%'};
     padding: ${(props) => props.isRound ? '0' : '7px 10px'};
     img {
-        max-width: 24px;
+        width: 30px;
         border: 2px solid transparent;
         &:hover {
             border: ${(props) => props.border ? '2px solid white' : 'none'};
