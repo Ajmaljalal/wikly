@@ -9,7 +9,6 @@ const MenuBar = styled.div`
   display: flex;
   flex-direction: column;
   border-top: 0.5px solid #476282;
-  box-shadow: 0px 4px 4px lightgrey;
   justify-content: space-between;
 `;
 
@@ -33,22 +32,6 @@ const MenuItemsTop = styled.div`
   cursor: pointer;
 `;
 
-const MenuItemsBottom = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 5px;
-  cursor: pointer;
-    img {
-      border-radius: 50%;
-      margin-bottom: 5px;
-      padding: 1px;
-    }
-    svg {
-      color: green;
-    }
-`;
 
 const Image = styled.img`
     width: 25px;
@@ -67,6 +50,5 @@ export const MenuStyles = {
   MenuBar,
   Logo,
   MenuItemsTop,
-  MenuItemsBottom,
   Image
 }

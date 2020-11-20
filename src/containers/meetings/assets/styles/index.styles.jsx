@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Colors } from '../../assets/colors'
+import { Colors } from '../../../../assets/colors'
 
 export const ColumnsContainer = styled.div`
     width: 100%;
@@ -21,7 +21,8 @@ export const NextPreviousWeek = styled.div`
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  width: 150px;
+  width: 155px;
+  font-size: 12px;
   color: ${Colors["wikli-color-primary-dark"]};
   border-radius: 3px;
   user-select: none;

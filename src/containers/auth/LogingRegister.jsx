@@ -1,10 +1,11 @@
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'
 import firebase from '../../firebase/firebase-config'
+import { getProfile } from '../../redux/userProfile/actions';
+import { signIn, signUp } from '../../redux/authentications/authActions'
+import { setCurrentOrg } from '../../redux/orgs/actions'
 import Button from '../../components/button/Button'
 import Input from '../../components/input/Input'
-import { signIn, signUp } from '../../redux/authentications/authActions'
-import { getProfile } from '../../redux/userProfile/actions';
 import { LoginRegisterStyles } from './loginRegisterStyles'
 
 class LoginRegister extends PureComponent {
@@ -17,10 +18,10 @@ class LoginRegister extends PureComponent {
   }
 
   toggleScreen = () => {
-		this.setState({
-			screen: this.state.screen === 'login' ? 'register' : 'login'
-		})
-	}
+    this.setState({
+      screen: this.state.screen === 'login' ? 'register' : 'login'
+    })
+  }
   handleInputChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -28,6 +29,7 @@ class LoginRegister extends PureComponent {
   }
 
   login = async () => {
+    const { profile, setCurrentOrg } = this.props
     const { Email, Password } = this.state
     if (Email && Password) {
       await this.props.signIn({
@@ -37,6 +39,7 @@ class LoginRegister extends PureComponent {
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
           await this.props.getProfile(user.uid)
+          if (profile?.currentOrg) await setCurrentOrg(profile.currentOrg)
         }
       })
     }
@@ -106,41 +109,49 @@ class LoginRegister extends PureComponent {
 
   renderLoginRegisterButton = (text, action) => {
     return (
-          <Button
-            onClick={action}
-            children={text.toUpperCase()}
-            bgColor='#2a4865'
-            margin='20px'
-            color='white'
-            width='250px'
-            disabled={false}
-          />
+      <Button
+        onClick={action}
+        children={text.toUpperCase()}
+        bgColor='#2a4865'
+        margin='20px'
+        color='white'
+        large={true}
+        width='250px'
+        disabled={false}
+      />
     )
   }
 
   renderOrButton = (text) => {
     return (
       <Fragment>
-        	<LoginRegisterStyles.Separater>------------------- OR -------------------</LoginRegisterStyles.Separater>
-					<Button
-						onClick={this.toggleScreen}
-						children={text}
-						margin={true}
-						color='#2a4865'
-						width='250px'
-						disabled={false}
-					/>
+        <LoginRegisterStyles.Separater>------------------- OR -------------------</LoginRegisterStyles.Separater>
+        <Button
+          onClick={this.toggleScreen}
+          children={text}
+          margin={true}
+          color='#2a4865'
+          width='250px'
+          large={true}
+          disabled={false}
+        />
       </Fragment>
     )
   }
 }
 
-const mapDispatchToProps = (disptach, ownProps) => {
+const mapStateToProps = ({ profileState, orgsState }) => {
+  return {
+    profile: profileState?.profile,
+  }
+}
+const mapDispatchToProps = (disptach) => {
   return {
     signIn: (credentials) => disptach(signIn(credentials)),
     signUp: (user) => disptach(signUp(user)),
-    getProfile: (userId) => disptach(getProfile(userId))
+    getProfile: (userId) => disptach(getProfile(userId)),
+    setCurrentOrg: (orgId) => disptach(setCurrentOrg(orgId)),
   }
 }
 
-export default connect(null, mapDispatchToProps)(LoginRegister);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginRegister);

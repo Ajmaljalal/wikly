@@ -88,6 +88,7 @@ class NewOrg extends Component {
           margin='20px'
           color='white'
           width='390px'
+          large={true}
           disabled={this.state.name ? false : true}
         />
       </NewOrgStyles.Container>
@@ -119,6 +120,7 @@ class NewOrg extends Component {
           margin='20px'
           color='white'
           width='390px'
+          large={true}
           disabled={this.state.name ? false : true}
         />
       </NewOrgStyles.Container>

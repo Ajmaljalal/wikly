@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Colors } from '../../assets/colors'
 const MeetingContainer = styled.div`
   display:flex;
   flex-direction: column;

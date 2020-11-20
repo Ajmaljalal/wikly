@@ -4,6 +4,9 @@ import { meetingsActions } from './types'
 
 const firestore = firebase.firestore()
 const meetingsCollection = firestore.collection('projects-meetings')
+const meetingsAgendaCollection = firestore.collection('meetings-agendas')
+const meetingsNotesCollection = firestore.collection('meetings-notes')
+const meetingsInviteesCollection = firestore.collection('meetings-invitees')
 
 /**
  * 
@@ -21,7 +24,6 @@ export const createMeeting = (profile, projectId, meeting) => {
     formatedEndDate = new Date(moment(`${endDate} 00:00:00`, 'YYYY-MM-DD HH:mm:ss').format());
   }
   const newMeeting = meetingsCollection.doc(projectId).collection('meetings').doc()
-  console.log(newMeeting)
   return (dispatch) => {
     newMeeting.set({
       ...meeting,
@@ -52,16 +54,15 @@ export const createMeeting = (profile, projectId, meeting) => {
  * @param {String} meetingId 
  */
 export const getOneMeeting = (projectId, meetingId) => {
-  console.log('ids: ', projectId, meetingId)
   return (dispatch) => {
-    meetingsCollection.doc(projectId).collection('meetings').doc(meetingId).onSnapshot((doc) => {
+  meetingsCollection.doc(projectId).collection('meetings').doc(meetingId).onSnapshot((doc) => {
       dispatch({ type: meetingsActions.GET_ONE_MEETING_SUCCESS, payload: doc.data() });
     }, (err => {
-      dispatch({ type: meetingsActions.GET_ONE_MEETING_ERROR }, err);
+      dispatch({ type: meetingsActions.GET_ONE_MEETING_ERROR, payload: err });
     })
     );
   }
-};
+}
 
 /**
  * 
@@ -75,10 +76,73 @@ export const getMeetings = (projectId) => {
         const meeting = { ...doc.data() }
         array.push(meeting)
       })
+      console.log('get meeting called', array)
       dispatch({ type: meetingsActions.GET_MEETINGS_SUCCESS, payload: array });
     }, (err => {
-      dispatch({ type: meetingsActions.GET_MEETINGS_ERROR }, err);
+      dispatch({ type: meetingsActions.GET_MEETINGS_ERROR, payload: err });
     })
     );
   }
 };
+
+/**
+ * 
+ * @param {string} meetingId 
+ */
+export const getMeetingAgenda = (meetingId) => {
+  return (dispatch) => {
+    meetingsAgendaCollection.doc(meetingId).collection('agenda').onSnapshot((querySnapShot) => {
+      const array = [];
+      console.log('here')
+      querySnapShot.forEach(doc => {
+        const agenda = { agendaId: doc.id, ...doc.data() }
+        array.push(agenda)
+      })
+      dispatch({ type: meetingsActions.GET_MEETING_AGENDA_SUCCESS, payload: array });
+    }, (err => {
+      console.log('error:', err)
+      dispatch({ type: meetingsActions.GET_MEETING_AGENDA_ERROR, payload: err });
+    })
+    );
+  }
+}
+
+/**
+ * 
+ * @param {string} meetingId 
+ */
+export const getMeetingNotes = (meetingId) => {
+  return (dispatch) => {
+    meetingsNotesCollection.doc(meetingId).collection('notes').onSnapshot((querySnapShot) => {
+      const array = [];
+      querySnapShot.forEach(doc => {
+        const note = { noteId: doc.id, ...doc.data() }
+        array.push(note)
+      })
+      dispatch({ type: meetingsActions.GET_MEETING_NOTES_SUCCESS, payload: array });
+    }, (err => {
+      dispatch({ type: meetingsActions.GET_MEETING_NOTES_ERROR, payload: err });
+    })
+    );
+  }
+}
+
+/**
+ * 
+ * @param {string} meetingId 
+ */
+export const getMeetingInvitees = (meetingId) => {
+  return (dispatch) => {
+      meetingsInviteesCollection.doc(meetingId).collection('invitees').onSnapshot((querySnapShot) => {
+        const array = [];
+        querySnapShot.forEach(doc => {
+            const invitee = { inviteeId: doc.id, ...doc.data() }
+            array.push(invitee)
+        })
+        dispatch({ type: meetingsActions.GET_MEETING_INVITEES_SUCCESS, payload: array });
+    }, (err => {
+      dispatch({ type: meetingsActions.GET_MEETING_INVITEES_ERROR, payload: err });
+    })
+    );
+  }
+}

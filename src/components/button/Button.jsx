@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
-import { ButtonWrapper } from './button.styles'
+import { PropTypes, string } from 'prop-types';
+import { ButtonStyles } from './button.styles'
 
 const Button = ({
   onClick,
@@ -10,11 +11,13 @@ const Button = ({
   margin,
   width,
   disabled,
-
-
+  large,
+  medium,
+  small
 }) => {
+  if (large) {
     return (
-      <ButtonWrapper
+      <ButtonStyles.ButtonWrapperLarge
         onClick={onClick}
         bgColor={bgColor}
         color={color}
@@ -24,9 +27,52 @@ const Button = ({
         disabled={disabled}
       >
         {children}
-      </ButtonWrapper>
+      </ButtonStyles.ButtonWrapperLarge>
     )
-  
+  }
+  if (medium) {
+    return (
+      <ButtonStyles.ButtonWrapperMedium
+        onClick={onClick}
+        bgColor={bgColor}
+        color={color}
+        size={fontSize}
+        margin={margin}
+        width={width}
+        disabled={disabled}
+      >
+        {children}
+      </ButtonStyles.ButtonWrapperMedium>
+    )
+  }
+  if (small) {
+    return (
+      <ButtonStyles.ButtonWrapperSmall
+        onClick={onClick}
+        bgColor={bgColor}
+        color={color}
+        size={fontSize}
+        margin={margin}
+        width={width}
+        disabled={disabled}
+      >
+        {children}
+      </ButtonStyles.ButtonWrapperSmall>
+    )
+  }
+}
+Button.propTypes = {
+  onClick: PropTypes.func,
+  color: PropTypes.string,
+  fontSize: PropTypes.string,
+  children: string,
+  bgColor: PropTypes.color,
+  margin: PropTypes.string,
+  width: PropTypes.string,
+  disabled: PropTypes.bool,
+  large: PropTypes.bool,
+  medium: PropTypes.bool,
+  small: PropTypes.bool,
 }
 
 export default memo(Button)

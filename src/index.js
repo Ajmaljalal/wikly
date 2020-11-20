@@ -12,6 +12,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import 'tippy.js/dist/tippy.css';
 import './index.css';
+import 'react-circular-progressbar/dist/styles.css';
 import Main from './containers/main/index';
 import * as serviceWorker from './serviceWorker';
 

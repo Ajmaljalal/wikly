@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getTodayDate } from '../../helpers/getDate'
-import { ColumnStyles } from './meetingColumn.styles'
+import { ColumnStyles } from './assets/styles/meetingColumn.styles'
 import { Column } from '../../components/common.styles'
 
 import MeetingItem from './MeetingItem'
@@ -14,12 +14,16 @@ import MeetingItem from './MeetingItem'
  * @param {String} date 
  */
 const isMeetingInColumn = (meeting, day, date) => {
+  let columnHeaderDate = date
+  if(date.includes(',')) {
+    columnHeaderDate = date.slice(0, date.length-1)
+  }
   if (
     meeting &&
-    (meeting.date === date ||
-    (meeting.frequency === 'recurring' && meeting.repeatEvery === 'day') ||
+    (meeting.date === columnHeaderDate ||
+    (meeting.frequency === 'recurring' && meeting.repeatEvery === 'day' && meeting.date <= columnHeaderDate) ||
     (meeting.frequency === 'recurring' && meeting.repeatEvery === 'week' && meeting.repeatOn === day) || 
-    (meeting.frequency === 'recurring' && meeting.repeatEvery === 'month' && meeting.date.split('/')[1] === date.split('/')[1]))
+    (meeting.frequency === 'recurring' && meeting.repeatEvery === 'month' && meeting.date.split('/')[1] === columnHeaderDate.split('/')[1]))
   ) {
     return true
   } else return false

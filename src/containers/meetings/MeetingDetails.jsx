@@ -1,133 +1,221 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getTimeFromDate, getTimeLeft } from '../../helpers/getDate'
-import { getOneMeeting } from '../..//redux/meetings/actions'
-
-import { MeetingDetailsStyles } from './meetingDetails.styles'
-import arrowDownIcon from '../../assets/icons/caret-down.svg'
-
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getTimeFromDate, getTimeLeft } from "../../helpers/getDate";
+import NullState from "../../components/null-state";
+import Editable from "../../components/editable-fields/index";
+import {
+  getOneMeeting,
+  getMeetingAgenda,
+  getMeetingNotes,
+  getMeetingInvitees,
+} from "../..//redux/meetings/actions";
+import Agenda from "./Agenda";
+import Notes from "./Notes";
+import Invitees from "./Invitees";
+import Resources from "./Resource";
+import { MeetingDetailsStyles } from "./assets/styles/meetingDetails.styles";
+// import arrowDownIcon from '../../assets/icons/caret-down.svg'
 
 /**
- * @param {Function} onClose
  * @param {String} meetingId
- * @param {Fucntion} getOneMeeting
+ * @param {Function} onClose
+ * @param {Function} getOneMeeting
+ * @param {Function} getMeetingAgenda
+ * @param {Function} getMeetingNotes
+ * @param {Function} getMeetingInvitees
  * @param {Object} meetingAgenda
  * @param {Object} meetingNotes
  * @param {Object} meetingInvitees
  * @param {Object} currentProject
  */
 class MeetingDetails extends PureComponent {
-
   constructor() {
-    super()
+    super();
     this.state = {
-      currentTab: 'agenda',
-      meeting: null
-    }
+      currentTab: "agenda",
+      meeting: null,
+      unsubsribeFromMeeting: null,
+    };
   }
 
   async componentDidMount() {
-    const { getOneMeeting, currentProject, meetingId } = this.props
-    await getOneMeeting(currentProject.projectId, meetingId)
+    const {
+      getOneMeeting,
+      getMeetingAgenda,
+      getMeetingNotes,
+      getMeetingInvitees,
+      currentProject,
+      meetingId,
+    } = this.props;
+
+    this.state.unsubsribeFromMeeting = await getOneMeeting(
+      currentProject.projectId,
+      meetingId
+    );
+    await getMeetingAgenda(meetingId);
+    await getMeetingNotes(meetingId);
+    await getMeetingInvitees(meetingId);
   }
 
   toggleCurrentTab = (currentTabName) => {
     this.setState({
-      currentTab: currentTabName
-    })
-  }
-
+      currentTab: currentTabName,
+    });
+  };
 
   render() {
-    const { meeting } = this.props
+    const { meeting, meetingInvitees } = this.props;
     if (!meeting) {
-      return
+      return null;
     }
-    let status = meeting && `Starts ${getTimeLeft(meeting.startTime)}`
-    let now = new Date()
+    let status = meeting && `Starts ${getTimeLeft(meeting.startTime)}`;
+    let now = new Date();
     if (now > meeting.startTime.seconds * 1000) {
-      status = 'In Progress'
+      status = "In Progress";
     }
     if (now > meeting.endTime.seconds * 1000) {
-      status = 'Meeting Ended'
+      status = "Meeting Ended";
     }
-    return (
-      meeting ? <MeetingDetailsStyles.Container>
+    return meeting ? (
+      <MeetingDetailsStyles.Container>
         {this.renderTitleAndCloseButton(meeting.title)}
-        <MeetingDetailsStyles.MeetingTime>{getTimeFromDate(meeting.startTime)} -
+        <MeetingDetailsStyles.MeetingTime>
+          {getTimeFromDate(meeting.startTime)} -
           {getTimeFromDate(meeting.endTime)} -
-          <MeetingDetailsStyles.Status starts={status.includes('Starts') ? true : false}>{status.toUpperCase()}</MeetingDetailsStyles.Status>
+          <MeetingDetailsStyles.Status
+            starts={status.includes("Starts") ? true : false}
+          >
+            {status.toUpperCase()}
+          </MeetingDetailsStyles.Status>
         </MeetingDetailsStyles.MeetingTime>
-        <MeetingDetailsStyles.Options>
-          Manage meeting
-          <img src={arrowDownIcon} alt='arrow-down' />
-        </MeetingDetailsStyles.Options>
+        <Invitees invitees={meetingInvitees} />
         {this.renderMeetingDetails()}
-      </MeetingDetailsStyles.Container> : null
-    )
+      </MeetingDetailsStyles.Container>
+    ) : null;
   }
 
   renderTitleAndCloseButton = (title) => {
-    const { onClose } = this.props
+    const { onClose } = this.props;
     return (
       <MeetingDetailsStyles.ContainerHeader>
-        <MeetingDetailsStyles.MeetingTitle>{title}</MeetingDetailsStyles.MeetingTitle>
+        <MeetingDetailsStyles.MeetingTitle>
+          <Editable
+            type="text"
+            value={title}
+            onSave={(val) => alert("submitted!")}
+          />
+        </MeetingDetailsStyles.MeetingTitle>
+
         <MeetingDetailsStyles.CloseButton onClick={onClose}>
-          <FontAwesomeIcon icon='times' />
+          <FontAwesomeIcon icon="times" />
         </MeetingDetailsStyles.CloseButton>
       </MeetingDetailsStyles.ContainerHeader>
-    )
-  }
+    );
+  };
 
   renderMeetingDetails = () => {
-    const { meeting } = this.props
+    const { meeting } = this.props;
     return (
       <MeetingDetailsStyles.DetialsContainer>
         <MeetingDetailsStyles.Tab>
-          <MeetingDetailsStyles.TabItem htmlFor='agenda' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('agenda')}>Agenda ({meeting.agenda})</MeetingDetailsStyles.TabItem>
-          <MeetingDetailsStyles.TabItem htmlFor='notes' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('notes')}>Notes ({meeting.notes})</MeetingDetailsStyles.TabItem>
-          <MeetingDetailsStyles.TabItem htmlFor='resources' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('resources')}>Resources ({meeting.attachments})</MeetingDetailsStyles.TabItem>
-          <MeetingDetailsStyles.TabItem htmlFor='invitees' currentTab={this.state.currentTab} onClick={() => this.toggleCurrentTab('invitees')}>Invitees ({meeting.invitees})</MeetingDetailsStyles.TabItem>
+          <MeetingDetailsStyles.TabItem
+            htmlFor="agenda"
+            currentTab={this.state.currentTab}
+            onClick={() => this.toggleCurrentTab("agenda")}
+          >
+            Agenda ({meeting.agenda})
+          </MeetingDetailsStyles.TabItem>
+          <MeetingDetailsStyles.TabItem
+            htmlFor="notes"
+            currentTab={this.state.currentTab}
+            onClick={() => this.toggleCurrentTab("notes")}
+          >
+            Notes ({meeting.notes})
+          </MeetingDetailsStyles.TabItem>
+          <MeetingDetailsStyles.TabItem
+            htmlFor="resources"
+            currentTab={this.state.currentTab}
+            onClick={() => this.toggleCurrentTab("resources")}
+          >
+            Resources ({meeting.attachments})
+          </MeetingDetailsStyles.TabItem>
         </MeetingDetailsStyles.Tab>
         {this.renderTabItemDetails()}
       </MeetingDetailsStyles.DetialsContainer>
-    )
-  }
+    );
+  };
 
   renderTabItemDetails = () => {
-    const { meetingAgenda } = this.props
-    const agenda = meetingAgenda && Object.keys(meetingAgenda).map(key => {
-      return meetingAgenda[key]
-    })
+    const { currentTab } = this.state;
+    switch (currentTab) {
+      case "agenda":
+        return this.renderAgenda();
+      case "notes":
+        return this.renderNotes();
+      case "invitees":
+        return this.renderInvitees();
+      case "resources":
+        return this.renderResources();
+      default:
+        return "null";
+    }
+  };
+
+  renderAgenda = () => {
+    const { meetingAgenda } = this.props;
+    if (meetingAgenda && meetingAgenda.length) {
+      return (
+        <MeetingDetailsStyles.TabItemDetails>
+          <Agenda agenda={meetingAgenda} />
+        </MeetingDetailsStyles.TabItemDetails>
+      );
+    }
+    return (
+      <NullState
+        text="Agenda not specified yet."
+        button={<button>button</button>}
+      />
+    );
+  };
+  renderNotes = () => {
+    const { meetingNotes } = this.props;
+    if (meetingNotes && meetingNotes.length) {
+      return (
+        <MeetingDetailsStyles.TabItemDetails>
+          <Notes notes={meetingNotes} />
+        </MeetingDetailsStyles.TabItemDetails>
+      );
+    }
+    return <NullState text="Be first to add a note" />;
+  };
+
+  renderResources = () => {
     return (
       <MeetingDetailsStyles.TabItemDetails>
-        {agenda && agenda.map(agendaItem => {
-          return <div key={agendaItem?.id}>{agendaItem?.text}</div>
-        })}
+        <Resources />
       </MeetingDetailsStyles.TabItemDetails>
-    )
-  }
+    );
+  };
 }
-
 
 const mapStateToProps = ({ meetingsState, projectsState }) => {
   return {
     meetingAgenda: meetingsState.meeting_agenda,
     meetingNotes: meetingsState.meeting_notes,
     meetingInvitees: meetingsState.meeting_invitees,
-    currentProject: projectsState.projects[0],
+    currentProject: projectsState.current_project,
     meeting: meetingsState.current_meeting,
+  };
+};
 
-  }
-}
-
-const mapDispatchToProps = (disptach) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getOneMeeting: (projectId, meetingId) => disptach(getOneMeeting(projectId, meetingId))
-  }
-}
-
+    getOneMeeting: (projectId, meetingId) =>
+      dispatch(getOneMeeting(projectId, meetingId)),
+    getMeetingAgenda: (meetingId) => dispatch(getMeetingAgenda(meetingId)),
+    getMeetingNotes: (meetingId) => dispatch(getMeetingNotes(meetingId)),
+    getMeetingInvitees: (meetingId) => dispatch(getMeetingInvitees(meetingId)),
+  };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingDetails);
-
-

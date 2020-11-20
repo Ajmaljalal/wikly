@@ -28,8 +28,7 @@ class InvitedToOrgsList extends React.Component {
 
 
   render() {
-    const { orgsInvitations } = this.props;
-    console.log(orgsInvitations)
+    const { orgsInvitations } = this.props
     if (orgsInvitations?.length > 0) {
       return (
         <OrgStyles.InvitedToOrgsList>
@@ -65,6 +64,7 @@ class InvitedToOrgsList extends React.Component {
           margin={false}
           color='white'
           width='40px'
+          medium={true}
           disabled={false}
         />
         <Button
@@ -75,6 +75,7 @@ class InvitedToOrgsList extends React.Component {
           margin={false}
           color='white'
           width='40px'
+          medium={true}
           disabled={false}
         />
       </OrgStyles.InvitedToOrgItem>
