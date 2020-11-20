@@ -37,17 +37,19 @@ class ActionsDropdown extends PureComponent {
 
   render() {
     const { open } = this.state
-    const { img, text } = this.props
-    const icon = img ? <img src={img} alt='dropdownlist icon' /> : <FontAwesomeIcon icon='ellipsis-v' color='white' />
-    const isIcon = text ? false : true
+    const { img, text, icon } = this.props
+    const image = img ? <img src={img} alt='dropdownlist icon' /> : null
+    const textWithIcon = icon ? <div>{text}    <FontAwesomeIcon icon={icon} color='white' size='1x' /></div> : null
+    const isRound = text ? false : true
     return (
       <ActionsDropdownStyles.Container
         ref={this.container}
         onClick={this.toggleDropdown}
         isHover={!img}
-        isIcon={isIcon}
+        isRound={isRound}
+        border={img ? true : false}
       >
-        {isIcon ? icon : text}
+        {img ? image : textWithIcon}
         {open ? this.renderDropdownMenu() : null}
       </ActionsDropdownStyles.Container>
     )
@@ -84,6 +86,7 @@ class ActionsDropdown extends PureComponent {
   static propTypes = {
     actions: PropTypes.array,
     img: PropTypes.string,
+    icon: PropTypes.string,
     text: PropTypes.string
   }
 }

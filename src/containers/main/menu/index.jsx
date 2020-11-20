@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import Tippy from '@tippyjs/react';
 import { changeCurrentAppScreen } from '../../../redux/application/actions'
-import { setCurrentOrg } from '../../../redux/orgs/actions'
-import ActionsDropdown from '../../../components/actions-dropdown/index'
 import meeting from './assests/nullIcon.svg'
 import dashboard from './assests/dashboard.svg'
 import tasks from './assests/tasks.svg'
@@ -26,7 +24,6 @@ class Menu extends PureComponent {
     return (
       <MenuStyles.MenuBar>
         {this.renderMenuBtns()}
-        {this.renderCurrentOrgLogo()}
       </MenuStyles.MenuBar>
     )
   }
@@ -80,32 +77,6 @@ class Menu extends PureComponent {
     )
   }
 
-  renderCurrentOrgLogo = () => {
-    const { currentOrg } = this.props
-    if(currentOrg) {
-      return (
-        <MenuStyles.MenuItemsBottom>
-          <Tippy placement='right' content={`Current Org: ${currentOrg.name.toUpperCase()}, click to change org`} className='tippy-tooltip'>
-            <span>
-              <ActionsDropdown actions={this.renderUsersOrgsDropdownActionsList()} img={currentOrg.logo} />
-            </span>
-          </Tippy>
-        </MenuStyles.MenuItemsBottom>
-      )
-    }
-  }
-
-  renderUsersOrgsDropdownActionsList = () => {
-    const { profile, setCurrentOrg } = this.props
-    const dropdownActions = []
-    profile.orgs.forEach((org) => {
-      dropdownActions.push({
-        element: <div key={org.orgId}>{org.orgName}</div>,
-        onClick: () => setCurrentOrg(org.orgId)
-      })
-    })
-    return dropdownActions
-  }
 }
 
 
@@ -119,7 +90,6 @@ const mapStateToProps = ({ profileState, orgsState, applicationState }) => {
 const mapDispatchToProps = (disptach, ownProps) => {
   return {
     changeCurrentAppScreen: (screen) => disptach(changeCurrentAppScreen(screen)),
-    setCurrentOrg: (orgId) => disptach(setCurrentOrg(orgId))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);

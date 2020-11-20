@@ -4,12 +4,11 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 7px;
+  padding:  2px 7px;
   box-sizing: border-box;
   width: 100%;
-  min-height: 40px;
+  min-height: 35px;
   background: #2a4865;
-  box-shadow: 0px 1px 8px lightgray;
 `;
 
 const Middle = styled.div`
@@ -31,7 +30,39 @@ const Left = styled.div`
 `;
 
 const UserName = styled.div`
-  margin-left: 5px;
+  margin: 0 1px 0 5px;
+  font-size: 12px;
+`;
+
+const OrgLogoWrapper = styled.div`
+  margin-left: 6px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  img {
+    width: 25px;
+  }
+`;
+
+const OrgLogo = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+  width: 165px;
+    img {
+      border-radius: 50%;
+    }
+    svg {
+      margin-right: 2px;
+      size: 12px;
+    }
+`;
+
+const OrgName = styled.div`
+    margin-left: 2px;
+    font-size: 12px;
+
 `;
 
 
@@ -81,6 +112,9 @@ export const HeaderStyles = {
   Right,
   Left,
   UserName,
+  OrgLogoWrapper,
+  OrgLogo,
+  OrgName,
   CurrentProject,
   ProjectSettings,
   ProjectTeam,

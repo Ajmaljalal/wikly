@@ -8,11 +8,12 @@ import applicationReducer from './application/reducer'
 import orgReducer from './orgs/reducer'
 import projectsReducer from './projects/reducer'
 import meetingsReducer from './meetings/reducer'
+import projectTeamReducer from './teams/project-team/reducer'
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['authState', 'profileState', 'applicationState', ]
+  whitelist: ['authState', 'profileState', 'applicationState',]
 };
 
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   applicationState: applicationReducer,
   orgsState: orgReducer,
   projectsState: projectsReducer,
+  projectTeamState: projectTeamReducer,
   meetingsState: meetingsReducer,
 });
 
