@@ -9,7 +9,6 @@ import { getProjects } from '../../redux/projects/actions'
 import { MainContainer, Row } from './index.styles.jsx'
 import Menu from './menu/index'
 import AppHeader from './header/index'
-import { getMeetingAgenda } from '../../redux/meetings/actions';
 
 const Dashboard = lazy(() => import('../dashboard/index'))
 const Meetings = lazy(() => import('../meetings/index'))
@@ -85,15 +84,15 @@ class Main extends PureComponent {
     if (gettingProjects) {
       return null
     }
-      return (
-        <Switch>
-          <Route path='/dashboard' component={Dashboard} />
-          <Route path='/meetings' component={Meetings} />
-          <Route path='/tasks' component={Tasks} />
-          <Route path='/documents' component={Documents} />
-          <Route path='/chat' component={ChatRooms} />
-        </Switch>
-      )
+    return (
+      <Switch>
+        <Route path='/dashboard' component={Dashboard} />
+        <Route path='/meetings' component={Meetings} />
+        <Route path='/tasks' component={Tasks} />
+        <Route path='/documents' component={Documents} />
+        <Route path='/chat' component={ChatRooms} />
+      </Switch>
+    )
   }
 
   renderCreateOrgs = () => {

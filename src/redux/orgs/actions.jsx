@@ -1,6 +1,7 @@
 // import moment from 'moment'
 import firebase from '../../firebase/firebase-config'
 import { uuid } from '../../helpers/uuid'
+import { updateProfile } from '../userProfile/actions'
 import { OrgActionTypes } from './types'
 
 const firestore = firebase.firestore()
@@ -23,8 +24,8 @@ export const setCurrentOrg = (orgId) => {
           type: OrgActionTypes.SET_CURRENT_ORG_SUCCESS,
           payload: { orgId: orgId, ...doc.data() }
         })
-    } catch(err) {
-      dispatch({type: OrgActionTypes.SET_CURRENT_ORG_ERROR})
+    } catch (err) {
+      dispatch({ type: OrgActionTypes.SET_CURRENT_ORG_ERROR })
     }
   }
 }
@@ -79,18 +80,27 @@ export const getOrgsInvitations = (userEmail) => {
  * 
  * @param {object} data 
  */
-export const updateInvitation = ({ userEmail, userName, invitation, invitationId, fieldValue }) => {
-  return (dispatch) => {
-    orgsInvitationCollection.doc(userEmail).collection('invitations').doc(invitationId)
-      .update({
-        ...invitation,
-        status: fieldValue,
-        inviteeName: userName
-      }).then(() => {
-        dispatch({ type: OrgActionTypes.UPDATE_INVITE_SUCCESS });
-      }).catch((err => {
-        dispatch({ type: OrgActionTypes.UPDATE_INVITE_ERROR, payload: err });
-      }))
+export const updateInvitation = ({ userEmail, userName, userId, currentOrgId, invitation, invitationId, fieldValue }) => {
+  return async (dispatch) => {
+    try {
+      await orgsInvitationCollection.doc(userEmail).collection('invitations').doc(invitationId)
+        .update({
+          ...invitation,
+          status: fieldValue,
+          userId: userId,
+          inviteeName: userName
+        })
+      if (!currentOrgId) {
+        updateProfile({
+          currentOrg: invitation.orgId,
+          userId: userId,
+        }).then(() => {
+          dispatch({ type: OrgActionTypes.UPDATE_INVITE_SUCCESS })
+        })
+      }
+    } catch (err) {
+      dispatch({ type: OrgActionTypes.UPDATE_INVITE_ERROR, payload: err });
+    }
   }
 }
 

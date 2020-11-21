@@ -10,11 +10,13 @@ class InvitedToOrgsList extends React.Component {
   acceptInvitation = async (invitation, invitationId) => {
     const { updateInvitation, profile } = this.props
     await updateInvitation({
-      userEmail: profile.email,
       userName: profile.name,
+      userEmail: profile.email,
+      userId: profile.userId,
       invitation: invitation,
       invitationId: invitationId,
-      fieldValue: 'accepted'
+      currentOrgId: profile.currentOrg,
+      fieldValue: 'accepted',
     })
   }
 

@@ -65,7 +65,7 @@ export default class Editable extends React.Component {
 
   _onBlur = () => {
     const { onBlur, saveOnBlur } = this.props;
-    if (saveOnBlur){
+    if (saveOnBlur) {
       onBlur(this.state.tempValue);
       this._onSave();
     } else {
@@ -229,7 +229,7 @@ export default class Editable extends React.Component {
   }
 
   renderButtons() {
-    const { saveOnBlur, saveButtonLabel, saveButtonStyle, cancelButtonLabel, cancelButtonStyle, cssClassPrefix, hideSaveButton, hideCancelButton } = this.props;
+    const { saveOnBlur, saveButtonLabel, cancelButtonLabel, cssClassPrefix, hideSaveButton, hideCancelButton } = this.props;
     return (
       <div className={cssClassPrefix + "easy-edit-button-wrapper"}>
         {!hideCancelButton && Editable.generateButton(this.cancelButton, this._onCancel, cancelButtonLabel, (Globals.DEFAULT_BUTTON_CSS_CLASS + " easy-edit-button--cancel"), "cancel", saveOnBlur)}
@@ -257,7 +257,7 @@ export default class Editable extends React.Component {
   }
 
   setCssClasses(existingClasses) {
-    const {viewAttributes, cssClassPrefix, onHoverCssClass} = this.props;
+    const { viewAttributes, cssClassPrefix, onHoverCssClass } = this.props;
 
     if (viewAttributes["class"]) {
       existingClasses += " " + viewAttributes["class"];
@@ -270,8 +270,8 @@ export default class Editable extends React.Component {
       return cssClassPrefix + 'easy-edit-not-allowed ' + existingClasses;
     } else if (this.state.hover) {
       return onHoverCssClass === Globals.DEFAULT_ON_HOVER_CSS_CLASS ?
-          cssClassPrefix + 'easy-edit-hover-on ' + existingClasses :
-          onHoverCssClass + ' ' + existingClasses;
+        cssClassPrefix + 'easy-edit-hover-on ' + existingClasses :
+        onHoverCssClass + ' ' + existingClasses;
     } else {
       return existingClasses;
     }

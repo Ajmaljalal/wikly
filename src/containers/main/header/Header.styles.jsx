@@ -42,6 +42,9 @@ const OrgLogoWrapper = styled.div`
   img {
     width: 25px;
   }
+  svg {
+    margin-right: 8px;
+  }
 `;
 
 const OrgLogo = styled.div`
@@ -52,10 +55,6 @@ const OrgLogo = styled.div`
   width: 165px;
     img {
       border-radius: 50%;
-    }
-    svg {
-      margin-right: 2px;
-      size: 12px;
     }
 `;
 

@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import Tippy from '@tippyjs/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Button from '../../../components/button/Button';
 import ActionsDropdown from '../../../components/actions-dropdown/index'
@@ -30,7 +29,6 @@ class AppHeader extends PureComponent {
           color={Colors["wikli-color-primary-dark"]}
           bgColor={Colors["wikli-color-white-alpha-95"]}
           fontSize='12px'
-          margin={false}
           medium={true}
           onClick={() => console.log('clicked')}
         >
@@ -43,7 +41,6 @@ class AppHeader extends PureComponent {
   renderHeaderContainerLeft = () => {
     const { currentProject } = this.props
     const currentProjectSettings = [
-
       {
         element: this.renderDropDownListItem('Change project', 'exchange-alt', 'black'),
         action: this.signOut
@@ -102,12 +99,10 @@ class AppHeader extends PureComponent {
       return (
         <HeaderStyles.OrgLogo>
           <img src={currentOrg.logo} alt='org logo' />
-          <HeaderStyles.OrgName> 
-            <Tippy placement='right' content={'Current Org'} className='tippy-tooltip'>
-              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                {this.renderActionsDropdown(this.renderUsersOrgsDropdownActionsList(), currentOrg.name)}
-              </span>
-            </Tippy>
+          <HeaderStyles.OrgName>
+            <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {this.renderActionsDropdown(this.renderUsersOrgsDropdownActionsList(), currentOrg.name)}
+            </span>
           </HeaderStyles.OrgName>
         </HeaderStyles.OrgLogo>
       )
@@ -115,14 +110,29 @@ class AppHeader extends PureComponent {
   }
 
   renderUsersOrgsDropdownActionsList = () => {
-    const { profile, setCurrentOrg } = this.props
-    const dropdownActions = []
-    profile.orgs.forEach((org) => {
-      dropdownActions.push({
-        element: <div key={org.orgId}>{org.orgName}</div>,
-        onClick: () => setCurrentOrg(org.orgId)
-      })
-    })
+    const { setCurrentOrg, currentOrg } = this.props
+    const dropdownActions = [
+      {
+        element: <div>{`${currentOrg.name}`}</div>,
+        onClick: () => setCurrentOrg('org.orgId')
+      },
+      {
+        element: this.renderDropDownListItem('Members', 'users', 'black'),
+        action: this.signOut
+      },
+      {
+        element: this.renderDropDownListItem('Invite new member', 'user-plus', 'black'),
+        action: this.signOut
+      },
+      {
+        element: this.renderDropDownListItem('Settings', 'cog', 'black'),
+        action: this.signOut
+      },
+      {
+        element: this.renderDropDownListItem('Change org', 'dice-two', 'black'),
+        action: this.signOut
+      },
+    ]
     return dropdownActions
   }
 
